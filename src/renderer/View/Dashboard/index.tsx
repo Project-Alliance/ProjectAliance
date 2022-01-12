@@ -116,7 +116,7 @@ export default function index() {
           </button>
         </div>
 
-        <div className="main-container">
+        <div className="main-container" style={{width:displaySlide=="none"?"100%":"75%"}}>
           <Switch>
 
             <Route path="/mytask" component={MyTask}  />
