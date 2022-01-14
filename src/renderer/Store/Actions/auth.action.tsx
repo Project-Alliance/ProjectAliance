@@ -2,6 +2,7 @@ import getData from '../../Api/auth.api';
 import {IFormInput} from '../../../Types/User.types'
 
 const signin=(Data:IFormInput)=> (dispatch: any)=>{
+
   dispatch({type:"AUTH_LOGIN_INIT"})
 
    getData.SignIn({
@@ -23,6 +24,7 @@ const signin=(Data:IFormInput)=> (dispatch: any)=>{
 }
 
 const register=(Data:IFormInput)=> (dispatch: any)=>{
+
   dispatch({type:"AUTH_REGISTER_INIT"})
 
    getData.Register({
@@ -32,7 +34,7 @@ const register=(Data:IFormInput)=> (dispatch: any)=>{
     name:Data.name
   }).then(data=>{
     debugger
-
+    dispatch({type:"AUTH_REGISTER_SUCCESS"})
     dispatch(signin(Data))
     return data;
   })
@@ -43,6 +45,7 @@ const register=(Data:IFormInput)=> (dispatch: any)=>{
 }
 
 const logout=()=> (dispatch: any)=>{
+  debugger;
   localStorage.removeItem('User');
     dispatch({type:"AUTH_LOGOUT_SUCCESS"})
   }

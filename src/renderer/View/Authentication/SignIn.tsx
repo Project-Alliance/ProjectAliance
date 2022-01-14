@@ -9,7 +9,6 @@ import React from 'react';
 import {IFormInput,
   AUTH
 } from '../../../Types/User.types';
-import { ErrorMessage } from '@hookform/error-message';
 import {signin} from '../../Store/Actions/auth.action'
 import { useDispatch,
   useSelector
@@ -47,12 +46,12 @@ export default function SignIn() {
       {/* Cretae Accoutn Tag */}
       <NeedAccount />
       <div>
-        <div className="SignText">Sign In</div>
+        <div className="form-heading">Sign In</div>
 
         <Button
         icon={true}
-          iconName="social-google"
-          font="SimpleLineIcons"
+          iconName="google"
+          font="MaterialCommunityIcons"
           className="CusomtButtonTitle"
           // onClick={()=>console.log(error)}
           buttonStyle={{
@@ -71,15 +70,16 @@ export default function SignIn() {
             borderStyle: 'solid',
             borderColor: '#EBEBEB',
           }}
-          iconName="facebook"
-          font="Feather"
+          size={20}
+          iconName="sc-facebook"
+          font="EvilIcons"
           className="CusomtButtonTitle"
           title=" Sign with Facebook"
         />
 
         <div className="textgray">Or sign in using your email address</div>
 
-       <form onSubmit={handleSubmit(onSubmit)}>
+       <form className="form-1" onSubmit={handleSubmit(onSubmit)}>
        <Row style={{ marginTop: 10 }}>
           <Col className="LabelInput">UserName</Col>
           <Col className="LabelInput">Password</Col>

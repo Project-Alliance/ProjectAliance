@@ -20,7 +20,7 @@ function CreateAuthReucers() {
   const UserData = JSON.parse(localStorage.getItem('User')||"null");
 
   const user = (state = UserData, action: any) => {
-    debugger
+
     const { type, user } = action;
     debugger
     switch (type) {
@@ -28,7 +28,7 @@ function CreateAuthReucers() {
       case 'AUTH_ON_INIT':
       case "AUTH_LOGOUT_SUCCESS":
         return null;
-      case 'AUTH_REGISTER_SUCCESS':
+      // case 'AUTH_REGISTER_SUCCESS':
       case 'AUTH_LOGIN_SUCCESS':
       case 'AUTH_ON_SUCCESS':
         return user;
