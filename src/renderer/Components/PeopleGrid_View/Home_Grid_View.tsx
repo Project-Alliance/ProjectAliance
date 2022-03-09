@@ -49,6 +49,7 @@ const columns: GridColDef[] = [
     sortable: false,
     width: 160,
     renderCell: (cellValues) => {
+
       return (
         <InputButton
         className="Create-Button"
@@ -92,7 +93,8 @@ const rows = [
   { id: 9, Image: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35",  lastName: 'Roxie',     firstName: 'Harvey',   Role: 'Employee', Email:'rehangoraya05@gmail.com', Adding_Date: '01/01/2022' },
 ];
 
-export default function DataGridDemo() {
+export default function DataGridDemo({data=rows}) {
+  // console.log(data)
   return (
     <div style={{ height: 600, width: '100%' }}>
       <DataGrid

@@ -11,6 +11,10 @@ import { logout } from 'renderer/Store/Actions/auth.action';
 import { Redirect, useHistory, withRouter } from 'react-router-dom';
 import CustomButton from 'renderer/Components/Button';
 import Icon from 'react-web-vector-icons'
+import PhoneInput from 'react-phone-input-2';
+import { Button,CircularProgress } from '@mui/material';
+import Api from "renderer/Api/auth.api";
+
 // import Genrator from 'generate-password'
 
 interface org {
@@ -22,12 +26,10 @@ interface org {
 const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
   const dispatch = useDispatch();
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<IFormInput>({ criteriaMode: 'all' });
+
   const User = useSelector(({ auth }: AUTH) => auth.user);
+  const [error, setError] = React.useState({message:""});
+  const [loader,setLoader] = React.useState(false);
   const Organization = useSelector(({ organization }: org) => {
     return organization.organization;
   });
@@ -35,7 +37,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
     dispatch(CreateOrganization(Data, User.accessToken));
   };
 
-  const [inputData,setInputdata] = React.useState({name:'',Email:'',userName:'',Password:''});
+  const [inputData,setInputdata] = React.useState({name:'',Email:'',userName:'',Password:'',phone:'',company:'',role:''});
   const RedirectToDashBoard=()=>{
     ParentHistory.push('/dashboard');
   }
@@ -58,12 +60,84 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
 
     setInputdata({...inputData,Password:randomstring})
   }
-  const [passwordShown, setPasswordShown] = React.useState(false);
+
+  const validateData=() =>{
+    const nameExpression = /^[a-zA-Z ]{3,30}$/;
+    const EmailExpression = /^\w{3,}.[a-z]{3,}.[a-z]{3,}$/g;
+    const userNameExpression = /^[a-zA-Z0-9]{3,30}$/g;
+
+    if(inputData.name==""){
+      setError({message:"Name is required"})
+      return false;
+    }else
+    if(inputData.Email==""){
+      setError({message:"Email is required"})
+      return false;
+    }else
+    if(inputData.userName==""){
+      setError({message:"UserName is required"})
+      return false;
+    }else
+    if(inputData.Password==""){
+      setError({message:"Password is required"})
+      return false;
+    }else
+    if(inputData.phone==""){
+      setError({message:"Phone is required"})
+      return false;
+    }else
+    if(inputData.company==""){
+      setError({message:"Company is required"})
+      return false;
+    }else
+    if(inputData.role==""){
+      setError({message:"Role is required"})
+      return false;
+    }else
+    if(!inputData.name.match(nameExpression)){
+      setError({message:"Name is not valid"})
+      return false;
+    } else if(!inputData.Email.match(EmailExpression)){
+      setError({message:"Email is not valid"})
+      return false;
+    } else if(!inputData.userName.match(userNameExpression)){
+      setError({message:"UserName is not valid"})
+      return false;
+    } else if(inputData.Password.length<=8){
+      setError({message:"Password is not valid"})
+      return false;
+    }
+
+    setError({message:""});
+    return true;
+  }
+  const CreateUser=async()=>{
+    setLoader(true);
+   inputData.company=User.company;
+    const IsValid= validateData();
+    if(IsValid){
+      const result:any = await Api.AddMembers(inputData,User.accessToken).catch(err=>{
+        console.log(err)
+        setLoader(false);
+        setError(err.response.data);
+      })
+      console.log(result)
+      if(result.data.status==200){
+        setLoader(false);
+        setInputdata({name:'',Email:'',userName:'',Password:'',phone:'',company:'',role:''});
+        // RedirectToDashBoard();
+      }
+      else {
+        setLoader(false);
+        setError(result.data.message);
+      }
+    }
+  }
   return (
     <Container className="AuthContainer">
       {/* Headind Div */}
 
-        <div className="main-heading">Add Members</div>
+
 
 
 
@@ -74,6 +148,8 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
       {/*Select Project Div */}
       <form className="form-1" onSubmit={()=>onSubmit(inputData)}>
         {/***1st***/}
+
+        <div className="main-heading">Add Members</div>
         <Row className="LabelStyle">
 
           <Col className="LabelInput">Member Name</Col>
@@ -83,7 +159,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
           <Col>
             <input
               type="text"
-
+              disabled={loader}
               id="Name"
               value={inputData?.name}
               className="inputStyle"
@@ -105,7 +181,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
           <Col>
             <input
               type="text"
-
+              disabled={loader}
               id="userName"
               className="inputStyle"
               placeholder="userName"
@@ -124,9 +200,42 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
                 </Row>
                 <Row style={{ marginTop: 5 }}>
                   <Col>
-                     <input type="text" id="logo" className="inputStyle"  placeholder="Email" value={inputData?.Email} name="Email" onChange={handleChange}/>
+                     <input disabled={loader} type="text" id="logo" className="inputStyle"  placeholder="Email" value={inputData?.Email} name="Email" onChange={handleChange}/>
                   </Col>
 
+        </Row>
+        <Row className="LabelStyle">
+
+                   <Col className="LabelInput">Role</Col>
+                </Row>
+                <Row style={{ marginTop: 5 }}>
+                  <Col>
+                  <select disabled={loader} name="role" className="inputStyle"  value={inputData?.role} onChange={handleChange}>
+                    <option value="">Select Role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Member">Member</option>
+
+                    </select>
+
+                  </Col>
+
+        </Row>
+        <Row className="LabelStyle">
+
+                   <Col className="LabelInput">Phone</Col>
+                </Row>
+                <Row style={{ marginTop: 5 }}>
+
+                  <PhoneInput
+                  disabled={loader}
+                      country="us"
+                      value={inputData.phone}
+                      onChange={(phone) => setInputdata({ ...inputData, phone })}
+                      containerStyle={{ width: '95%',padding:0,borderRadius:10 }}
+                      containerClass="phoenInput"
+                      inputStyle={{ border: 'none', width:"100%",backgroundColor:"#fff", borderStyle: 'none',}}
+                      buttonStyle={{ border: 'none' }}
+                    />
         </Row>
 
         {/***4th***/}
@@ -138,6 +247,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
 
          <div>
          <input
+         disabled={loader}
               id="Password"
 
               type={ 'text'}
@@ -159,20 +269,33 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
         </Row>
 
         {/***Button Field***/}
+      <p style={{color:"red",fontSize:20,marginTop:10}}>
+        {error.message}
+      </p>
         <Row className="button-Style">
         <Col>
-                    <InputButton
+        <Button
+        disabled={loader}
+        onClick={()=>CreateUser()}
+        className='ButtonStyle btn Create-Button'
+        style={{
+            borderWidth: 2,
+            borderStyle: 'solid',
+            borderColor: '#EBEBEB',
+           color: '#000000',
+           width:200,
+           marginTop:30,
+          borderRadius:15,
 
-                     className="Create-Button"
-                     buttonStyle={{
-                     backgroundImage: `linear-gradient(to right, #0905AF 0%, #0905AF 47%, #0905AF 100%)`,
-                     boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
-                     color: '#FFFFFF',
-                     width:200,marginTop:30  }}
-                     title="Add Members"  />
+          }}
+        >
+          {loader?<CircularProgress />:"Add Members"}
+        </Button>
+
                     </Col>
                     <Col>
                     <CustomButton
+
                     onClick={() => RedirectToDashBoard()}
                     icon={false}
                      className="Create-Button"

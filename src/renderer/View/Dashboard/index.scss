@@ -276,24 +276,25 @@ margin-left:5px;
 
 .box {
   position: relative;
-  width: 40%;
+  width: 60%;
   margin: 0 auto;
-  height: auto;
+  height: 500px;
   z-index: 1;
   max-height: 120vh;
   margin-top: calc(100vh - 85vh - 20px);
   background: #F3F3F3;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 20px;
-  border: 1px solid rgb(31, 4, 128);
+
   overflow: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .close-icon {
   content: 'x';
-  cursor: pointer;
+  cursor:pointer;
   position: fixed;
-  right: calc(32% - 50px);
+  right: calc(24% - 50px);
   top: calc(100vh - 85vh - 33px);
   background: #ededed;
   width: 25px;

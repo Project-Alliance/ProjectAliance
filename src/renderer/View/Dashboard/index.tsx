@@ -22,6 +22,7 @@ import { useWindowSize  } from 'renderer/Util/useWindowSize';
 import {sideBarButtons} from './SideBarButtonsSetails';
 import {getProjects,CreateProjects} from 'renderer/Store/Actions/Project.action';
 import { AUTH } from 'Types/User.types';
+import { getMembers } from 'renderer/Store/Actions/members.action';
 
 
 export default function index() {
@@ -38,6 +39,8 @@ export default function index() {
 
   useEffect(() => {
     dispatch(getProjects(user.company,user.accessToken));
+    dispatch(getMembers(user.company,user.accessToken));
+
   });
 
   const handleSlide = () => {if (displaySlide == 'flex') {setDisplaySlide('none');} else {setDisplaySlide('flex')}};
