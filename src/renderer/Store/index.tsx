@@ -4,6 +4,8 @@ import thunk from "redux-thunk";
 import auth from "./reducers/auth.reducer";
 import Organization from "./reducers/Organization.reducer";
 import Project from './reducers/Project.reducer';
+import Members from './reducers/Members.reducer';
+
 
 
 
@@ -15,7 +17,8 @@ const store = createStore(
   combineReducers({
     auth,
     Project,
-    organization:Organization
+    organization:Organization,
+    Members:Members
   }),
   applyMiddleware(...middleware)
 );

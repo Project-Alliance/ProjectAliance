@@ -17,7 +17,7 @@ class ApiCntainerClass {
    createOrganizationApi(data:any,token:string) {
       const header = {
         'Content-Type': 'application/json',
-        'Authorization': token
+        'Authorization': "Bearer "+ token
       }
     return http.post('/createOrganization', data,{headers:header});
   }
@@ -25,21 +25,28 @@ class ApiCntainerClass {
   AddMembers(data:any,token:string) {
     const header = {
       'Content-Type': 'application/json',
-      'Authorization': token
+      'Authorization': "Bearer "+ token
     }
-  return http.post('/Members/create', data,{headers:header});
+  return new Promise(async(resolve,reject)=>{
+    const result = http.post('/Members/create', data,{headers:header})
+    .catch(err=>{
+      reject(err);
+    })
+    resolve(result);
+  })
+
   }
   GetMembers(company:string,token:string) {
     const header = {
       'Content-Type': 'application/json',
-      'Authorization': token
+      'Authorization': "Bearer "+ token
     }
-  return http.get(`/Project/get/${company}`,{headers:header});
+  return http.get(`/Members/get/${company}`,{headers:header});
   }
   CreateProject(data:any,token:string) {
     const header = {
       'Content-Type': 'application/json',
-      'Authorization': token
+      'Authorization': "Bearer "+ token
     }
     debugger;
   return http.post('/Project/create', data,{headers:header});
@@ -47,7 +54,7 @@ class ApiCntainerClass {
   GetProjects(company:string,token:string) {
     const header = {
       'Content-Type': 'application/json',
-      'Authorization': token
+      'Authorization': "Bearer "+ token
     }
   return http.get(`/Project/get/${company}`,{headers:header});
   }
@@ -55,10 +62,11 @@ class ApiCntainerClass {
   {
     const header = {
       'Content-Type': 'application/json',
-      'Authorization': token
+      'Authorization': "Bearer "+ token
     }
   return http.post(`/File/upload`,data,{headers:header});
   }
+
 
 
 

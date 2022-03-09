@@ -13,21 +13,25 @@ import { option } from './SideBarButtonsSetails';
 // import SearchBar from 'renderer/Components/SearchBar';
 import AddProjectForm from 'renderer/View/CreateOrganization/addProjectForm';
 import { useHistory } from 'react-router-dom';
-import {ProjectCollabrator} from './SideBarButtonsSetails'
+import { ProjectCollabrator } from './SideBarButtonsSetails';
 import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
-import {getProjects,CreateProjects} from 'renderer/Store/Actions/Project.action';
+import {
+  getProjects,
+  CreateProjects,
+} from 'renderer/Store/Actions/Project.action';
 import DataGridDemo from 'renderer/Components/PeopleGrid_View/Home_Grid_View';
 import Button from 'renderer/Components/Button';
-
+import { getMembers } from 'renderer/Store/Actions/members.action';
 
 const Home = (props: any) => {
   const [selected, setSelected] = useState('Rehan');
   let history = useHistory();
   const dispatch = useDispatch();
-  const projects = useSelector(({Project}:any)=>Project.data?.projects);
-  const [isOpen,setIsOpen] = useState(false);
-  const user = useSelector(({auth}:any)=>auth.user);
+  const projects = useSelector(({ Project }: any) => Project.data?.projects);
+  const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector(({ auth }: any) => auth.user);
+  const Members = useSelector(({ Members }: any) => Members.data);
 
   return (
     <div
@@ -39,9 +43,9 @@ const Home = (props: any) => {
         overflowX: 'hidden',
       }}
     >
-      <div className="main-container-sub-Home">
+      <div className="main-container-sub-Home" style={{ overflowX: 'hidden' }}>
         {/*  Top Header  */}
-      <AddProjectForm isOpen={isOpen} setIsOpen={setIsOpen} />
+        <AddProjectForm isOpen={isOpen} setIsOpen={setIsOpen} />
 
         <div
           className="Home-topbar"
@@ -153,7 +157,6 @@ const Home = (props: any) => {
                 <DropDownMenuSelect
                   values={option}
                   handleOnClick={() => {
-
                     console.log('drop down');
                   }}
                 />
@@ -229,7 +232,7 @@ const Home = (props: any) => {
               <div className="Avatar-Name-Icon">
                 <div style={{ marginLeft: '10px', marginTop: '10px' }}>
                   <h6 style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                   {user?.name}
+                    {user?.name}
                   </h6>
                 </div>
                 <div style={{ marginLeft: '10px', marginTop: '8px' }}>
@@ -242,43 +245,53 @@ const Home = (props: any) => {
           <div className="Divide-Phase">
             <div className="Top-Left-Divide-Phase jc_sb">
               <div className="Top-Left-Divide-Phase">
-              <div style={{ marginTop: 15, marginLeft: '25px' }}>
-                <h4 style={{ fontWeight: 'bold', fontSize: '20px' }}>
-                  Projects
-                </h4>
-              </div>
-              <div
-                style={{
-                  marginLeft: '25px',
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                <div>
-                  <h4
-                    style={{
-                      marginTop: 20,
-                      fontWeight: 'bold',
-                      fontSize: '15px',
-                      color: '#B5B2B2',
-                    }}
-                  >
-                    Recent
+                <div style={{ marginTop: 15, marginLeft: '25px' }}>
+                  <h4 style={{ fontWeight: 'bold', fontSize: '20px' }}>
+                    Projects
                   </h4>
                 </div>
-                <div style={{ marginTop: 16, marginLeft: '15px' }}>
-                  <DropDownMenuSelect
-                    values={option}
-                    handleOnClick={() => {
-                      console.log('drop down');
-                    }}
-                  />
+                <div
+                  style={{
+                    marginLeft: '25px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <div>
+                    <h4
+                      style={{
+                        marginTop: 20,
+                        fontWeight: 'bold',
+                        fontSize: '15px',
+                        color: '#B5B2B2',
+                      }}
+                    >
+                      Recent
+                    </h4>
+                  </div>
+                  <div style={{ marginTop: 16, marginLeft: '15px' }}>
+                    <DropDownMenuSelect
+                      values={option}
+                      handleOnClick={() => {
+                        console.log('drop down');
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-              </div>
 
-              <button className="btn" onClick={()=>dispatch(getProjects(user.company,user.accessToken))}>
-              <Icon name="refresh" size={25} color="#000" font="MaterialCommunityIcons" />
+              <button
+                className="btn"
+                onClick={() =>
+                  dispatch(getProjects(user.company, user.accessToken))
+                }
+              >
+                <Icon
+                  name="refresh"
+                  size={25}
+                  color="#000"
+                  font="MaterialCommunityIcons"
+                />
               </button>
             </div>
             <div className="sepratorRight" />
@@ -293,7 +306,7 @@ const Home = (props: any) => {
               }}
             >
               <button
-                onClick={(props:any) => {
+                onClick={(props: any) => {
                   // props.ParentHistory.push('/createOrganization');
                   setIsOpen(!isOpen);
                 }}
@@ -320,21 +333,21 @@ const Home = (props: any) => {
                 </div>
               </button>
               {/* list */}
-              {projects?.map((item:any, index:any) => {
+              {projects?.map((item: any, index: any) => {
                 return (
                   <button
                     key={item.projectTitle + ' ' + index}
                     className="Create-Project-Div"
-                    onClick={()=>{
+                    onClick={() => {
                       // alert("ok")
                       debugger;
-                      console.log("clicked")
-                      history.push({pathname:'/Projects',state:{item}});
+                      console.log('clicked');
+                      history.push({ pathname: '/Projects', state: { item } });
                     }}
                   >
                     <div className="Left-Create-Project">
                       <Icon
-                        name={item.pIconName||"bars"}
+                        name={item.pIconName || 'bars'}
                         font="AntDesign"
                         color="#898686"
                         size={25}
@@ -359,61 +372,74 @@ const Home = (props: any) => {
         </div>
 
         <div className="People-project-Div">
-          <div style={{ width:'100%',height:50, display:'flex', flexDirection: 'row',justifyContent:'space-between'}}>
-            <div style={{display:'flex',flexDirection:'row',}}>
-                <div
-                  style={{
-                      margin: '20px 0px  0px 40px',
-                      fontSize: '25px',
+          <div
+            style={{
+              width: '100%',
+              height: 50,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div
+                style={{
+                  margin: '20px 0px  0px 40px',
+                  fontSize: '25px',
+                  fontWeight: 'bold',
+                }}
+              >
+                People
+              </div>
+              <div
+                style={{
+                  marginLeft: '25px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}
+              >
+                <div>
+                  <h4
+                    style={{
+                      marginTop: 33,
                       fontWeight: 'bold',
+                      fontSize: '15px',
+                      color: '#B5B2B2',
                     }}
                   >
-                   People
+                    Frequent Collaborator
+                  </h4>
                 </div>
-                <div
-                    style={{
-                      marginLeft: '25px',
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }} >
-                    <div>
-                      <h4
-                        style={{
-                          marginTop: 33,
-                          fontWeight: 'bold',
-                          fontSize: '15px',
-                          color: '#B5B2B2',
-                        }}
-                      >
-                        Frequent Collaborator
-                      </h4>
-                    </div>
-                    <div style={{ marginTop: 27, marginLeft: '15px' }}>
-                      <DropDownMenuSelect
-                        values={option}
-                        handleOnClick={() => {
-                          console.log('drop down');
-                        }}
-                      />
-                    </div>
-                  </div>
+                <div style={{ marginTop: 27, marginLeft: '15px' }}>
+                  <DropDownMenuSelect
+                    values={option}
+                    handleOnClick={() => {
+                      console.log('drop down');
+                    }}
+                  />
                 </div>
-                <div style={{marginTop:'0.5rem'}}>
-                              <InputButton
-                              className="Create-Button"
-                              buttonStyle={{
-                              backgroundImage: ` linear-gradient(to right, #0905AF 0%, #0905AF 47%, #0905AF 100%)`,
-                              boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
-                              color: '#FFFFFF',
-                              width:100}} title=" ADD" />
-                </div>
+              </div>
             </div>
+            <div style={{ marginTop: '0.5rem' }}>
+              <InputButton
+                onClick={() => {
+                  // getData()
+                  props.ParentHistory.push('/addmembers');
+                }}
+                className="Create-Button"
+                buttonStyle={{
+                  backgroundImage: ` linear-gradient(to right, #0905AF 0%, #0905AF 47%, #0905AF 100%)`,
+                  boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
+                  color: '#FFFFFF',
+                  width: 100,
+                }}
+                title=" ADD"
+              />
+            </div>
+          </div>
 
           <div className="People-project">
-             <DataGridDemo />
-
-
-
+            <DataGridDemo data={Members} />
           </div>
         </div>
       </div>

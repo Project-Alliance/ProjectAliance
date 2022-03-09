@@ -1,4 +1,4 @@
-import { flexbox } from '@mui/system';
+import { flexbox, maxHeight } from '@mui/system';
 import React,{useState} from 'react';
 import InputButton from 'renderer/Components/InputButton';
 import Popup from './Popup';
@@ -29,25 +29,25 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
   return (<>{isOpen && <Popup handleClose={togglePopup}
 
       content={<>
-        <div style={{display:'flex',justifyContent:'center'}}><b>Create New Project Form</b></div>
+        <div style={{display:'flex'}}><b>Create New Project</b></div>
         <form>
-          <div style={{display:'flex',justifyContent:'center',flexDirection:'column',alignItems:'center'}}>
-            <div>
+          <div style={{display:'flex',flexDirection:'column'}}>
+
               <p>Project Title</p>
-              <input onChange={onTitileChangeHandle} value={dataModel.ProjectTitle} type="text" placeholder="Project Title"name="ProjectTitle"/>
-              </div>
-              <div>
+              <input className="form-control" onChange={onTitileChangeHandle} value={dataModel.ProjectTitle} type="text" placeholder="Project Title"name="ProjectTitle"/>
+
+
               <p>Project Description</p>
-              <input onChange={onDescriptionChangeHandle} value={dataModel.projectDescription} type="text" placeholder="Project Description"name="projectDescription"/>
-              </div>
-              <div>
+              <textarea className="form-control" onChange={onDescriptionChangeHandle} value={dataModel.projectDescription} style={{maxHeight:120,minWidth:80}} placeholder="Project Description"name="projectDescription"/>
+
+
               <p>Start Date</p>
-              <input onChange={onStartDateChangeHandle} value={dataModel.startDate} type="date" placeholder="Start Date"name="startDate"/>
-              </div>
-              <div>
+              <input className="form-control"  onChange={onStartDateChangeHandle} value={dataModel.startDate} type="date" placeholder="Start Date"name="startDate"/>
+
+
               <p>End Date</p>
-              <input onChange={onEndDateChangeHandle} value={dataModel.endDate}  type="date" placeholder="End Date"name="endDate"/>
-              </div>
+              <input className="form-control" onChange={onEndDateChangeHandle} value={dataModel.endDate}  type="date" placeholder="End Date"name="endDate"/>
+
 
           </div>
         </form>
@@ -55,13 +55,14 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
             {/* <button>Submit</button> */}
             <InputButton
               onClick={()=>{
+
                 const dataa={
                   "ProjectTitle":dataModel.ProjectTitle,
                   "projectDescription":dataModel.projectDescription,
                   "status":"On Track",
-
-
                   "company":user.company,
+                  "startDate":dataModel.startDate,
+                  "endDate":dataModel.endDate,
 
 
               }
@@ -70,7 +71,9 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
                   debugger;
                   if(res.data.status==200){
                     alert(res.data.message);
-                    setIsOpen(!isOpen);
+                    togglePopup();
+                   setDataModel({...projectDataModel});
+
                   }
                   else{
                     alert(res.data.message);
