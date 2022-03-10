@@ -6,12 +6,12 @@ import { combineReducers } from 'redux';
 
 const MemberReducer = () => {
  const data = (state =[] , action:any) => {
-debugger;
+
   const { type, members } = action;
   switch (type) {
     case 'GET_MEMBERS_INIT':
     case 'GET_MEMBERS_ERROR':
-      return null;
+      return [];
     case 'GET_MEMBERS_SUCCESS':
       return members;
 

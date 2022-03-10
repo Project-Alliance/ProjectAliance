@@ -329,7 +329,7 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **add missing object-assign**: [#76](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/76).
 - **packaging in npm@3:** [#77](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/77).
 - **compatibility in windows:** [#100](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/100).
-- **disable chrome debugger in production env:** [#102](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/102).
+- **disable chrome   in production env:** [#102](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/102).
 
 #### Improvements
 

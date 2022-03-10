@@ -28,7 +28,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
 
 
   const User = useSelector(({ auth }: AUTH) => auth.user);
-  const [error, setError] = React.useState({message:""});
+  const [error, setError] = React.useState({message:"",status:false});
   const [loader,setLoader] = React.useState(false);
   const Organization = useSelector(({ organization }: org) => {
     return organization.organization;
@@ -61,54 +61,54 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
     setInputdata({...inputData,Password:randomstring})
   }
 
-  const validateData=() =>{
+  const validateData=()=>{
     const nameExpression = /^[a-zA-Z ]{3,30}$/;
     const EmailExpression = /^\w{3,}.[a-z]{3,}.[a-z]{3,}$/g;
     const userNameExpression = /^[a-zA-Z0-9]{3,30}$/g;
 
     if(inputData.name==""){
-      setError({message:"Name is required"})
+      setError({message:"Name is required",status:false})
       return false;
     }else
     if(inputData.Email==""){
-      setError({message:"Email is required"})
+      setError({message:"Email is required",status:false})
       return false;
     }else
     if(inputData.userName==""){
-      setError({message:"UserName is required"})
+      setError({message:"UserName is required",status:false})
       return false;
     }else
     if(inputData.Password==""){
-      setError({message:"Password is required"})
+      setError({message:"Password is required",status:false})
       return false;
     }else
     if(inputData.phone==""){
-      setError({message:"Phone is required"})
+      setError({message:"Phone is required",status:false})
       return false;
     }else
     if(inputData.company==""){
-      setError({message:"Company is required"})
+      setError({message:"Company is required",status:false})
       return false;
     }else
     if(inputData.role==""){
-      setError({message:"Role is required"})
+      setError({message:"Role is required",status:false})
       return false;
     }else
     if(!inputData.name.match(nameExpression)){
-      setError({message:"Name is not valid"})
+      setError({message:"Name is not valid",status:false})
       return false;
     } else if(!inputData.Email.match(EmailExpression)){
-      setError({message:"Email is not valid"})
+      setError({message:"Email is not valid",status:false})
       return false;
     } else if(!inputData.userName.match(userNameExpression)){
-      setError({message:"UserName is not valid"})
+      setError({message:"UserName is not valid",status:false})
       return false;
     } else if(inputData.Password.length<=8){
-      setError({message:"Password is not valid"})
+      setError({message:"Password is not valid",status:false})
       return false;
     }
 
-    setError({message:""});
+    setError({message:"",status:false});
     return true;
   }
   const CreateUser=async()=>{
@@ -116,21 +116,25 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
    inputData.company=User.company;
     const IsValid= validateData();
     if(IsValid){
-      const result:any = await Api.AddMembers(inputData,User.accessToken).catch(err=>{
-        console.log(err)
+   Api.AddMembers(inputData,User.accessToken)
+      .then((result:any)=>{
         setLoader(false);
-        setError(err.response.data);
-      })
-      console.log(result)
-      if(result.data.status==200){
-        setLoader(false);
+        if(result.data.status==200){
+
         setInputdata({name:'',Email:'',userName:'',Password:'',phone:'',company:'',role:''});
-        // RedirectToDashBoard();
-      }
-      else {
+        setError({message:"Added Successfully",status:true})
+        } else if(result.message="Network Error"){
+          setError({message:"Network Error",status:false})
+        }
+      })
+      .catch(err=>{
+
         setLoader(false);
-        setError(result.data.message);
-      }
+        setError({message:err.response.data,status:false});
+      })
+
+    }else {
+      setLoader(false);
     }
   }
   return (
@@ -212,7 +216,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
                   <Col>
                   <select disabled={loader} name="role" className="inputStyle"  value={inputData?.role} onChange={handleChange}>
                     <option value="">Select Role</option>
-                    <option value="Admin">Admin</option>
+                    <option value="Admin">Moderator</option>
                     <option value="Member">Member</option>
 
                     </select>
@@ -269,7 +273,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
         </Row>
 
         {/***Button Field***/}
-      <p style={{color:"red",fontSize:20,marginTop:10}}>
+      <p style={{color:error.status?"green":"red",fontSize:20,marginTop:10}}>
         {error.message}
       </p>
         <Row className="button-Style">
@@ -289,7 +293,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
 
           }}
         >
-          {loader?<CircularProgress />:"Add Members"}
+          {loader?<CircularProgress size={30} />:"Add Members"}
         </Button>
 
                     </Col>

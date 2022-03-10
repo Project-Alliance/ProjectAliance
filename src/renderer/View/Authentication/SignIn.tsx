@@ -24,7 +24,7 @@ export default function SignIn() {
 
   const { register,formState: { errors }, handleSubmit }=useForm<IFormInput>({criteriaMode:'all'});
   const onSubmit: SubmitHandler<IFormInput> = Data => {
-    debugger
+
    dispatch(signin(Data))
 
   };

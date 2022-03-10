@@ -68,7 +68,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
               }
                 // setDataModel({...dataModel,"company":user.company});
                 Api.CreateProject(dataa,user.accessToken).then(res=>{
-                  debugger;
+                   ;
                   if(res.data.status==200){
                     alert(res.data.message);
                     togglePopup();
@@ -80,7 +80,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
                   }
                 }
               ).catch(err=>{
-                debugger;
+                 ;
                   alert(err.response.data.message);
               })
 

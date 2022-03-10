@@ -15,8 +15,13 @@ const getProjects=(company:string,accessToken:string) =>(dispatch:any)=>{
         }
       })
       .catch(error=>{
+        if(error.message=="Network Error")
+        dispatch({type:"GET_PROJECTS_ERROR",error:{message:"Network Error"}})
+        else
         dispatch({type:"GET_PROJECTS_ERROR",error:error.response?.data})
-      })
+      }
+
+      )
 }
 
 const CreateProjects=(Data:any,accessToken:string)=>(dispatch: any)=>{
@@ -28,9 +33,11 @@ const CreateProjects=(Data:any,accessToken:string)=>(dispatch: any)=>{
         dispatch({type:"ADD_PROJECT_SUCCESS"})
       }
       else{
+
         dispatch({type:"ADD_PROJECT_ERROR",error:data?.data})
       }
     }).catch(error=>{
+
       dispatch({type:"ADD_PROJECT_ERROR",error:error.response?.data})
     })
 }
