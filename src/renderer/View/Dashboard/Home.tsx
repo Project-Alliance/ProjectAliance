@@ -1,18 +1,18 @@
 import React, { useState, Component } from 'react';
 import { TextField, IconButton } from '@mui/material';
-// import SearchBar from 'renderer/Components/SearchBar';
+// import Search from 'renderer/Components/SearchBar';
 import Dropdown from 'renderer/Components/DropDown';
 import Icon from 'react-web-vector-icons';
 import AccountCircle from '@mui/material/Icon';
-import { relative } from 'path/posix';
+// import { relative } from 'path/posix';
 import AvatarGroup from 'react-avatar-group';
-import { Profile } from '../../Constant/Images';
+// import { Profile } from '../../Constant/Images';
 import InputButton from 'renderer/Components/InputButton';
 import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
 import { option } from './SideBarButtonsSetails';
-// import SearchBar from 'renderer/Components/SearchBar';
 import AddProjectForm from 'renderer/View/CreateOrganization/addProjectForm';
 import { useHistory } from 'react-router-dom';
+
 import { ProjectCollabrator } from './SideBarButtonsSetails';
 import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +23,7 @@ import {
 import DataGridDemo from 'renderer/Components/PeopleGrid_View/Home_Grid_View';
 import Button from 'renderer/Components/Button';
 import { getMembers } from 'renderer/Store/Actions/members.action';
+
 
 const Home = (props: any) => {
   const [selected, setSelected] = useState('Rehan');
@@ -67,7 +68,7 @@ const Home = (props: any) => {
             </h4>
           </div>
           <div style={{ width: '50%', marginTop: '22px' }}>
-            {/* <SearchBar /> */}
+            {/* <Search /> */}
           </div>
           <div style={{ width: '40%' }}>
             <div
@@ -407,6 +408,7 @@ const Home = (props: any) => {
                       color: '#B5B2B2',
                     }}
                   >
+
                     Frequent Collaborator
                   </h4>
                 </div>
@@ -441,6 +443,7 @@ const Home = (props: any) => {
           <div className="People-project">
             <DataGridDemo data={Members} />
           </div>
+
         </div>
       </div>
     </div>
