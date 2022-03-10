@@ -5,7 +5,7 @@ class ApiCntainerClass {
 
 
   SignIn(data:any) {
-    debugger;
+     ;
     return http.post("/auth/signin", data);
   }
 
@@ -48,7 +48,7 @@ class ApiCntainerClass {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
-    debugger;
+     ;
   return http.post('/Project/create', data,{headers:header});
   }
   GetProjects(company:string,token:string) {

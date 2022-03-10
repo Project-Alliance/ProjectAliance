@@ -140,7 +140,7 @@ function CreateOrgCom() {
       </form>
       <button
         onClick={() => {
-          debugger;
+           ;
           dispatch(logout());
         }}
       >

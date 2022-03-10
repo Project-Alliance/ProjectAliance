@@ -341,7 +341,7 @@ const Home = (props: any) => {
                     className="Create-Project-Div"
                     onClick={() => {
                       // alert("ok")
-                      debugger;
+                       ;
                       console.log('clicked');
                       history.push({ pathname: '/Projects', state: { item } });
                     }}
