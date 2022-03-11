@@ -392,35 +392,7 @@ const Home = (props: any) => {
               >
                 People
               </div>
-              <div
-                style={{
-                  marginLeft: '25px',
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                <div>
-                  <h4
-                    style={{
-                      marginTop: 33,
-                      fontWeight: 'bold',
-                      fontSize: '15px',
-                      color: '#B5B2B2',
-                    }}
-                  >
 
-                    Frequent Collaborator
-                  </h4>
-                </div>
-                <div style={{ marginTop: 27, marginLeft: '15px' }}>
-                  <DropDownMenuSelect
-                    values={option}
-                    handleOnClick={() => {
-                      console.log('drop down');
-                    }}
-                  />
-                </div>
-              </div>
             </div>
             <div style={{ marginTop: '0.5rem' }}>
               <InputButton
