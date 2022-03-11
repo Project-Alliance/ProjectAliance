@@ -54,10 +54,12 @@ export default class MenuBuilder {
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
+
       label: 'Project Aliance',
       submenu: [
         {
           label: 'About Project Aliance',
+
           selector: 'orderFrontStandardAboutPanel:',
         },
         { type: 'separator' },

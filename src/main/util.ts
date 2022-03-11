@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'development') {
     const url = new URL(`http://localhost:${port}`);
     url.pathname = htmlFileName;
     console.log(url.href)
+
     return url.href;
   };
 } else {
