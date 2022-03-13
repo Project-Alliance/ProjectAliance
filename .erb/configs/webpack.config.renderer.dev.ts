@@ -41,7 +41,6 @@ if (
 
 
 const configuration: webpack.Configuration = {
-
   devtool: 'inline-source-map',
 
   mode: 'development',
@@ -51,6 +50,7 @@ const configuration: webpack.Configuration = {
   entry: [
     `webpack-dev-server/client?http://localhost:${port}/dist`,
     'webpack/hot/only-dev-server',
+
     path.join(webpackPaths.srcRendererPath, 'index.tsx'),
   ],
 
@@ -140,7 +140,6 @@ const configuration: webpack.Configuration = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       REDUX_LOGGING:{}
-
     }),
 
     new webpack.LoaderOptionsPlugin({
@@ -194,3 +193,4 @@ const configuration: webpack.Configuration = {
 };
 
 export default merge(baseConfig, configuration);
+

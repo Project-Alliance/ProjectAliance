@@ -4,15 +4,45 @@ import InputButton from 'renderer/Components/InputButton';
 import Popup from './Popup';
 import {projectDataModel} from './DataModel';
 import {useSelector} from "react-redux";
-import Api from "renderer/Api/auth.api"
+import Api from "renderer/Api/auth.api";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
+interface ColourOption {
+  readonly value: string;
+  readonly label: string;
+  readonly color: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
+
+}
+
+const animatedComponents = makeAnimated();
+// const useFocus=() =>{
+//   const ref =  React.useRef(null);
+//   const setFocus = ()=>{
+//     ref.current && ref.current?.focus();
+//   }
+//   return [ref,setFocus];
+// }
 function AddProjectForm({isOpen,setIsOpen}:any) {
 
+
+  const MemberSelect=(item:any)=>({
+    value: item.id,
+    label: item.name,
+    color: "#aeeeee",
+    isFixed: true,
+    isDisabled: false
+  })
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
   const user = useSelector(({auth}:any)=>auth.user);
+  debugger;
+  const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
+
   const [dataModel,setDataModel] = useState(projectDataModel);
   const onTitileChangeHandle=(event:any)=>{
     setDataModel({...dataModel,"ProjectTitle":event.target.value});
@@ -47,7 +77,14 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
 
               <p>End Date</p>
               <input className="form-control" onChange={onEndDateChangeHandle} value={dataModel.endDate}  type="date" placeholder="End Date"name="endDate"/>
+              <p>Add Team</p>
+              <Select
+                closeMenuOnSelect={false}
+                components={animatedComponents}
 
+                isMulti
+                options={Members}
+              />
 
           </div>
         </form>

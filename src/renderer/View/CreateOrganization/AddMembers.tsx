@@ -23,7 +23,7 @@ interface org {
   isChecking: boolean;
 }
 
-const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
+const AddMembers:any = withRouter(function ({ history, ParentHistory }: any) {
   const dispatch = useDispatch();
 
 

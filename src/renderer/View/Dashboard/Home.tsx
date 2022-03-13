@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import { TextField, IconButton } from '@mui/material';
+import { TextField, IconButton, Box } from '@mui/material';
 // import Search from 'renderer/Components/SearchBar';
 import Dropdown from 'renderer/Components/DropDown';
 import Icon from 'react-web-vector-icons';
@@ -23,6 +23,7 @@ import {
 import DataGridDemo from 'renderer/Components/PeopleGrid_View/Home_Grid_View';
 import Button from 'renderer/Components/Button';
 import { getMembers } from 'renderer/Store/Actions/members.action';
+import WorkINProgress from './Work';
 
 
 const Home = (props: any) => {
@@ -33,6 +34,17 @@ const Home = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector(({ auth }: any) => auth.user);
   const Members = useSelector(({ Members }: any) => Members.data);
+// alert(JSON.stringify(user.role))
+  if(user.role=="Member")
+  {
+    return(
+     <div style={{height: "100vh", width: "100%",justifyContent: 'center',alignItems: 'center',display: 'flex'}}>
+       <WorkINProgress />
+     </div>
+
+
+    )
+  }
 
   return (
     <div
@@ -406,8 +418,10 @@ const Home = (props: any) => {
                   boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
                   color: '#FFFFFF',
                   width: 100,
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
-                title=" ADD"
+                title="ADD"
               />
             </div>
           </div>
