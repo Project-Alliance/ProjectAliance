@@ -23,7 +23,7 @@ interface org {
   isChecking: boolean;
 }
 
-const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
+const AddMembers:any = withRouter(function ({ history, ParentHistory }: any) {
   const dispatch = useDispatch();
 
 
@@ -216,7 +216,7 @@ const AddMembers = withRouter(function ({ history, ParentHistory }: any) {
                   <Col>
                   <select disabled={loader} name="role" className="inputStyle"  value={inputData?.role} onChange={handleChange}>
                     <option value="">Select Role</option>
-                    <option value="Admin">Moderator</option>
+                    <option value="Moderator">Moderator</option>
                     <option value="Member">Member</option>
 
                     </select>
