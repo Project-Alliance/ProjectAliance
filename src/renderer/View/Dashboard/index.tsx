@@ -12,14 +12,17 @@ import {
   useParams,
 } from 'react-router-dom';
 import Home from './Home';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'renderer/Store/Actions/auth.action';
 import MyTask from './MyTask';
 import SideBarButton from 'renderer/Components/SideBarButton';
 import { useEffect, useRef, useState } from 'react';
 import Projects from './Projects';
 import { useWindowSize  } from 'renderer/Util/useWindowSize';
-import {sideBarButtons} from './SideBarButtonsSetails'
+import {sideBarButtons} from './SideBarButtonsSetails';
+import {getProjects,CreateProjects} from 'renderer/Store/Actions/Project.action';
+import { AUTH } from 'Types/User.types';
+import { getMembers } from 'renderer/Store/Actions/members.action';
 
 
 export default function index() {
@@ -29,8 +32,16 @@ export default function index() {
   const [btnName, setBtnName] = useState('/');
   const [displaySlide, setDisplaySlide] = useState('flex');
   const [width, height] = useWindowSize();
+  const user = useSelector(({auth}:AUTH)=>auth.user);
+
 
   const ref = useRef();
+
+  useEffect(() => {
+    dispatch(getProjects(user.company,user.accessToken));
+    dispatch(getMembers(user.company,user.accessToken));
+
+  });
 
   const handleSlide = () => {if (displaySlide == 'flex') {setDisplaySlide('none');} else {setDisplaySlide('flex')}};
   useEffect(() => {width<=1200?setDisplaySlide('none'):setDisplaySlide('flex')} , [width]);
@@ -45,15 +56,15 @@ export default function index() {
             style={{
               borderWidth: 0,
               position: 'absolute',
-              top: 25,
-              left: 20,
+              top: 15,
+              left: 10,
               backgroundColor: 'transparent',
               outline: 'none',
               zIndex:100,
             }}
             onClick={handleSlide}
           >
-            <Icon font="FontAwesome" name="bars" size={25} color="#5A67BA" />
+            <Icon font="FontAwesome" name="bars" size={15} color="#3399FF" />
           </button>
         )}
         <div style={{display: displaySlide}}    className="side-left">
@@ -66,22 +77,22 @@ export default function index() {
               <div
                 style={{
                   borderRadius: '50%',
-                  background: '#5A67BA',
+                  background: '#3399FF',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: 40,
-                  width: 40,
+                  height: 25,
+                  width: 25,
                   display: 'flex',
                 }}
               >
-                <img src={logo} style={{ height: 25, width: 25 }} />
+                <img src={logo} style={{ height: 15, width: 15 }} />
               </div>
 
               <div className="pa-logo">Project Alliance</div>
             </div>
             {/* Sidebar closing and opening button */}
             <button style={{ borderWidth: 0 }} onClick={handleSlide}>
-              <Icon font="FontAwesome" name="bars" size={25} color="#5A67BA" />
+              <Icon font="FontAwesome" name="bars" size={15} color="#3399FF" />
             </button>
           </div>
           {/* sisde Bar end  */}
@@ -104,28 +115,32 @@ export default function index() {
             className={btnName == item.to ? 'active-btn active-color-text' : ''}
             to={item.to}
           />
-          {item?.seprator && <><h6 style={{ paddingLeft: 10 }}>others</h6>
+          {item?.seprator && <><h6 style={{ paddingLeft: 10,fontSize:12 }}>others</h6>
           <div className="seprator" style={{ marginTop: -5 }} /></>}
           </>)
           })}
 
 
-          <button
-            onClick={() => {
-              dispatch(logout());
-            }}>
-            logout
-          </button>
+
         </div>
 
-        <div className="main-container" style={{width:displaySlide=="none"?"100%":"75%"}}>
+        <div className="main-container" style={{width:displaySlide=="none"?"100%":"85%"}}>
           <Switch>
 
             <Route path="/mytask" component={MyTask}  />
             <Route path="/Projects"  >
               <Projects ParentHistory={history} sideBar={displaySlide} />
               </Route>
-
+              <Route path="/setting"  >
+                <div>
+                <button
+                    onClick={() => {
+                      dispatch(logout());
+                    }}>
+                    logout
+                  </button>
+                </div>
+              </Route>
             <Route  exact>
             <Home ParentHistory={history} sideBar={displaySlide} />
             </Route>

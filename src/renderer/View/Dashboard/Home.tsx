@@ -1,23 +1,68 @@
 import React, { useState, Component } from 'react';
-import { TextField, IconButton } from '@mui/material';
-// import SearchBar from 'renderer/Components/SearchBar';
+import { TextField, IconButton, Box } from '@mui/material';
+// import Search from 'renderer/Components/SearchBar';
 import Dropdown from 'renderer/Components/DropDown';
 import Icon from 'react-web-vector-icons';
 import AccountCircle from '@mui/material/Icon';
-import { relative } from 'path/posix';
+// import { relative } from 'path/posix';
 import AvatarGroup from 'react-avatar-group';
-import { Profile } from '../../Constant/Images';
+// import { Profile } from '../../Constant/Images';
 import InputButton from 'renderer/Components/InputButton';
 import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
 import { option } from './SideBarButtonsSetails';
-// import SearchBar from 'renderer/Components/SearchBar';
-import { projects } from './SideBarButtonsSetails';
+import AddProjectForm from 'renderer/View/CreateOrganization/addProjectForm';
 import { useHistory } from 'react-router-dom';
-import {ProjectCollabrator} from './SideBarButtonsSetails'
+
+import { ProjectCollabrator } from './SideBarButtonsSetails';
+import Grid from '@mui/material/Grid';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getProjects,
+  CreateProjects,
+} from 'renderer/Store/Actions/Project.action';
+import DataGridDemo from 'renderer/Components/PeopleGrid_View/Home_Grid_View';
+import Button from 'renderer/Components/Button';
+import { getMembers } from 'renderer/Store/Actions/members.action';
+import WorkINProgress from './Work';
+
 
 const Home = (props: any) => {
   const [selected, setSelected] = useState('Rehan');
   let history = useHistory();
+  const dispatch = useDispatch();
+  const projects = useSelector(({ Project }: any) => Project.data?.projects);
+  const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector(({ auth }: any) => auth.user);
+  const Members = useSelector(({ Members }: any) => Members.data);
+  const getMonth = (month: any) => {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    return months[month];
+  }
+  let date= new Date();
+// alert(JSON.stringify(user.role))
+  if(user.role=="Member")
+  {
+    return(
+     <div style={{height: "100vh", width: "100%",justifyContent: 'center',alignItems: 'center',display: 'flex'}}>
+       <WorkINProgress />
+     </div>
+
+
+    )
+  }
 
   return (
     <div
@@ -29,39 +74,49 @@ const Home = (props: any) => {
         overflowX: 'hidden',
       }}
     >
-      <div className="main-container-sub-Home">
+      <div className="main-container-sub-Home" style={{ overflowX: 'hidden' }}>
         {/*  Top Header  */}
+        <AddProjectForm isOpen={isOpen} setIsOpen={setIsOpen} />
+
         <div
-          className="Home-topbar"
+
           style={{
             display: 'flex',
             marginLeft: props?.sideBar == 'flex' ? 20 : 60,
             justifyContent: 'space-between',
+            height:51,
+            alignItems: 'center',
+            marginRight: 20,
           }}
         >
-          <div className="Home-title">
-            <h4
-              style={{
-                color: '#5A67BA',
-                fontSize: 30,
-                fontFamily: 'AntDesign',
+          <div style={{
+                fontSize: 18,
+                fontWeight:"bold",
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontFamily: 'Manrope',
+                color:"#149fff",
+                display: 'flex',
               }}
-            >
+                >
+
               Home
-            </h4>
+
           </div>
-          <div style={{ width: '50%', marginTop: '22px' }}>
-            {/* <SearchBar /> */}
-          </div>
-          <div style={{ width: '40%' }}>
+          {/* <div style={{ width: '50%', marginTop: '22px' }}>
+            <Search />
+          </div> */}
+
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                marginTop: '7px',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
               }}
             >
-              <div style={{ marginLeft: 30, marginTop: '7px' }}>
+              <div>
                 <IconButton
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
@@ -71,14 +126,13 @@ const Home = (props: any) => {
                   <AccountCircle />
                 </IconButton>
               </div>
-              <div style={{ marginTop: '5px' }}>
+              {/* <div style={{ marginTop: '5px' }}>
                 <Dropdown selected={selected} setSelected={setSelected} />
-              </div>
+              </div> */}
 
               <div
                 style={{
-                  marginTop: '5px',
-                  marginLeft: '10px',
+                  marginLeft: 20,
                   display: 'flex',
                   flexDirection: 'row',
                 }}
@@ -96,15 +150,15 @@ const Home = (props: any) => {
                     height: 8,
                     width: 8,
                     borderRadius: 4,
-                    backgroundColor: 'red',
+                    backgroundColor: '#149fff',
                     marginTop: 12,
                     position: 'relative',
-                    marginLeft: '17px',
+                    marginLeft: -10,
                   }}
                 />
               </div>
             </div>
-          </div>
+
         </div>
         {/* Used for separate Upper Header  */}
         <div className="sepratorRight" />
@@ -112,22 +166,22 @@ const Home = (props: any) => {
         <div className="Top-Heading">
           <div
             style={{
-              fontFamily: 'Poppins',
-              fontSize: '24px',
-              fontStyle: 'normal',
+              fontFamily: 'Inter,sans-serif',
+              fontSize: '16px',
+              fontStyle: 'bold',
             }}
           >
-            <h4>Sunday, December 26</h4>
+            <h4>{`${date.toLocaleDateString('en', { weekday: 'long' })}, ${getMonth(date.getMonth()+1)} ${date.getDate()}`}</h4>
           </div>
           <div
             style={{
-              fontFamily: 'Poppins',
-              fontSize: '36px',
+              fontFamily: 'Inter,sans-serif',
+              fontSize: '30px',
               fontStyle: 'medium',
               marginTop: '10px',
             }}
           >
-            <h1>Good Evening Rehan</h1>
+            <h1>Good Evening {user?.name}</h1>
           </div>
 
           <div className="Top-Team_Detail">
@@ -216,7 +270,7 @@ const Home = (props: any) => {
               <div className="Avatar-Name-Icon">
                 <div style={{ marginLeft: '10px', marginTop: '10px' }}>
                   <h6 style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                    Rehan Asghar
+                    {user?.name}
                   </h6>
                 </div>
                 <div style={{ marginLeft: '10px', marginTop: '8px' }}>
@@ -227,40 +281,56 @@ const Home = (props: any) => {
           </div>
           {/* Right Phase Create Project Phase  */}
           <div className="Divide-Phase">
-            <div className="Top-Left-Divide-Phase">
-              <div style={{ marginTop: 15, marginLeft: '25px' }}>
-                <h4 style={{ fontWeight: 'bold', fontSize: '20px' }}>
-                  Projects
-                </h4>
-              </div>
-              <div
-                style={{
-                  marginLeft: '25px',
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                <div>
-                  <h4
-                    style={{
-                      marginTop: 20,
-                      fontWeight: 'bold',
-                      fontSize: '15px',
-                      color: '#B5B2B2',
-                    }}
-                  >
-                    Recent
+            <div className="Top-Left-Divide-Phase jc_sb">
+              <div className="Top-Left-Divide-Phase">
+                <div style={{ marginTop: 15, marginLeft: '25px' }}>
+                  <h4 style={{ fontWeight: 'bold', fontSize: '20px' }}>
+                    Projects
                   </h4>
                 </div>
-                <div style={{ marginTop: 16, marginLeft: '15px' }}>
-                  <DropDownMenuSelect
-                    values={option}
-                    handleOnClick={() => {
-                      console.log('drop down');
-                    }}
-                  />
+                <div
+                  style={{
+                    marginLeft: '25px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <div>
+                    <h4
+                      style={{
+                        marginTop: 20,
+                        fontWeight: 'bold',
+                        fontSize: '15px',
+                        color: '#B5B2B2',
+                      }}
+                    >
+                      Recent
+                    </h4>
+                  </div>
+                  <div style={{ marginTop: 16, marginLeft: '15px' }}>
+                    <DropDownMenuSelect
+                      values={option}
+                      handleOnClick={() => {
+                        console.log('drop down');
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
+
+              <button
+                className="btn"
+                onClick={() =>
+                  dispatch(getProjects(user.company, user.accessToken))
+                }
+              >
+                <Icon
+                  name="refresh"
+                  size={25}
+                  color="#000"
+                  font="MaterialCommunityIcons"
+                />
+              </button>
             </div>
             <div className="sepratorRight" />
             {/* Projects List */}
@@ -274,8 +344,9 @@ const Home = (props: any) => {
               }}
             >
               <button
-                onClick={() => {
-                  props.ParentHistory.push('/createOrganization');
+                onClick={(props: any) => {
+                  // props.ParentHistory.push('/createOrganization');
+                  setIsOpen(!isOpen);
                 }}
                 className="Create-Project-Div"
               >
@@ -300,21 +371,21 @@ const Home = (props: any) => {
                 </div>
               </button>
               {/* list */}
-              {projects.map((item, index) => {
+              {projects?.map((item: any, index: any) => {
                 return (
                   <button
                     key={item.projectTitle + ' ' + index}
                     className="Create-Project-Div"
-                    onClick={()=>{
+                    onClick={() => {
                       // alert("ok")
-                      debugger;
-                      console.log("clicked")
-                      history.push({pathname:'/Projects',state:{item}});
+                       ;
+                      console.log('clicked');
+                      history.push({ pathname: '/Projects', state: { item } });
                     }}
                   >
                     <div className="Left-Create-Project">
                       <Icon
-                        name={item.pIconName}
+                        name={item.pIconName || 'bars'}
                         font="AntDesign"
                         color="#898686"
                         size={25}
@@ -339,114 +410,51 @@ const Home = (props: any) => {
         </div>
 
         <div className="People-project-Div">
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div
-              style={{
-                margin: '20px 0px  0px 40px',
-                fontSize: '25px',
-                fontWeight: 'bold',
-              }}
-            >
-              People
-            </div>
+          <div
+            style={{
+              width: '100%',
+              height: 50,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div
+                style={{
+                  margin: '20px 0px  0px 40px',
+                  fontSize: '25px',
+                  fontWeight: 'bold',
+                }}
+              >
+                People
+              </div>
 
-            <div
-              style={{
-                marginLeft: '25px',
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <div>
-                <h4
-                  style={{
-                    marginTop: 33,
-                    fontWeight: 'bold',
-                    fontSize: '15px',
-                    color: '#B5B2B2',
-                  }}
-                >
-                  Frequent Collaborator
-                </h4>
-              </div>
-              <div style={{ marginTop: 27, marginLeft: '15px' }}>
-                <DropDownMenuSelect
-                  values={option}
-                  handleOnClick={() => {
-                    console.log('drop down');
-                  }}
-                />
-              </div>
+            </div>
+            <div style={{ marginTop: '0.5rem' }}>
+              <InputButton
+                onClick={() => {
+                  // getData()
+                  props.ParentHistory.push('/addmembers');
+                }}
+                className="Create-Button"
+                buttonStyle={{
+                  backgroundImage: ` linear-gradient(to right, #0905AF 0%, #0905AF 47%, #0905AF 100%)`,
+                  boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
+                  color: '#FFFFFF',
+                  width: 100,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                title="ADD"
+              />
             </div>
           </div>
 
           <div className="People-project">
-            <div className="people-div">
-              <div className="people-inner-div">
-              <div style={{ marginBottom: '10px',textAlign:'center'}} className="Profile-Image-icon" >
-                <Icon name="addusergroup" font="AntDesign" size={25} color="#000" />
-                </div>
-                <div
-                  style={{
-                    marginBottom: '10px',
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'Poppins',
-                    fontStyle: 'normal',
-                  }}
-                >
-                  Invites
-                </div>
-                <div style={{ fontSize: '14px', fontFamily: 'Poppins',textAlign: 'center' }}>
-                  Invites your team Members and add them into project.
-                </div>
-
-                <div className="View-Profile-Button">
-                  <InputButton
-                    className="View-Button"
-                    buttonStyle={{}}
-                    onClick={()=>{props.ParentHistory.push('/addmembers')}}
-                    title=" Add Members"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {ProjectCollabrator.map((item,index)=>{
-              return(
-              <div key={index+""+item.name} className="people-div">
-              <div className="people-inner-div">
-                <div style={{ marginBottom: '10px' }}>
-                  <img className="Profile-Image" src={Profile} alt="back" />
-                </div>
-                <div
-                  style={{
-                    marginBottom: '10px',
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'Poppins',
-                    fontStyle: 'normal',
-                  }}
-                >
-                  {item.name}
-                </div>
-                <div style={{ fontSize: '14px', fontFamily: 'Poppins' }}>
-                  {item.description}
-                </div>
-
-                <div className="View-Profile-Button">
-                  <InputButton
-                    className="View-Button"
-                    buttonStyle={{}}
-                    title=" View Profile"
-                  />
-                </div>
-              </div>
-            </div>)
-            })}
-
-
+            <DataGridDemo data={Members} />
           </div>
+
         </div>
       </div>
     </div>

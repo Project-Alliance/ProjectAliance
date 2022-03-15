@@ -17,23 +17,21 @@ import Loader from 'renderer/Components/Loader/Loader';
 export default function Auth() {
 
   const user = useSelector(({auth}:AUTH) => {
-    debugger
+
     return auth.user;
   });
-  const isChecking = useSelector(({ auth }: AUTH) => {
-    return auth.login?.isChecking;
-  });
-  const isCheckingR = useSelector(({ auth }: AUTH) => {
-    return auth.register?.isChecking;
-  });
+  // const isChecking = useSelector(({ auth }: AUTH) => {
+  //   return auth.login?.isChecking;
+  // });
+
   const history = useHistory();
-  if (isChecking || isCheckingR) {
-    return (
-      <div className="Container">
-        <Loader />
-      </div>
-    );
-  }
+  // if (isChecking || isCheckingR) {
+  //   return (
+  //     <div className="Container">
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
   if (user) {
     return <Redirect to="/dashboard" />;
   }

@@ -19,13 +19,13 @@ function CreateOrgCom() {
   const [ErrorMessage,SetErrorMessage]=React.useState<string>('');
   const { register,formState: { errors }, handleSubmit }=useForm<IFormInput>({criteriaMode:'all'});
   const onSubmit: SubmitHandler<IFormInput> = (Data) => {
-  //   debugger
+  //
   //  dispatch(signin(Data))
      console.log(Data);
   };
   const User = useSelector(({auth}:AUTH) => auth.user);
   const Check = (token:string)=>{
-    debugger
+
 
     let data = {
       "organizationName":"Dream Code",
