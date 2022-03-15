@@ -11,7 +11,7 @@ import { AUTH, auth } from 'Types/User.types';
 import './App.css';
 import Auth from './View/Authentication/Auth';
 import CreateOrganization from './View/CreateOrganization/createOrganization';
-import CreateProject from './View/createProject/createProject';
+
 require('react-web-vector-icons/fonts');
 import Dashboard from 'renderer/View/Dashboard'
 import { logout } from './Store/Actions/auth.action';
@@ -56,9 +56,7 @@ export default function App() {
         <AuthRoute path="/addmembers">
           <CreateOrganization />
         </AuthRoute>
-        <AuthRoute path="/createProject">
-          <CreateProject />
-        </AuthRoute>
+
         <AuthRoute path="/dashboard">
           <Dashboard />
         </AuthRoute>
