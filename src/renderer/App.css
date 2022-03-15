@@ -2,6 +2,7 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+
 @import './View/Authentication/authStyles.scss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import './Components/Loader/LoaderStyle.scss';
@@ -105,4 +106,5 @@
   font-style: normal;
   font-weight: 400;
   src: url(../../assets/fonts/Zocial.ttf) format('truetype');
+
 }

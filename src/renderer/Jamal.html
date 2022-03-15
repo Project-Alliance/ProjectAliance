@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<htm>
+  <head>
+    <title>HTML PRACTICES CLASS </title>
+  <style>
+    body{
+      background-color: #f0f0f0;
+      justify-content: flex-start;
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      padding: 0px;
+
+    }
+
+    .tableStyle{
+
+      border: solid #000000 1px;
+      margin: 0px;
+      border-collapse: collapse;
+      width:600px;
+
+    }
+    td{
+      border: solid #000000 1px;
+      margin: 0px;
+    }
+    tr{
+      border: #000000 solid 1px;
+    }
+
+    .trStyle{
+      background-color: #c2c2c2;
+    }
+    th{
+      font-weight: bold;
+      text-align: left;
+      border: solid #000000 1px;
+
+    }
+    .h{
+      font-weight: bold;
+      text-align: left;
+      border: solid #000000 1px;
+    }
+  </style>
+  </head>
+
+  <body>
+
+  <table class="tableStyle">
+    <tr>
+    <th class="trStyle" colspan="3">Invoice#123456789</>
+    <th class="trStyle">14 Jan 2025 </th>
+    </tr>
+    <tr>
+      <td colspan="2">Pay to:<br />
+        Acme BillingCo.<br />
+        Main St.<br />
+        cityville,NA12345<br />
+      </td>
+      <td colspan="2">Customer: <br />
+        John Smith.<br />
+        321Willow Way<br />
+        Southeast Northwestershire,MA54321<br />
+      </td>
+    </tr>
+    <tr class="trStyle">
+      <td class="h">Name/Description.</td>
+      <td class="h">Qty.</td>
+      <td class="h">@</td>
+      <td class="h">Cost</td>
+    </tr>
+    <tr>
+    <td>Paperclips/</td>
+    <td>1000</td>
+    <td>0.01</td>
+    <td>10.00</td>
+    </tr>
+    <tr>
+      <td>Staples(box)</td>
+      <td>100</td>
+      <td>1.00</td>
+      <td>100.00</td>
+    </tr>
+    <tr>
+      <td class="h trStyle" colspan="3">Subtotal</td>
+      <td>110.00</td>
+    </tr>
+    <tr>
+      <td class="h trStyle" colspan="2">Tax</td>
+      <td>8%</td>
+      <td>8.80</td>
+    </tr>
+    <tr>
+      <td class="h trStyle"  colspan="3">Grand Total</td>
+      <td>$118.80</td>
+    </tr>
+    </table>
+
+  </body>
+
+</htm>

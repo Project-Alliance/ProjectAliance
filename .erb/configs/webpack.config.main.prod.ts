@@ -22,7 +22,8 @@ const devtoolsConfig =
       }
     : {};
 
-export default merge(baseConfig, {
+
+const configuration: webpack.Configuration = {
   ...devtoolsConfig,
 
   mode: 'production',
@@ -49,9 +50,11 @@ export default merge(baseConfig, {
 
   plugins: [
     new BundleAnalyzerPlugin({
-      analyzerMode:
-        process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
-      openAnalyzer: process.env.OPEN_ANALYZER === 'true',
+
+      // openAnalyzer: process.env.OPEN_ANALYZER === 'true',
+
+      analyzerMode: process.env.ANALYZE === 'true' ? 'server' : 'disabled',
+
     }),
 
     /**
@@ -68,6 +71,7 @@ export default merge(baseConfig, {
       DEBUG_PROD: false,
       START_MINIMIZED: false,
       REDUX_LOGGING:{}
+
     }),
   ],
 
@@ -80,4 +84,8 @@ export default merge(baseConfig, {
     __dirname: false,
     __filename: false,
   },
-});
+
+};
+
+export default merge(baseConfig, configuration);
+

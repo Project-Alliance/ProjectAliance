@@ -1,18 +1,26 @@
+
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   MemoryRouter as Router,
   Switch,
   Route,
   Redirect,
 } from 'react-router-dom';
-import { AUTH } from 'Types/User.types';
+import { AUTH, auth } from 'Types/User.types';
 import './App.css';
 import Auth from './View/Authentication/Auth';
 import CreateOrganization from './View/CreateOrganization/createOrganization';
 import CreateProject from './View/createProject/createProject';
 require('react-web-vector-icons/fonts');
 import Dashboard from 'renderer/View/Dashboard'
+import { logout } from './Store/Actions/auth.action';
+import { ReactNotifications } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import 'animate.css/animate.min.css';
+import 'animate.css/animate.compat.css'
+
+
 
 function AuthRoute({ children, ...rest }: any) {
   const user = useSelector(({ auth }: AUTH) => auth.user);
@@ -32,7 +40,11 @@ function AuthRoute({ children, ...rest }: any) {
   );
 }
 export default function App() {
+
+
   return (
+    <>
+    <ReactNotifications />
     <Router>
       <Switch>
         <Route path="/" exact>
@@ -52,5 +64,7 @@ export default function App() {
         </AuthRoute>
       </Switch>
     </Router>
+
+    </>
   );
 }

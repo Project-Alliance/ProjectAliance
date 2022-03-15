@@ -8,10 +8,10 @@
  * When running `npm run build` or `npm run build:main`, this file is compiled to
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+
 import path from 'path';
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, shell, ipcMain } from 'electron';
+
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -26,7 +26,9 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+
 let SaplasshWindow: BrowserWindow | null = null;
+
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -40,6 +42,11 @@ const isDevelopment =
 // if (isDevelopment) {
 //   require('electron-debug')();
 // }
+
+if (isDevelopment) {
+  require('electron-debug')();
+}
+
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -69,11 +76,11 @@ const createWindow = async () => {
 
 app.whenReady()
 .then(() => {
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728,
-
     minWidth:500,
     minHeight:650,
     icon: getAssetPath('PA.ico'),
@@ -116,7 +123,6 @@ app.whenReady()
         SaplasshWindow?.destroy()
         mainWindow?.show();
       }, 1000);
-
     }
   });
 
@@ -128,15 +134,18 @@ app.whenReady()
   menuBuilder.buildMenu();
 
   // Open urls in the user's browser
-  mainWindow.webContents.on('new-window', (event, url) => {
-    event.preventDefault();
-    shell.openExternal(url);
+
+  mainWindow.webContents.setWindowOpenHandler((edata) => {
+    shell.openExternal(edata.url);
+    return { action: 'deny' };
   });
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+
 })
+
 };
 
 /**

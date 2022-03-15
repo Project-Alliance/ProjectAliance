@@ -2,7 +2,7 @@ import http from "./http-common";
 
 class TutorialDataService {
   getAll() {
-    debugger
+
     return http.get("/");
   }
 

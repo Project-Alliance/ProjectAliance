@@ -6,7 +6,8 @@ import webpack from 'webpack';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
 
-export default {
+
+const configuration: webpack.Configuration = {
   externals: [...Object.keys(externals || {})],
 
   stats: 'errors-only',
@@ -18,6 +19,11 @@ export default {
         exclude: /node_modules/,
         use: {
           loader: 'ts-loader',
+
+          options: {
+            // Remove this line to enable type checking in webpack builds
+            transpileOnly: true,
+          },
         },
       },
     ],
@@ -43,6 +49,10 @@ export default {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
       REDUX_LOGGING:{}
+
     }),
   ],
 };
+
+export default configuration;
+

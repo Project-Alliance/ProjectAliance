@@ -1,13 +1,11 @@
 // import './createOrganization.scss';
-import axios from 'axios';
-import { CardActionArea } from '@mui/material';
-import { Mark, line } from '../../Constant/Images';
+
 import { Col, Row, Container } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 // import Button from 'renderer/Components/Button';
 import InputButton from 'renderer/Components/InputButton';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { AUTH, OrgIFormInput } from '../../../Types/User.types';
+import { AUTH, auth, OrgIFormInput } from '../../../Types/User.types';
 import React from 'react';
 import { CreateOrganization } from 'renderer/Store/Actions/Organization.action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -142,7 +140,7 @@ function CreateOrgCom() {
       </form>
       <button
         onClick={() => {
-          debugger;
+           ;
           dispatch(logout());
         }}
       >
