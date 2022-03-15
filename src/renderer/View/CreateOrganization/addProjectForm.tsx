@@ -14,8 +14,8 @@ import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
 import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import {Button,Box,} from '@mui/material';
+import {Notification} from 'renderer/Util/Notification/Notify'
 
-import { Store } from 'react-notifications-component'
 const blue = {
   50: '#F0F7FF',
   100: '#C2E0FF',
@@ -131,7 +131,6 @@ const rolesForSelection=[]
 const animatedComponents = makeAnimated();
 function AddProjectForm({isOpen,setIsOpen}:any) {
 
-
   const MemberSelect=(item:any)=>({
     value: item.id,
     label: item.name,
@@ -159,6 +158,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
     setDataModel({...dataModel,"projectDescription":event.target.value});
   }
   const onStartDateChangeHandle=(event:any)=>{
+    console.log(event.target.value);
     setDataModel({...dataModel,"startDate":event.target.value});
   }
   const onEndDateChangeHandle=(event:any)=>{
@@ -175,28 +175,43 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
     }
   }
 
-  const ErrorFunction=()=>{
-    Store.addNotification({
-      title: "Wonderful!",
-      message: "teodosii@react-notifications-component",
-      type: "danger",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 5000,
-        onScreen: true
-      }
-    });
-  }
   const isValid=()=>{
-
+    if(dataModel.ProjectTitle.length==0)
+    {
+      Notification("Validation Error","Name Is required","danger");
+      return false;
+    }
+    else if(dataModel.projectDescription.length==0)
+    {
+      Notification("Validation Error","Describe About your project","danger");
+      false;
+    }else if(dataModel.endDate.length==0){
+      Notification("Validation Error","Project Due Date is required","danger");
+      return false;
+    }
+    else if(dataModel.startDate.length==0){
+      Notification("Validation Error","Project start Date is required","danger");
+      return false;
+    }
+    else if(dataModel.team.length>0){
+      let vlaid=true;
+      dataModel.team.map((item:any,index:any)=>{
+        if(!item?.role){
+      Notification("Validation Error","PLease Assign Role to "+item.label,"danger");
+      vlaid = false;
+        }
+      })
+      return vlaid;
+    }
+     return true;
   }
 
   const handleSubmit=()=>{
 
-
+    if(!isValid())
+    {
+      return;
+    }
     const dataa = {
       ProjectTitle: dataModel.ProjectTitle,
       projectDescription: dataModel.projectDescription,
@@ -206,23 +221,25 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
       endDate: dataModel.endDate,
       team:dataModel.team
     };
+    console.log(dataa)
     // setDataModel({...dataModel,"company":user.company});
     Api.CreateProject(dataa, user.accessToken)
       .then((res) => {
         if (res.data.status == 200) {
-          alert(res.data.message);
+          Notification("Crearted",res.data.message,"success");
           togglePopup();
           setDataModel({ ...projectDataModel });
         } else {
-          alert(res.data.message);
+          Notification("Error",res.data.message,"danger");
         }
       })
       .catch((err) => {
         debugger
+        if(err?.message=="Network Error")
+        Notification("Error","Network Error","danger");
+        else
+        Notification("Error",err?.response?.data?.message,"danger");
 
-        ErrorFunction()
-
-        alert(JSON.stringify(err.response));
       });
   }
   return (
@@ -289,9 +306,10 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
                         className="form-control"
                         style={{ marginTop: 10, marginBottom: 10,height:30,fontSize:12 }}
                         onChange={onEndDateChangeHandle}
+                        min={dataModel.startDate}
                         value={dataModel.endDate}
                         type="text"
-                        onFocus={(e) => (e.target.type = 'date')}
+                        onFocus={(e) => (e.target.type = 'date' )}
                         onBlur={(e) => (e.target.type = 'text')}
                         placeholder="End Date"
                         name="endDate"
@@ -416,7 +434,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
                         fontSize: 16,
                         textTransform: 'unset',
                       }}
-                      onClick={() => setTabV(0)}
+                      onClick={({target}) => setTabV(0)}
                     >
                       Previous
                     </Button>

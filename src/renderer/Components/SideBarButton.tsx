@@ -7,7 +7,7 @@ export default function SideBarButton({
   iconName="home",
   font="AntDesign",
   color="#000",
-  size=20,
+  size=15,
   buttonStyle={},
   className="",
   title="Home",
@@ -19,7 +19,7 @@ export default function SideBarButton({
   return (
       <Link onClick={onClick}  className={`side-bar-btn side-bar-btn-text ${className}`} style={{...buttonStyle}} to={to}>
         <span style={{marginRight: 10}}>
-        {icon&&<Suspense fallback={<div>Loading...</div>}> <Icon
+        {icon&&<Suspense fallback={<div style={{fontSize:12}}>Loading...</div>}> <Icon
           name={iconName}
           color={btnName==to?color:'#000000'}
           size={size}

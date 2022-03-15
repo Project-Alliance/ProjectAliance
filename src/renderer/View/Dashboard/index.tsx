@@ -56,15 +56,15 @@ export default function index() {
             style={{
               borderWidth: 0,
               position: 'absolute',
-              top: 25,
-              left: 20,
+              top: 15,
+              left: 10,
               backgroundColor: 'transparent',
               outline: 'none',
               zIndex:100,
             }}
             onClick={handleSlide}
           >
-            <Icon font="FontAwesome" name="bars" size={25} color="#5A67BA" />
+            <Icon font="FontAwesome" name="bars" size={15} color="#3399FF" />
           </button>
         )}
         <div style={{display: displaySlide}}    className="side-left">
@@ -77,22 +77,22 @@ export default function index() {
               <div
                 style={{
                   borderRadius: '50%',
-                  background: '#5A67BA',
+                  background: '#3399FF',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: 40,
-                  width: 40,
+                  height: 25,
+                  width: 25,
                   display: 'flex',
                 }}
               >
-                <img src={logo} style={{ height: 25, width: 25 }} />
+                <img src={logo} style={{ height: 15, width: 15 }} />
               </div>
 
               <div className="pa-logo">Project Alliance</div>
             </div>
             {/* Sidebar closing and opening button */}
             <button style={{ borderWidth: 0 }} onClick={handleSlide}>
-              <Icon font="FontAwesome" name="bars" size={25} color="#5A67BA" />
+              <Icon font="FontAwesome" name="bars" size={15} color="#3399FF" />
             </button>
           </div>
           {/* sisde Bar end  */}
@@ -115,28 +115,32 @@ export default function index() {
             className={btnName == item.to ? 'active-btn active-color-text' : ''}
             to={item.to}
           />
-          {item?.seprator && <><h6 style={{ paddingLeft: 10 }}>others</h6>
+          {item?.seprator && <><h6 style={{ paddingLeft: 10,fontSize:12 }}>others</h6>
           <div className="seprator" style={{ marginTop: -5 }} /></>}
           </>)
           })}
 
 
-          <button
-            onClick={() => {
-              dispatch(logout());
-            }}>
-            logout
-          </button>
+
         </div>
 
-        <div className="main-container" style={{width:displaySlide=="none"?"100%":"75%"}}>
+        <div className="main-container" style={{width:displaySlide=="none"?"100%":"85%"}}>
           <Switch>
 
             <Route path="/mytask" component={MyTask}  />
             <Route path="/Projects"  >
               <Projects ParentHistory={history} sideBar={displaySlide} />
               </Route>
-
+              <Route path="/setting"  >
+                <div>
+                <button
+                    onClick={() => {
+                      dispatch(logout());
+                    }}>
+                    logout
+                  </button>
+                </div>
+              </Route>
             <Route  exact>
             <Home ParentHistory={history} sideBar={displaySlide} />
             </Route>

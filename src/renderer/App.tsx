@@ -17,6 +17,8 @@ import Dashboard from 'renderer/View/Dashboard'
 import { logout } from './Store/Actions/auth.action';
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import 'animate.css/animate.min.css';
+import 'animate.css/animate.compat.css'
 
 
 
