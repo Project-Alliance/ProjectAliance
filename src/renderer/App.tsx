@@ -15,6 +15,10 @@ import CreateProject from './View/createProject/createProject';
 require('react-web-vector-icons/fonts');
 import Dashboard from 'renderer/View/Dashboard'
 import { logout } from './Store/Actions/auth.action';
+import { ReactNotifications } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
+
 
 function AuthRoute({ children, ...rest }: any) {
   const user = useSelector(({ auth }: AUTH) => auth.user);
@@ -37,6 +41,8 @@ export default function App() {
 
 
   return (
+    <>
+    <ReactNotifications />
     <Router>
       <Switch>
         <Route path="/" exact>
@@ -56,5 +62,7 @@ export default function App() {
         </AuthRoute>
       </Switch>
     </Router>
+
+    </>
   );
 }

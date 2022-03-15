@@ -4,6 +4,8 @@
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
+    "build:library:dev": "webpack --config webpack.dev.js && tsc-alias",
+
     "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
     "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
@@ -241,6 +243,7 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.19.5",
     "react-icons": "^4.3.1",
+    "react-notifications-component": "^3.4.1",
     "react-onclickoutside": "^6.12.1",
     "react-phone-input-2": "^2.14.0",
     "react-redux": "^7.2.6",
