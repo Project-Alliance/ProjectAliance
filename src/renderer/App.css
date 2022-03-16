@@ -6,7 +6,7 @@
 @import './View/Authentication/authStyles.scss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import './Components/Loader/LoaderStyle.scss';
-@import './View/CreateOrganization/createOrganization.scss';
+@import './View/CreateProjectForm/createOrganization.scss';
 @import './View/createProject/createProject.scss';
 @import './Style/index.scss';
 @import "frappe-gantt/dist/frappe-gantt.css";
