@@ -5,7 +5,7 @@ class ApiCntainerClass {
 
 
   SignIn(data:any) {
-    debugger;
+     ;
     return http.post("/auth/signin", data);
   }
 
@@ -43,12 +43,27 @@ class ApiCntainerClass {
     }
   return http.get(`/Members/get/${company}`,{headers:header});
   }
+
+  deleteMembers(company:number,token:string) {
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.delete(`/Members/delete/${company}`,{headers:header});
+  }
+  UpdateMembers(id:number,token:string) {
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.put(`/Members/update/${id}`,{headers:header});
+  }
   CreateProject(data:any,token:string) {
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
-    debugger;
+     ;
   return http.post('/Project/create', data,{headers:header});
   }
   GetProjects(company:string,token:string) {

@@ -6,12 +6,12 @@ import { combineReducers } from 'redux';
 
 const ProjectReducer = () => {
  const data = (state =[] , action:any) => {
-debugger
+
   const { type, projects } = action;
   switch (type) {
     case 'GET_PROJECTS_INIT':
     case 'GET_PROJECTS_ERROR':
-      return null;
+      return [];
     case 'GET_PROJECTS_SUCCESS':
       return projects;
 

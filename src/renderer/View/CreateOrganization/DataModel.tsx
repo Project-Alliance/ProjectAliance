@@ -1,8 +1,8 @@
 export const  projectDataModel= {
 
-  startDate:[],
-  endDate:[],
-
+  startDate:'',
+  endDate:'',
+  team:[] as any,
   "ProjectTitle":"",
     "projectDescription":"",
     "status":"On Track",
