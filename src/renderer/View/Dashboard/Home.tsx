@@ -178,7 +178,7 @@ const Home = (props: any) => {
               fontFamily: 'Inter,sans-serif',
               fontSize: '30px',
               fontStyle: 'medium',
-              marginTop: '10px',
+              marginTop: 10,
             }}
           >
             <h1>Good Evening {user?.name}</h1>
