@@ -171,7 +171,7 @@ const Home = (props: any) => {
               fontStyle: 'bold',
             }}
           >
-            <h4>{`${date.toLocaleDateString('en', { weekday: 'long' })}, ${getMonth(date.getMonth()+1)} ${date.getDate()}`}</h4>
+            <h4>{`${date.toLocaleDateString('en', { weekday: 'long' })}, ${getMonth(date.getMonth())} ${date.getDate()}`}</h4>
           </div>
           <div
             style={{
