@@ -5,6 +5,7 @@ import Icon from 'react-web-vector-icons';
 import NeedAccount from 'renderer/Components/NeedAccount';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputButton from 'renderer/Components/InputButton';
+import {blue} from 'renderer/AppConstants';
 interface IFormInput {
   Email: string;
 }
@@ -44,7 +45,7 @@ export default function FogotPassword() {
 
           <InputButton
             buttonStyle={{
-              backgroundImage: ` linear-gradient(to right, #B543F1 0%, #BF3EC9 47%, #EE4086 100%)`,
+              backgroundImage: ` linear-gradient(to right, ${blue[200]} 0%, ${blue[500]} 47%, ${blue[700]} 100%)`,
               boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
               color: '#FFFFFF',
               width: 300,
@@ -58,7 +59,7 @@ export default function FogotPassword() {
           <Link to="/" className="ml-1 RegisterLink" style={{ marginLeft: 10 }}>
             <Icon
               name="chevron-small-left"
-              color="#B543F1"
+              color={blue[500]}
               size={20}
               font="Entypo"
             />{' '}

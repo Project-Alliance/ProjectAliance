@@ -300,7 +300,7 @@ const Home = (props: any) => {
                       style={{
                         marginTop: 20,
                         fontWeight: 'bold',
-                        fontSize: '15px',
+                        fontSize: 12,
                         color: '#B5B2B2',
                       }}
                     >

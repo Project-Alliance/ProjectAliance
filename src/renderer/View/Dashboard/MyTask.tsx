@@ -29,10 +29,10 @@ import TimeLine from './gantt';
       </div>
 
      <div style={{display:"flex",flexDirection:'row',}}>
-       <div style={{width:'50%',border: "0.1px solid #C8CBD9"}}>
+       <div style={{width:'50%',border: "0.1px solid #FFFFFF"}}>
        <Task_Schedule_Gantt />
        </div>
-       <div style={{width:'50%',border: "0.1px solid #C8CBD9"}}>
+       <div style={{width:'50%',border: "0.1px solid #FFFFFF"}}>
        <TimeLine />
        </div>
      </div>

@@ -14,6 +14,8 @@ import { useDispatch,
   useSelector
  } from 'react-redux';
 import { Backdrop, CircularProgress } from '@mui/material';
+import { blue } from 'renderer/AppConstants';
+import { Notification } from 'renderer/Util/Notification/Notify';
 
 
 
@@ -28,17 +30,17 @@ export default function SignIn() {
    dispatch(signin(Data))
 
   };
-  const [ErrorMessage,SetErrorMessage]=React.useState<string>('');
+
 
  React.useEffect(()=>{
    if(ServerError){
-      SetErrorMessage(ServerError.message)
+    Notification("Error",ServerError.message,"danger")
    }
    else if(errors.userName){
-     SetErrorMessage(errors?.userName?.message||'')
+    Notification("Error",errors?.userName?.message||'',"danger")
    }
    else if(errors.password){
-      SetErrorMessage(errors?.password?.message||'')
+    Notification("Error",errors?.password?.message||'','danger')
    }
  },[errors])
  const isCheckingR = useSelector(({ auth }: AUTH) => {
@@ -101,7 +103,6 @@ if(isCheckingR)
         <Row style={{ marginTop: 10 }}>
           <Col>
             <input type="text" id="email" className="inputStyle"
-            onFocus={()=>SetErrorMessage('')}
             placeholder="example@company.pa.com"
             {...register("userName", {
               required: "This input is required.",
@@ -114,7 +115,6 @@ if(isCheckingR)
           </Col>
           <Col>
             <input type="password"  id="Password" className="inputStyle"
-            onFocus={()=>SetErrorMessage('')}
             {...register("password",
             {
               required: "This input is required.",
@@ -128,9 +128,6 @@ if(isCheckingR)
           </Col>
         </Row>
 
-        <div style={{color:'red',fontSize:14,fontFamily:'Manrope',marginTop:5}}>
-          {ErrorMessage}
-        </div>
 
         <div style={{ alignItems: 'center', display: 'flex', marginTop: 25 }}>
           <input
@@ -157,7 +154,7 @@ if(isCheckingR)
         <InputButton
 
           buttonStyle={{
-            backgroundImage: ` linear-gradient(to right, #B543F1 0%, #BF3EC9 47%, #EE4086 100%)`,
+            backgroundImage: ` linear-gradient(to right, ${blue[200]} 0%, ${blue[500]} 47%, ${blue[700]} 100%)`,
             boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
             color: '#FFFFFF',
             width:300,marginTop:30

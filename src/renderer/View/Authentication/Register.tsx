@@ -13,6 +13,8 @@ import { Backdrop, CircularProgress } from '@mui/material';
 import { inputModel, validateModel } from './DataModel';
 
 import { register as REGISTER } from '../../Store/Actions/auth.action';
+import {blue} from 'renderer/AppConstants';
+import { Notification } from 'renderer/Util/Notification/Notify';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -62,28 +64,28 @@ export default function Register() {
   };
   const ValidateModel = () => {
     if (model.name.length <= 0) {
-      SetErrorMessage('Name is required');
+      Notification("Error",'Name is required',"danger");
       return false;
     } else if (!/^[A-Za-z]{3,}/.test(model.name)) {
-      SetErrorMessage('Name must be at least  3 characters');
+      Notification("Error",'Name must be at least  3 characters',"danger");
       return false;
     } else if (model.company.length <= 0) {
-      SetErrorMessage('Company Name is required');
+      Notification("Error",'Company Name is required',"danger");
       return false;
     } else if (!/^[A-Za-z]{3,}/.test(model.company)) {
-      SetErrorMessage('company Name must be at least  3 characters and valid');
+      Notification("Error",'company Name must be at least  3 characters and valid',"danger");
       return false;
     } else if (!/^\w{3,}/.test(model.userName)) {
-      SetErrorMessage('User Name must be at least  3 characters and valid');
+      Notification("Error",'User Name must be at least  3 characters and valid',"danger");
       return false;
     } else if (!/^[\w]{3,}@[a-z]*\.[a-zA-Z]*/.test(model.email)) {
-      SetErrorMessage('Email must be valid');
+      Notification("Error",'Email must be valid',"danger");
       return false;
     } else if (model.password.length < 8) {
-      SetErrorMessage('Password must be at least 8 characters');
+      Notification("Error",'Password must be at least 8 characters',"danger");
       return false;
     } else if (model.phone.length <= 2) {
-      SetErrorMessage('Phone is not empty');
+      Notification("Error",'Phone is not empty',"danger");
       return false;
     } else {
       SetErrorMessage('');
@@ -282,7 +284,7 @@ export default function Register() {
           disabled={!isAgree}
           onClick={() => onSubmit(model)}
           buttonStyle={{
-            backgroundImage: ` linear-gradient(to right, #B543F1 0%, #BF3EC9 47%, #EE4086 100%)`,
+            backgroundImage: ` linear-gradient(to right, ${blue[200]} 0%, ${blue[500]} 47%, ${blue[700]} 100%)`,
             boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
             color: '#FFFFFF',
             width: 300,

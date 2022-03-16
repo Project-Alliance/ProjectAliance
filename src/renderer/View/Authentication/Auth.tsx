@@ -20,24 +20,12 @@ export default function Auth() {
 
     return auth.user;
   });
-  // const isChecking = useSelector(({ auth }: AUTH) => {
-  //   return auth.login?.isChecking;
-  // });
+
 
   const history = useHistory();
-  // if (isChecking || isCheckingR) {
-  //   return (
-  //     <div className="Container">
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
   if (user) {
     return <Redirect to="/dashboard" />;
   }
-  // if(user?.joinedOrganization){
-  //   return <Redirect to="/addmembers" />;
-  // }
   return (
     <div className="Container">
       <Row className="row">
