@@ -10,7 +10,7 @@ import AvatarGroup from 'react-avatar-group';
 import InputButton from 'renderer/Components/InputButton';
 import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
 import { option } from './SideBarButtonsSetails';
-import AddProjectForm from 'renderer/View/CreateOrganization/addProjectForm';
+import AddProjectForm from 'renderer/View/CreateProjectForm/addProjectForm';
 import { useHistory } from 'react-router-dom';
 
 import { ProjectCollabrator } from './SideBarButtonsSetails';

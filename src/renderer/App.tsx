@@ -10,7 +10,7 @@ import {
 import { AUTH, auth } from 'Types/User.types';
 import './App.css';
 import Auth from './View/Authentication/Auth';
-import CreateOrganization from './View/CreateOrganization/createOrganization';
+import CreateOrganization from './View/CreateProjectForm/createOrganization';
 
 require('react-web-vector-icons/fonts');
 import Dashboard from 'renderer/View/Dashboard'

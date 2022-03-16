@@ -11,7 +11,7 @@ import {
 import { Mark } from '../../Constant/Images';
 import { Col, Row } from 'react-bootstrap';
 
-import CreateOrganizationCom from 'renderer/View/CreateOrganization/CreateOrganizationCom';
+import CreateOrganizationCom from 'renderer/View/CreateProjectForm/CreateOrganizationCom';
 import AddMembers from './AddMembers';
 
 function App() {
