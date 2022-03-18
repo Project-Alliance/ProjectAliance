@@ -23,6 +23,7 @@ import {sideBarButtons} from './SideBarButtonsSetails';
 import {getProjects,CreateProjects} from 'renderer/Store/Actions/Project.action';
 import { AUTH } from 'Types/User.types';
 import { getMembers } from 'renderer/Store/Actions/members.action';
+import ReportingScreen from './Reporting';
 
 
 export default function index() {
@@ -96,7 +97,7 @@ export default function index() {
             </button>
           </div>
           {/* sisde Bar end  */}
-          <div className="seprator" />
+          <div className="sepratorRight" style={{marginTop:10}} />
 
           {/* ADD LINKS TO DIFFERENT COMPONENT */}
           {sideBarButtons.map((item, index) => {
@@ -116,7 +117,7 @@ export default function index() {
             to={item.to}
           />
           {item?.seprator && <><h6 style={{ paddingLeft: 10,fontSize:12 }}>others</h6>
-          <div className="seprator" style={{ marginTop: -5 }} /></>}
+          <div className="sepratorRight" style={{ marginTop: -5 }} /></>}
           </>)
           })}
 
@@ -130,6 +131,9 @@ export default function index() {
             <Route path="/mytask" component={MyTask}  />
             <Route path="/Projects"  >
               <Projects ParentHistory={history} sideBar={displaySlide} />
+              </Route>
+              <Route path="/reporting"  >
+              <ReportingScreen ParentHistory={history} sideBar={displaySlide} />
               </Route>
               <Route path="/setting"  >
                 <div>

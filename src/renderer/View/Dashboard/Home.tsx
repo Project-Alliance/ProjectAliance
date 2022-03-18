@@ -24,6 +24,7 @@ import DataGridDemo from 'renderer/Components/PeopleGrid_View/Home_Grid_View';
 import Button from 'renderer/Components/Button';
 import { getMembers } from 'renderer/Store/Actions/members.action';
 import WorkINProgress from './Work';
+import { size } from 'renderer/AppConstants';
 
 
 const Home = (props: any) => {
@@ -84,7 +85,7 @@ const Home = (props: any) => {
             display: 'flex',
             marginLeft: props?.sideBar == 'flex' ? 20 : 60,
             justifyContent: 'space-between',
-            height:51,
+            height:size.headerHeight,
             alignItems: 'center',
             marginRight: 20,
           }}
@@ -310,7 +311,7 @@ const Home = (props: any) => {
                   <div style={{ marginTop: 16, marginLeft: '15px' }}>
                     <DropDownMenuSelect
                       values={option}
-                      handleOnClick={() => {
+                      handleOnClick={(value:any) => {
                         console.log('drop down');
                       }}
                     />
