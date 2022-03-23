@@ -18,7 +18,11 @@ normalFont:12,
 fontFamily:"Inter,sans serif",
 HeadingFont:16,
 headerHeight:56,
-
+smallCardHeight:120,
+smallCardWidth:170,
+borderRadius:20,
+chartBoxHeight:344,
+chartBoxWidth:460,
 }
 
 //SERVER URLS
