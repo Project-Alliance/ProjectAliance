@@ -24,6 +24,7 @@ import {getProjects,CreateProjects} from 'renderer/Store/Actions/Project.action'
 import { AUTH } from 'Types/User.types';
 import { getMembers } from 'renderer/Store/Actions/members.action';
 import ReportingScreen from './Reporting';
+import Inbox from 'renderer/Components/Chat Module';
 
 
 export default function index() {
@@ -134,6 +135,9 @@ export default function index() {
               </Route>
               <Route path="/reporting"  >
               <ReportingScreen ParentHistory={history} sideBar={displaySlide} />
+              </Route>
+              <Route path="/inbox"  >
+              <Inbox ParentHistory={history} sideBar={displaySlide} />
               </Route>
               <Route path="/setting"  >
                 <div>
