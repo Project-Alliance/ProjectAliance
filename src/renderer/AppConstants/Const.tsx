@@ -17,6 +17,7 @@ inputHeight: 40,
 normalFont:12,
 fontFamily:"Inter,sans serif",
 HeadingFont:16,
+headerHeight:56,
 
 }
 
