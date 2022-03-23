@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import {COLORS, size} from 'renderer/AppConstants'
+import {COLORS, size,blue} from 'renderer/AppConstants'
 
 
 export const Wrapper = styled('div')`
@@ -8,13 +8,15 @@ font-size: ${size.normalFont};
 font-family: ${size.fontFamily};
 height: 100%;
 width: 100%;
+flex-direction: column;
 `;
 
 
 export const header = styled('div')`
 font-size: inherit;
 font-family: inherit;
-height: ${size.headerHeight+1}px;
+padding-top: 7px;
+padding-bottom: 7px;
 display: flex;
 width: 100%;
 align-items: center;
@@ -55,4 +57,34 @@ font-family: Inter, sans-serif;
 export const H2=styled('div')`
 font-size: 14px;
 font-family: Inter, sans-serif;
+`;
+
+export const SmaalCardBox=styled('div')`
+font-size: ${size.normalFont}px;
+font-family: Inter, sans-serif;
+background: ${blue[50]};
+height: ${size.smallCardHeight}px;
+width: ${size.smallCardWidth}px;
+display: flex;
+flex-direction: column;
+padding: ${size.padding}px;
+align-items: center;
+border-radius: ${size.borderRadius}px;
+border: 1px solid ${COLORS.borderColor};
+&:hover{
+  border: 1px solid ${COLORS.primary};
+}
+`;
+
+export const Cartcontainer=styled('div')`
+height: ${size.chartBoxHeight}px;
+width: ${size.chartBoxWidth}px;
+display: flex;
+flex-direction: column;
+align-items: center;
+border: 1px solid ${COLORS.borderColor};
+border-radius: ${size.borderRadius}px;
+&:hover{
+  border: 1px solid ${COLORS.primary};
+}
 `;
