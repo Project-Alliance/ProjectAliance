@@ -378,9 +378,7 @@ const Home = (props: any) => {
                     key={item.projectTitle + ' ' + index}
                     className="Create-Project-Div"
                     onClick={() => {
-                      // alert("ok")
-                       ;
-                      console.log('clicked');
+                     dispatch({type:"PROJECT_SCREEN"})
                       history.push({ pathname: '/Projects', state: { item } });
                     }}
                   >

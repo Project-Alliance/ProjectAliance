@@ -35,7 +35,7 @@ export default function index() {
   const [displaySlide, setDisplaySlide] = useState('flex');
   const [width, height] = useWindowSize();
   const user = useSelector(({auth}:AUTH)=>auth.user);
-
+  const sideBarButtons = useSelector(({SideBarButton}:any)=>SideBarButton);
 
   const ref = useRef();
 
@@ -101,7 +101,7 @@ export default function index() {
           <div className="sepratorRight" style={{marginTop:10}} />
 
           {/* ADD LINKS TO DIFFERENT COMPONENT */}
-          {sideBarButtons.map((item, index) => {
+          {sideBarButtons?.map((item:any, index:number) => {
            return (<>
            <SideBarButton
             icon={true}
@@ -111,6 +111,10 @@ export default function index() {
             iconName={item.iconName}
             onClick={() => {
               setBtnName(item.to);
+              if(item.to=="/"&&item.title=="Back")
+              {
+                dispatch({type:"HOME_SCREEN"})
+              }
             }}
             color={btnName ==  item.to ? '#fff' : '#000'}
             btnName={btnName}
@@ -134,7 +138,7 @@ export default function index() {
               <Projects ParentHistory={history} sideBar={displaySlide} />
               </Route>
               <Route path="/reporting"  >
-              <ReportingScreen ParentHistory={history} sideBar={displaySlide} />
+              <ReportingScreen ParentHistory={history} history={history} sideBar={displaySlide} />
               </Route>
               <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />

@@ -125,7 +125,8 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
       />
     </Row>
 
-    <Row style={{marginLeft:60,marginRight:60,marginTop:20,justifyContent:'space-between'}}>
+    {projects.length>0&&(<>
+      <Row style={{marginLeft:60,marginRight:60,marginTop:20,justifyContent:'space-between'}}>
       <ChartBox>
         <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Task Completion</H2>
        <Row style={{height:300,width:"100%",padding:10}}>
@@ -256,13 +257,15 @@ https://www.visual-paradigm.com/features/radar-chart-tool/
 
     </Row>
 
+    </>)}
 
 
 
 
 
-   {!projects&&<>
-    {!projects&&<div style={{height:500,width:500,alignSelf:'center',backgroundColor:"#fff"}}>
+
+   {!(projects.length>0)&&<>
+    {!(projects.length>0)&&<div style={{height:500,width:500,alignSelf:'center',backgroundColor:"#fff"}}>
     <VictoryChart animate={{ duration: 2000, easing: "bounce", }}>
         <VictoryScatter
           data={state?.scatterData}
@@ -278,7 +281,7 @@ https://www.visual-paradigm.com/features/radar-chart-tool/
       </VictoryChart>
 
     </div>}
-    {!projects&&<h1 style={{fontSize:30,textAlign:'center'}}>
+    {!(projects.length>0)&&<h1 style={{fontSize:30,textAlign:'center'}}>
         No Task or Project Yet
       </h1>}
    </>}
