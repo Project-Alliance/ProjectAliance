@@ -7,7 +7,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { COLORS } from 'renderer/AppConstants';
 import { useSelector } from 'react-redux';
 import {Avatar} from '@mui/material';
-import {VictoryChart,VictoryScatter,VictoryPie,VictoryLegend,VictoryPolarAxis,VictoryBar,VictoryTheme} from 'victory';
+import {VictoryChart,VictoryScatter,VictoryPie,VictoryLegend,VictoryPolarAxis,VictoryBar,VictoryTheme, VictoryArea, VictoryCursorContainer, VictoryLine} from 'victory';
 
 
 const defaultImage = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
@@ -33,7 +33,7 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
   const user = useSelector(({User}: any) => User?.data?.user);
   const [state,setState] = React.useState<any>({})
   const data = [
-    { x: "Upcomming", y: 2 }, { x: "Due", y: 2 }, { x: "Completed", y: 3 }
+    { x: "1.0", y: 2,fill:COLORS.blue1[200] }, { x: "2.0", y: 2 ,fill:COLORS.blue1[500]}, { x: "3.0", y: 3,fill:COLORS.blue1[700] }
   ];
   const legendData = [
     { name: "Upcomming" }, { name: "Due" }, { name: "Completed" }
@@ -143,7 +143,6 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
           colorScale={[COLORS.blue1[700], COLORS.blue1[500],COLORS.blue1[200] ]}
           x={300} y={40}
           gutter={20}
-          title="Legend"
           centerTitle
           style={{ border: { stroke: COLORS.lightGray } }}
           data={legendData}
@@ -156,22 +155,31 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
        </Row>
       </ChartBox>
       <ChartBox>
-        <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Incompleted Tasks</H2>
+        <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Project Focus</H2>
        <Row style={{height:300,width:"100%",padding:10,justifyContent:'center',alignItems:'center'}}>
 
+{/*
+What is the capability level of your development team? Which part of your team requires strengthening or optimization?
+What is the focus areas that will support your development activities
+https://www.visual-paradigm.com/features/radar-chart-tool/
+*/}
        <div>
       <VictoryChart polar
         theme={VictoryTheme.material}
         height={300}
         width={420}
-      >
-        <VictoryPolarAxis/>
-        <VictoryBar
 
-          labels={() => null}  // remove labels from bar chart
-          data={data}
-          style={{ data: { fill: COLORS.blue, stroke: "black", strokeWidth: 2 }}}
+      >
+        <VictoryPolarAxis dependentAxis
+          style={{ axis: { stroke: "none" } }}
+          tickFormat={[]}
         />
+         <VictoryArea
+         colorScale={[COLORS.blue1[700], COLORS.blue1[500], COLORS.blue1[200]]}
+         style={{ data: { stroke: COLORS.blue1[700],fill:"#ffffff",strokeWidth:2 } }}
+         data={data}/>
+          <VictoryPolarAxis/>
+
 
       </VictoryChart>
     </div>
@@ -187,28 +195,29 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
 
     <Row style={{marginLeft:60,marginRight:60,marginTop:20,marginBottom:30,justifyContent:'space-between'}}>
       <ChartBox>
-        <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Task Completion</H2>
+        <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Project Control</H2>
        <Row style={{height:300,width:"100%",padding:10}}>
 
-       <svg width={420} height={250}>
 
-        <VictoryPie standalone={false}
-          width={350} height={220}
-          colorScale={[COLORS.blue1[700], COLORS.blue1[500], COLORS.blue1[200]]}
-          data={data}
-          innerRadius={100}
-          labels={() => null}
-        />
-         <VictoryLegend standalone={false}
-          colorScale={[COLORS.blue1[700], COLORS.blue1[500],COLORS.blue1[200] ]}
-          x={300} y={40}
-          gutter={20}
-          title="Legend"
-          centerTitle
-          style={{ border: { stroke: COLORS.lightGray } }}
-          data={legendData}
-        />
-      </svg>
+       <VictoryChart
+          theme={VictoryTheme.material}
+          width={420} height={250}
+        >
+          <VictoryLine
+            style={{
+              data: { stroke: COLORS.blue1[700] },
+              parent: { border: "1px solid #ccc"}
+            }}
+            data={[
+              { x: 1, y: 2 },
+              { x: 2, y: 3 },
+              { x: 3, y: 5 },
+              { x: 4, y: 4 },
+              { x: 5, y: 7 }
+            ]}
+          />
+        </VictoryChart>
+
 
 
 
@@ -216,28 +225,27 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
        </Row>
       </ChartBox>
       <ChartBox>
-        <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Task Completion</H2>
+        <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Task Completion Date</H2>
        <Row style={{height:300,width:"100%",padding:10}}>
 
-       <svg width={420} height={250}>
-
-        <VictoryPie standalone={false}
-          width={350} height={220}
-          colorScale={[COLORS.blue1[700], COLORS.blue1[500], COLORS.blue1[200]]}
-          data={data}
-          innerRadius={100}
-          labels={() => null}
-        />
-         <VictoryLegend standalone={false}
-          colorScale={[COLORS.blue1[700], COLORS.blue1[500],COLORS.blue1[200] ]}
-          x={300} y={40}
-          gutter={20}
-          title="Legend"
-          centerTitle
-          style={{ border: { stroke: COLORS.lightGray } }}
-          data={legendData}
-        />
-      </svg>
+       <VictoryChart
+          theme={VictoryTheme.material}
+          width={420} height={250}
+        >
+          <VictoryLine
+            style={{
+              data: { stroke: COLORS.blue1[700] },
+              parent: { border: "1px solid #ccc"}
+            }}
+            data={[
+              { x: 1, y: 2 },
+              { x: 2, y: 3 },
+              { x: 3, y: 5 },
+              { x: 4, y: 4 },
+              { x: 5, y: 7 }
+            ]}
+          />
+        </VictoryChart>
 
 
 
