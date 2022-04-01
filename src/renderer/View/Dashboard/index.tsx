@@ -25,6 +25,8 @@ import { AUTH } from 'Types/User.types';
 import { getMembers } from 'renderer/Store/Actions/members.action';
 import ReportingScreen from './Reporting';
 import Inbox from 'renderer/Components/Chat Module';
+import Requirements from './Requirements';
+import DocumentManagement from './DocumentsMangement';
 
 
 export default function index() {
@@ -114,6 +116,7 @@ export default function index() {
               if(item.to=="/"&&item.title=="Back")
               {
                 dispatch({type:"HOME_SCREEN"})
+                dispatch({type:"REMOVE_PROJECT"});
               }
             }}
             color={btnName ==  item.to ? '#fff' : '#000'}
@@ -141,7 +144,14 @@ export default function index() {
               <ReportingScreen ParentHistory={history} history={history} sideBar={displaySlide} />
               </Route>
               <Route path="/inbox"  >
+
               <Inbox ParentHistory={history} sideBar={displaySlide} />
+              </Route>
+              <Route path="/manage-documents"  >
+              <DocumentManagement history={history} sideBar={displaySlide} />
+              </Route>
+              <Route path="/requirements"  >
+              <Requirements  history={history} sideBar={displaySlide} />
               </Route>
               <Route path="/setting"  >
                 <div>

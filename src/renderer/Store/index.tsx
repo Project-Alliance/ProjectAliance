@@ -6,6 +6,8 @@ import Organization from "./reducers/Organization.reducer";
 import Project from './reducers/Project.reducer';
 import Members from './reducers/Members.reducer';
 import {SideBarButton} from "./reducers/SideBarReducers"
+import {SelectedProject} from "./reducers/SelectedProjectReducers"
+
 
 
 
@@ -19,6 +21,7 @@ const store = createStore(
     auth,
     Project,
     SideBarButton,
+    SelectedProject,
     organization:Organization,
     Members:Members
   }),

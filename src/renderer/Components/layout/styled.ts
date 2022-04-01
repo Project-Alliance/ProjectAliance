@@ -15,8 +15,8 @@ flex-direction: column;
 export const header = styled('div')`
 font-size: inherit;
 font-family: inherit;
-padding-top: 7px;
-padding-bottom: 7px;
+padding-top: 5px;
+padding-bottom: 5px;
 display: flex;
 width: 100%;
 align-items: center;
