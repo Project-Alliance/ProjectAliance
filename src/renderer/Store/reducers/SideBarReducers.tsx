@@ -11,7 +11,7 @@ export const HomeSideBarButtons=[
 
     title:"My Task",
     font:"FontAwesome",
-    iconName:"tasks",
+    iconName:"linode",
     to:"/mytask"
 },
 {
@@ -78,51 +78,51 @@ export const ProjectSideBarButtons=[
   },
   {
 
-    title:"Requirement Analysis",
-    font:"FontAwesome",
-    iconName:"tasks",
-    to:"/requirementanalysis"
+    title:"Manage Documents",
+    font:"AntDesign",
+    iconName:"switcher",
+    to:"/manage-documents"
+},
+  {
+
+    title:"Manage Requirements",
+    font:"AntDesign",
+    iconName:"switcher",
+    to:"/requirements"
 },
 {
 
   title:"Design",
   font:"FontAwesome",
-  iconName:"tasks",
+  iconName:"tencent-weibo",
   to:"/design"
 },
 {
 
   title:"Development",
-  font:"FontAwesome",
-  iconName:"tasks",
+  font:"Entypo",
+  iconName:"code",
   to:"/development"
 },
 {
 
   title:"Testing",
-  font:"FontAwesome",
-  iconName:"tasks",
+  font:"Feather",
+  iconName:"sliders",
   to:"/testing"
 },
 {
 
-  title:"Deployment",
-  font:"FontAwesome",
-  iconName:"tasks",
-  to:"/deployment"
-},
-{
-
   title:"Release",
-  font:"FontAwesome",
-  iconName:"tasks",
+  font:"AntDesign",
+  iconName:"rocket1",
   to:"/release"
 },
   {
 
     title:"My Task",
     font:"FontAwesome",
-    iconName:"tasks",
+    iconName:"linode",
     to:"/mytask"
 },
 {
