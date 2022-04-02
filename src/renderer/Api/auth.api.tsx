@@ -73,13 +73,41 @@ class ApiCntainerClass {
     }
   return http.get(`/Project/get/${company}`,{headers:header});
   }
+
   UploadDocument(data:any,token:string)
   {
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
-  return http.post(`/File/upload`,data,{headers:header});
+  return http.post(`/document/SaveDocument`,data,{headers:header});
+  }
+
+  CreateDocumentSection(data:any,token:string)
+  {
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.post(`/document/createsection`,data,{headers:header});
+  }
+  SaveDocumentToDatabase(data:any,token:string)
+  {
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.post(`/document/saveDocumentToDatabase`,data,{headers:header});
+  }
+
+  GetDocument(pid:any,token:string)
+  {
+
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.get(`/document/GetDocument/${pid}`,{headers:header});
   }
 
 
