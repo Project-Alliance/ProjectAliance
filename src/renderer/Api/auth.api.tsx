@@ -110,6 +110,35 @@ class ApiCntainerClass {
   return http.get(`/document/GetDocument/${pid}`,{headers:header});
   }
 
+  DeleteSection(sid:any,token:string)
+  {
+
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.delete(`/document/deleteSection/${sid}`,{headers:header});
+  }
+
+  DeleteDocument(documentId:number,token:string)
+  {
+
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.delete(`/document/DeleteDocument/${documentId}`,{headers:header});
+  }
+
+  UpdateDocument(documentId:number,data:any,token:string)
+  {
+
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.put(`/document/UpdateDocument/${documentId}`,data,{headers:header});
+  }
 
 
 

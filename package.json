@@ -150,6 +150,7 @@
     "@testing-library/react": "^12.1.2",
     "@types/enzyme": "^3.10.10",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/file-saver": "^2.0.5",
     "@types/history": "4.7.9",
     "@types/jest": "^27.0.3",
     "@types/node": "17.0.5",
@@ -219,6 +220,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.8",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@hookform/error-message": "^2.0.0",
@@ -242,6 +244,7 @@
     "react-bootstrap": "^2.0.2",
     "react-chat-engine": "^1.11.22",
     "react-dom": "^17.0.2",
+    "react-file-viewer": "^0.5.0",
     "react-hook-form": "^7.19.5",
     "react-icons": "^4.3.1",
     "react-notifications-component": "^3.4.1",
@@ -255,6 +258,7 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.0",
     "regenerator-runtime": "^0.13.9",
+    "stream": "0.0.2",
     "victory": "^36.3.1"
   },
   "devEngines": {
@@ -262,6 +266,11 @@
     "npm": ">=7.x"
   },
   "browserslist": [],
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "prettier": {
     "overrides": [
       {

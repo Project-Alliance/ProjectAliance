@@ -19,15 +19,14 @@ const getMembers=(company:string,accessToken:string) =>async(dispatch:any)=>{
 }
 
 const deleteMembers=(id:number,accessToken:string) =>async(dispatch:any)=>{
-debugger
+
   Api.deleteMembers(id,accessToken).then((result:any)=>{
-    debugger
-    console.log(id)
+
     if(result?.data?.status==200)
     {dispatch({type:"DELETE_MEMBERS_SUCCESS",members:{id:id}})}
     else{alert("ERROR" + result?.data?.message)}})
   .catch((error:any)=>{
-    debugger
+
     if(error.message=="Network Error")
     alert("Can not Delete Due to Network Error")
     else

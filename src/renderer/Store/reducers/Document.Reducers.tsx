@@ -3,14 +3,15 @@ import { combineReducers } from 'redux';
 
 
 interface ActionType{
-  type:"SAVE_DOCUMENT_INIT"|"SAVE_DOCUMENT_SUCCESS"|"SAVE_DOCUMENT_ERROR"|"GET_DOCUMENT_INIT"|"GET_DOCUMENT_SUCCESS"|"GET_DOCUMENT_ERROR";
+  type:"SAVE_DOCUMENT_INIT"|"SAVE_DOCUMENT_SUCCESS"|"SAVE_DOCUMENT_ERROR"|"GET_DOCUMENT_INIT"|"GET_DOCUMENT_SUCCESS"|"GET_DOCUMENT_ERROR"|"DELETE_DOCUMENT";
   document:any;
+  documentId:number;
   }
 
 
- const DocumentManager = (state =[] , action:ActionType) => {
+ const DocumentManager = (state:any =[] , action:ActionType) => {
 
-  debugger
+
   const { type, document } = action;
   switch (type) {
     case 'GET_DOCUMENT_INIT':
@@ -19,6 +20,7 @@ interface ActionType{
     case 'GET_DOCUMENT_SUCCESS':
       case 'SAVE_DOCUMENT_SUCCESS':
       return document;
+
     default:
       return state;
  }

@@ -34,10 +34,12 @@ const register=(Data:IFormInput)=> (dispatch: any)=>{
     name:Data.name,
     phone:Data.phone,
     company:Data.company,
+
   }).then(data=>{
         dispatch({type:"AUTH_REGISTER_SUCCESS"})
         Data.userName=Data.userName+"@"+Data.company+".pa.com";
-    dispatch(signin(Data))
+
+          dispatch(signin(Data))
     return data;
   })
   .catch((err)=>

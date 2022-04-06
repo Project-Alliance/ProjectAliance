@@ -14,5 +14,4 @@
     "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.js",
     "postinstall": "npm run electron-rebuild && npm run link-modules"
   }
-
 }
