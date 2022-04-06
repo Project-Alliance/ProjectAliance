@@ -1,9 +1,19 @@
+
+
 declare module 'react-web-vector-icons' {
 
   export default function Icon({name,size,color,font}:icon):any;
 }
 // import Icon from './src/index'
 
+declare module 'react-file-preview-latest' {
+
+  export default function FileViewer({file,type,url,onError}:FileViewerType):any;
+}
+declare module 'react-file-viewer' {
+
+  export default function FileViewer({fileType,filePath,errorComponent,onError}:reactFileViewer):any;
+}
 
 
 interface icon {
@@ -15,5 +25,25 @@ style?:{},
 className?:string
 
 }
+
+
+
+interface reactFileViewer {
+  fileType: string,
+  filePath?: any,
+  errorComponent?:()=>void,
+
+  onError?:()=>void,
+  }
+interface FileViewerType {
+  type: string,
+  file?: any,
+  url?: string,
+
+  onError?:()=>void,
+  }
+
+
+
 
 

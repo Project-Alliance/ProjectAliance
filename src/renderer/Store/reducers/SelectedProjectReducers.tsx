@@ -7,7 +7,7 @@ type:"SELECT_PROJECT"|"REMOVE_PROJECT";
 
 export const SelectedProject=(state={},action:ActionType)=>{
 
-  debugger;
+
   const {project,type}=action
   switch(type)
   {

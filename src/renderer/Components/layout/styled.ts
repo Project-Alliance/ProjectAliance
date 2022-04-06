@@ -88,3 +88,29 @@ border-radius: ${size.borderRadius}px;
   border: 1px solid ${COLORS.primary};
 }
 `;
+
+export const InputP=styled('input')`
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  font-size: ${size.normalFont}px;
+  width: auto;
+&:focus{
+  border: 1px solid ${COLORS.primary};
+}
+`;
+
+export const InputSelect=styled('select')`
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  font-size: ${size.normalFont}px;
+  padding: none;
+  width: auto;
+&:focus{
+  border: 1px solid ${COLORS.primary};
+}
+`;

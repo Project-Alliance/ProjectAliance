@@ -131,7 +131,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
         }
       })
       .catch((err) => {
-        debugger
+
         if(err?.message=="Network Error")
         Notification("Error","Network Error","danger");
         else
@@ -289,7 +289,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
                           value={item?.role||""}
 
                           onChange={event=>{
-                            debugger;
+
                             setAddRole(event.target.value)
                             HandleRole(event,index)}}
                             onBlur={(event)=>{
