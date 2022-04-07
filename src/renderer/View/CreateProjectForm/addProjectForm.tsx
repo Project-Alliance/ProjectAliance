@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import InputButton from 'renderer/Components/InputButton';
 import Popup from './Popup';
 import {projectDataModel} from './DataModel';
-import {useSelector} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
 import Api from "renderer/Api/auth.api";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -12,6 +12,7 @@ import {Button,Box,} from '@mui/material';
 import {Notification} from 'renderer/Util/Notification/Notify'
 import {blue} from "renderer/AppConstants";
 import {Label,Input,SelectRole,Row,Tab,TabPanel,TabsList,TabsUnstyled} from 'renderer/Components/muiStyledComponent';
+import { getProjects } from 'renderer/Store/Actions/Project.action';
 
 
 interface ColourOption {
@@ -28,6 +29,7 @@ const rolesForSelection=[]
 const animatedComponents = makeAnimated();
 function AddProjectForm({isOpen,setIsOpen}:any) {
 
+  const dispatch=useDispatch();
   const MemberSelect=(item:any)=>({
     value: item.id,
     label: item.name,
@@ -125,6 +127,8 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
         if (res.data.status == 200) {
           Notification("Crearted",res.data.message,"success");
           togglePopup();
+          dispatch(getProjects(user.company,user.accessToken));
+
           setDataModel({ ...projectDataModel });
         } else {
           Notification("Error",res.data.message,"danger");
@@ -143,6 +147,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
     <>
       {isOpen && (
         <Popup
+        height={'auto'}
           handleClose={togglePopup}
           content={
             <>
