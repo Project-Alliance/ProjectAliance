@@ -493,3 +493,15 @@ todo-row-Date {
 .todo-row-Date:nth-child(4n + 1) {
   background: rgba(39, 16, 83, 0.815) 0%;
 }
+
+
+.Scrollbar{
+  overflow-y : auto;
+  // scrollbar-width: thin;
+  margin-left: 10px;
+}
+
+.Scrollbar::-webkit-scrollbar {
+   width: 0rem;
+  }
+
