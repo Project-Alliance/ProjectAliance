@@ -5,10 +5,15 @@ import auth from "./reducers/auth.reducer";
 import Organization from "./reducers/Organization.reducer";
 import Project from './reducers/Project.reducer';
 import Members from './reducers/Members.reducer';
+<<<<<<< HEAD
 import DocumentManager from './reducers/Document.Reducers';
 import {SideBarButton} from "./reducers/SideBarReducers"
 import {SelectedProject} from "./reducers/SelectedProjectReducers"
 
+=======
+import {SideBarButton} from "./reducers/SideBarReducers";
+import ProjectGoals from './reducers/Goals.reducer';
+>>>>>>> 4a64263 (message)
 
 
 
@@ -25,7 +30,8 @@ const store = createStore(
     SelectedProject,
     DocumentManager,
     organization:Organization,
-    Members:Members
+    Members:Members,
+    ProjectGoals:ProjectGoals
   }),
   applyMiddleware(...middleware)
 );

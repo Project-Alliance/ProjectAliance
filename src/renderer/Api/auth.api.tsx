@@ -83,12 +83,17 @@ class ApiCntainerClass {
   return http.post(`/document/SaveDocument`,data,{headers:header});
   }
 
+<<<<<<< HEAD
   CreateDocumentSection(data:any,token:string)
+=======
+  CreateGoals(data:any,token:string)
+>>>>>>> 4a64263 (message)
   {
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
+<<<<<<< HEAD
   return http.post(`/document/createsection`,data,{headers:header});
   }
   SaveDocumentToDatabase(data:any,token:string)
@@ -138,9 +143,19 @@ class ApiCntainerClass {
       'Authorization': "Bearer "+ token
     }
   return http.put(`/document/UpdateDocument/${documentId}`,data,{headers:header});
+=======
+  return http.post(`/Goals/Create`,data,{headers:header});
+>>>>>>> 4a64263 (message)
   }
 
-
+  GetGoals(data:any,token:string)
+  {
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+    return http.get(`/Goals/get/${data}`,{headers:header});
+  }
 
 }
 
