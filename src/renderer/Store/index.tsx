@@ -5,15 +5,11 @@ import auth from "./reducers/auth.reducer";
 import Organization from "./reducers/Organization.reducer";
 import Project from './reducers/Project.reducer';
 import Members from './reducers/Members.reducer';
-<<<<<<< HEAD
 import DocumentManager from './reducers/Document.Reducers';
 import {SideBarButton} from "./reducers/SideBarReducers"
 import {SelectedProject} from "./reducers/SelectedProjectReducers"
+import ProjectGoals from "./reducers/Goals.reducer"
 
-=======
-import {SideBarButton} from "./reducers/SideBarReducers";
-import ProjectGoals from './reducers/Goals.reducer';
->>>>>>> 4a64263 (message)
 
 
 
