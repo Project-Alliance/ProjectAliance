@@ -25,8 +25,12 @@ import { AUTH } from 'Types/User.types';
 import { getMembers } from 'renderer/Store/Actions/members.action';
 import ReportingScreen from './Reporting';
 import Inbox from 'renderer/Components/Chat Module';
+<<<<<<< HEAD
 import Requirements from './Requirements';
 import DocumentManagement from './DocumentsMangement';
+=======
+import Goals from './Goals';
+>>>>>>> 4a64263 (message)
 
 
 export default function index() {
@@ -143,6 +147,7 @@ export default function index() {
               <Route path="/reporting"  >
               <ReportingScreen ParentHistory={history} history={history} sideBar={displaySlide} />
               </Route>
+<<<<<<< HEAD
               <Route path="/inbox"  >
 
               <Inbox ParentHistory={history} sideBar={displaySlide} />
@@ -153,6 +158,14 @@ export default function index() {
               <Route path="/requirements"  >
               <Requirements  history={history} sideBar={displaySlide} />
               </Route>
+=======
+              <Route path="/Goals"  >
+                <Goals ParentHistory={history}  sideBar={displaySlide} />
+              </Route>
+              {/* <Route path="/inbox"  >
+              <Inbox ParentHistory={history} sideBar={displaySlide} />
+              </Route> */}
+>>>>>>> 4a64263 (message)
               <Route path="/setting"  >
                 <div>
                 <button

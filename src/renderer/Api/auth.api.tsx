@@ -5,7 +5,7 @@ class ApiCntainerClass {
 
 
   SignIn(data:any) {
-     ;
+
     return http.post("/auth/signin", data);
   }
 
@@ -66,6 +66,7 @@ class ApiCntainerClass {
      ;
   return http.post('/Project/create', data,{headers:header});
   }
+
   GetProjects(company:string,token:string) {
     const header = {
       'Content-Type': 'application/json',
@@ -91,6 +92,7 @@ class ApiCntainerClass {
     }
   return http.post(`/document/createsection`,data,{headers:header});
   }
+
   SaveDocumentToDatabase(data:any,token:string)
   {
     const header = {
@@ -140,7 +142,14 @@ class ApiCntainerClass {
   return http.put(`/document/UpdateDocument/${documentId}`,data,{headers:header});
   }
 
-
+  GetGoals(data:any,token:string)
+  {
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+    return http.get(`/Goals/get/${data}`,{headers:header});
+  }
 
 }
 
