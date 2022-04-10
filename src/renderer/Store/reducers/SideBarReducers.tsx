@@ -78,7 +78,7 @@ export const ProjectSideBarButtons=[
   },
   {
 
-    title:"Manage Documents",
+    title:"Mail Document",
     font:"AntDesign",
     iconName:"switcher",
     to:"/manage-documents"
