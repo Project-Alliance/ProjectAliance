@@ -139,7 +139,37 @@ class ApiCntainerClass {
     }
   return http.put(`/document/UpdateDocument/${documentId}`,data,{headers:header});
   }
+  GetProjectteam(pid:number,token:string)
+  {
 
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+  return http.get(`/Project/getProjectTeam/${pid}`,{headers:header});
+  }
+  AddTeamMember(pid:number,data:any,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Project/AddProjectTeam/${pid}`,data,{headers:header});
+  }
+  UpdateTeamMember(teamid:number,data:any,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Project/updateteam/${teamid}`,data,{headers:header});
+  }
+
+  RemoveTeamMember(teamid:number,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Project/reomoveteam/${teamid}`,{headers:header});
+  }
 
 
 }

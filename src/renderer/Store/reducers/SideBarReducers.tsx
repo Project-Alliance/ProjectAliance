@@ -118,6 +118,13 @@ export const ProjectSideBarButtons=[
   iconName:"rocket1",
   to:"/release"
 },
+{
+
+  title:"Manage Project Team",
+  font:"Feather",
+  iconName:"users",
+  to:"/ManageTeam"
+},
   {
 
     title:"My Task",

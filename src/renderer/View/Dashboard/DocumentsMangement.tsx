@@ -470,6 +470,7 @@ const AddDocumentSections = ({ isOpen, setIsOpen }: uploadcomprops) => {
       console.log("res",res)
       if(res.status==200){
         dispatch(GetDocument(selectedProject?.pid,user?.accessToken));
+        setDataModel(DocumentSection);
         setIsOpen(false);
         Notification('Success','Section Created Successfully',"success");
       }else{
@@ -565,27 +566,38 @@ const AddDocumentSections = ({ isOpen, setIsOpen }: uploadcomprops) => {
 
 
 const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcomprops) => {
+
+  const user = useSelector(({ auth }: any) => auth.user);
+  const dispatch = useDispatch();
+  const [dataModel, setDataModel] = React.useState<documentFormAttributeType>(documentFormAttribute);
   const togglePopup = () => {
     setDataModel(documentFormAttribute);
     setIsOpen(!isOpen);
   };
+
   const MemberSelect = (item: any) => ({
-    value: item.id,
+    value: item.userId,
     label: item.name,
     color: '#aeeeee',
     isFixed: true,
     isDisabled: false,
+    role:item.role,
+    email:item.email,
   });
+  React.useEffect(()=>{
+    Api.GetProjectteam(Number(projectId),user?.accessToken).then((res:any)=>{
+      console.log(res.data)
+      if(res.status==200){
+        let team=res.data.map((item:any)=>MemberSelect(item));
+        setMembers(team);
+      }
+    }).catch((err:any)=>{})
+  })
   const animatedComponents = makeAnimated();
-  const Members = useSelector(({ Members }: any) =>
-    Members.data.map((item: any) => MemberSelect(item))
-  );
-  const user = useSelector(({ auth }: any) => auth.user);
-  const dispatch = useDispatch();
+  const [Members,setMembers] = React.useState<any>();
 
 
-  const [dataModel, setDataModel] = React.useState<documentFormAttributeType>(documentFormAttribute);
-  const [fileName,setFile]=React.useState();
+
   const onNameChangeHandle = (event: any) => {
     setDataModel({ ...dataModel, documentName: event.target.value });
   };
@@ -667,6 +679,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
               if(response.status==200)
               {
                 setIsOpen(false);
+                setDataModel(documentFormAttribute);
                 dispatch(GetDocument(projectId?projectId:"0",user?.accessToken));
                 Notification('Success','Document Uploaded Successfully',"success");
               }
