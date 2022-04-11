@@ -60,6 +60,7 @@ React.useEffect(() => {
 
 
         </Row>
+
       </Col>
 
       </Row>
@@ -81,7 +82,7 @@ React.useEffect(() => {
            <textarea value={state.textAreaValue} onChange={handleChange} placeholder='Add your company mission to align your work and stay inspired. Only members with full access can edit.' style={{fontSize:14,width:600,borderColor: 'grey',height:50, borderWidth:1,borderStyle:'dotted',borderColor:'white' }}></textarea>
          </div>
 
-         <div style={{}}>
+         <div style={{flexDirection:'row',display:'flex',marginRight:100}}>
          <button
           onClick={(props: any) => {
              setIsOpen(!isOpen);
@@ -92,6 +93,21 @@ React.useEffect(() => {
              Goals
            <Icon  name='plus' font='Entypo'  color="#007FFF"  size={20} style={{marginLeft:10}}/>
           </button>
+          <button
+                className="btn"
+                onClick={() =>
+                  {
+                  dispatch(GetGoals( '1' , user.accessToken));
+                  }
+                }
+              >
+                <Icon
+                  name="refresh"
+                  size={25}
+                  color="#000"
+                  font="MaterialCommunityIcons"
+                />
+              </button>
          </div>
          <div style={{marginTop:10}}>
         {goals?.map((item: any)=>(
