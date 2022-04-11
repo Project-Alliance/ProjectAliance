@@ -87,8 +87,10 @@ const data = [
 
 function TimeLine() {
   return (
+     <div style={{border:1,borderStyle:'solid',borderColor:'#26c7e7'}}>
+       <Chart data={data} />
+     </div>
 
-      <Chart data={data} />
 
   );
 }

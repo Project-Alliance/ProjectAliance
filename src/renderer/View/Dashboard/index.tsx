@@ -27,7 +27,11 @@ import ReportingScreen from './Reporting';
 import Inbox from 'renderer/Components/Chat Module';
 import Requirements from './Requirements';
 import DocumentManagement from './DocumentsMangement';
+ 
 import ProjectTeam from './ProjectTeam';
+ 
+import Goals from './Goals';
+ 
 
 
 export default function index() {
@@ -146,7 +150,7 @@ export default function index() {
               </Route>
               <Route path="/inbox"  >
 
-              <Inbox ParentHistory={history} sideBar={displaySlide} />
+              {/* <Inbox ParentHistory={history} sideBar={displaySlide} /> */}
               </Route>
               <Route path="/manage-documents"  >
               <DocumentManagement history={history} sideBar={displaySlide} />
@@ -157,6 +161,12 @@ export default function index() {
               <Route path="/requirements"  >
               <Requirements  history={history} sideBar={displaySlide} />
               </Route>
+              <Route path="/Goals"  >
+                <Goals ParentHistory={history}  sideBar={displaySlide} />
+              </Route>
+              {/* <Route path="/inbox"  >
+              <Inbox ParentHistory={history} sideBar={displaySlide} />
+              </Route> */}
               <Route path="/setting"  >
                 <div>
                 <button

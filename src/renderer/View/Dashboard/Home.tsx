@@ -12,7 +12,7 @@ import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
 import { option } from './SideBarButtonsSetails';
 import AddProjectForm from 'renderer/View/CreateProjectForm/addProjectForm';
 import { useHistory } from 'react-router-dom';
-
+// import ProjectTables from 'renderer/Components/Product_Listing';
 import { ProjectCollabrator } from './SideBarButtonsSetails';
 import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -381,8 +381,7 @@ const Home = (props: any) => {
                     dispatch({type:"SELECT_PROJECT",project:{...item}})
                      dispatch({type:"PROJECT_SCREEN"})
                       history.push({ pathname: '/Projects', state: { item } });
-                    }}
-                  >
+                    }} >
                     <div className="Left-Create-Project">
                       <Icon
                         name={item.pIconName || 'bars'}
@@ -454,6 +453,9 @@ const Home = (props: any) => {
           <div className="People-project">
             <DataGridDemo data={Members} />
           </div>
+          {/* <div>
+            <ProjectTables />
+          </div> */}
 
         </div>
       </div>

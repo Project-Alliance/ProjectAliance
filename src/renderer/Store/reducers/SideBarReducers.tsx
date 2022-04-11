@@ -9,7 +9,7 @@ export const HomeSideBarButtons=[
   },
   {
 
-    title:"My Task",
+    title:"Project Schedule",
     font:"FontAwesome",
     iconName:"linode",
     to:"/mytask"

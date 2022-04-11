@@ -5,7 +5,7 @@ class ApiCntainerClass {
 
 
   SignIn(data:any) {
-     ;
+
     return http.post("/auth/signin", data);
   }
 
@@ -66,6 +66,7 @@ class ApiCntainerClass {
      ;
   return http.post('/Project/create', data,{headers:header});
   }
+
   GetProjects(company:string,token:string) {
     const header = {
       'Content-Type': 'application/json',
@@ -91,6 +92,7 @@ class ApiCntainerClass {
     }
   return http.post(`/document/createsection`,data,{headers:header});
   }
+
   SaveDocumentToDatabase(data:any,token:string)
   {
     const header = {
@@ -142,10 +144,12 @@ class ApiCntainerClass {
   GetProjectteam(pid:number,token:string)
   {
 
+ 
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
+ 
   return http.get(`/Project/getProjectTeam/${pid}`,{headers:header});
   }
   AddTeamMember(pid:number,data:any,token:string){
@@ -171,6 +175,7 @@ class ApiCntainerClass {
     return http.delete(`/Project/reomoveteam/${teamid}`,{headers:header});
   }
 
+ 
 
 }
 
