@@ -8,7 +8,7 @@ export const sideBarButtons=[
   },
   {
 
-    title:"My Task",
+    title:"Project Schedule",
     font:"FontAwesome",
     iconName:"tasks",
     to:"/mytask"
