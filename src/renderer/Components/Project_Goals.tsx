@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // import InputButton from 'renderer/Components/InputButton';
 import Popup from '../View/CreateProjectForm/Popup';
 import { projectGoalModel } from './GoalModel';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import Api from "renderer/Api/auth.api";
 // import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -21,7 +21,7 @@ import {
   TabsList,
   TabsUnstyled,
 } from 'renderer/Components/muiStyledComponent';
-import { header } from './layout/styled';
+import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
 
 interface ColourOption {
   readonly value: string;
@@ -52,6 +52,7 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
   const [newRole, setNewRole] = useState<any>([]);
   const [addRole, setAddRole] = useState<any>('');
   const user = useSelector(({ auth }: any) => auth.user);
+  const dispatch = useDispatch();
   // const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
 
   const [dataModel, setDataModel] = useState(projectGoalModel);
@@ -129,6 +130,7 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
           Notification('Crearted', res.data.message, 'success');
 
           togglePopup();
+          dispatch(GetGoals(user.company, user.accessToken));
           setDataModel({ ...projectGoalModel });
         } else {
           Notification('Error', res.data.message, 'danger');
