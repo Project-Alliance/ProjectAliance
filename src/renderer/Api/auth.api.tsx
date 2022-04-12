@@ -182,6 +182,15 @@ class ApiCntainerClass {
     };
     return http.delete(`/Project/reomoveteam/${teamid}`,{headers:header});
   }
+
+  RemoveGoal(goalid:number,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/goals/delete/${goalid}`,{headers:header});
+  }
 }
+
 
 export default new ApiCntainerClass();
