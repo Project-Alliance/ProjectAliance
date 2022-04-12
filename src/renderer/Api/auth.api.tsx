@@ -142,14 +142,23 @@ class ApiCntainerClass {
   return http.put(`/document/UpdateDocument/${documentId}`,data,{headers:header});
   }
 
-  GetGoals(data:any,token:string)
+  GetGoals(company:string,token:string)
   {
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
-    return http.get(`/Goals/get/${data}`,{headers:header});
+    return http.get(`/Goals/get/${company}`,{headers:header});
   }
+
+  DeleteGoals(id:number,token:string)
+  {
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+  }
+  return http.delete(`/Goals/delete/${id}`,{headers:header});
+ }
 
 }
 
