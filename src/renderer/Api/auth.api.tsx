@@ -141,6 +141,17 @@ class ApiCntainerClass {
     }
   return http.put(`/document/UpdateDocument/${documentId}`,data,{headers:header});
   }
+
+  GetGoals(company:string,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+    return http.get(`/goals/get/${company}`,{headers:header});
+  }
+
+
+
   GetProjectteam(pid:number,token:string)
   {
 

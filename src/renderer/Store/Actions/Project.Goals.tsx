@@ -2,10 +2,10 @@ import Api from "renderer/Api/auth.api";
 import {useSelector} from "react-redux"
 import { AUTH } from "Types/User.types";
 
-const GetGoals=(data:string,accessToken:string) =>(dispatch:any)=>{
+const GetGoals=(company:string,accessToken:string) =>(dispatch:any)=>{
       dispatch({type:"GET_GOALS_INIT"})
 
-      Api.GetGoals(data,accessToken).then(data=>{
+      Api.GetGoals(company,accessToken).then(data=>{
         if(data?.status==200)
         {
           debugger
