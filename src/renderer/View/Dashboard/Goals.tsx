@@ -13,11 +13,9 @@ import { RouteComponentProps } from 'react-router-dom';
 import { COLORS, size } from 'renderer/AppConstants';
 import { alpha, styled } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { Avatar, Box, Button, Menu, MenuItem } from '@mui/material';
+import { Avatar } from '@mui/material';
 import Icon from 'react-web-vector-icons';
 import Project_Goals from 'renderer/Components/Project_Goals';
-import { Notification } from 'renderer/Util/Notification/Notify';
-import Api from 'renderer/Api/auth.api';
 import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
 
 const defaultImage =
@@ -30,49 +28,23 @@ interface Props {
 export default function Goals({ ParentHistory, sideBar }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   var [state, setState] = useState({ textAreaValue: '' });
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
   const goals = useSelector(({ ProjectGoals }: any) => ProjectGoals.Goals);
-  const projects = useSelector(({ Project }: any) =>
-    Project?.data?.projects ? Project?.data?.projects : []
-  );
-  const [selectedProject, setSelectedProject] = React.useState(projects[0]);
-  const user = useSelector(({ auth }: any) => auth.user);
   const dispatch = useDispatch();
-  const open = Boolean(anchorEl);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleDelete = (id: number) => {
-    debugger;
-    Api.DeleteGoals(id, user?.accessToken)
-      .then((res) => {
-        if (res.status === 200) {
-          Notification('Sucess', 'Goal Deleted Successfully', 'success');
-        } else {
-          Notification('Error', 'Error while deleting the goal', 'danger');
-        }
-        dispatch(GetGoals(selectedProject?.id, user?.accessToken));
-      })
-      .catch((err) => {
-        Notification('Error', 'Can not deleted', 'danger');
-      });
-    setAnchorEl(null);
-  };
-
   var handleChange = (event: any) => {
     setState({ textAreaValue: event.target.value });
   };
+  // data required in header
+
+  const projects = useSelector(({ Project }: any) =>
+    Project?.data?.projects ? Project?.data?.projects : []
+  );
+  const [selectedProject, setSelectedProject] = React.useState(projects[0]);
+  const user = useSelector(({ auth }: any) => auth.user);
 
   React.useEffect(() => {
     dispatch(GetGoals(user.company, user.accessToken));
@@ -162,7 +134,6 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
               style={{
                 fontSize: 14,
                 width: 600,
-                // borderColor: 'grey',
                 height: 50,
                 borderWidth: 1,
                 borderStyle: 'dotted',
@@ -226,7 +197,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                   justifyContent: 'space-between',
                 }}
               >
-                <div style={{ width: 400 }}>
+                <div>
                   <div
                     style={{
                       margin: 10,
@@ -247,7 +218,6 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                     {item.goalDescription}
                   </div>
                 </div>
-
                 <div style={{ marginLeft: 10 }}>
                   <div style={{ margin: 10, fontFamily: 'sans-serif' }}>
                     {item.statingDate}
@@ -261,41 +231,6 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                   >
                     {item.endingDate}
                   </div>
-                </div>
-                <div>
-                  <Button
-                    id="demo-positioned-button"
-                    aria-controls={open ? 'demo-positioned-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
-                  >
-                    <Icon
-                      name="dots-three-vertical"
-                      font="Entypo"
-                      color="#000"
-                      size={20}
-                    />
-                  </Button>
-                  <Menu
-                    id="demo-positioned-menu"
-                    aria-labelledby="demo-positioned-button"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left',
-                    }}
-                  >
-                    <MenuItem onClick={() => handleDelete(goals.id)}>
-                      Delete
-                    </MenuItem>
-                  </Menu>
                 </div>
               </div>
             ))}

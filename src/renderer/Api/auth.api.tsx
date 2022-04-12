@@ -142,24 +142,46 @@ class ApiCntainerClass {
   return http.put(`/document/UpdateDocument/${documentId}`,data,{headers:header});
   }
 
-  GetGoals(company:string,token:string)
+  GetGoals(company:string,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    }
+    return http.get(`/goals/get/${company}`,{headers:header});
+  }
+
+
+
+  GetProjectteam(pid:number,token:string)
   {
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
-    return http.get(`/Goals/get/${company}`,{headers:header});
+  return http.get(`/Project/getProjectTeam/${pid}`,{headers:header});
   }
-
-  DeleteGoals(id:number,token:string)
-  {
+  AddTeamMember(pid:number,data:any,token:string){
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Project/AddProjectTeam/${pid}`,data,{headers:header});
   }
-  return http.delete(`/Goals/delete/${id}`,{headers:header});
- }
+  UpdateTeamMember(teamid:number,data:any,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Project/updateteam/${teamid}`,data,{headers:header});
+  }
 
+  RemoveTeamMember(teamid:number,token:string){
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Project/reomoveteam/${teamid}`,{headers:header});
+  }
 }
 
 export default new ApiCntainerClass();

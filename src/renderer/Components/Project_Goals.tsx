@@ -97,24 +97,15 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
       );
       return false;
     }
-    // else if(dataModel.team.length>0){
-    //   let vlaid=true;
-    //   dataModel.team.map((item:any,index:any)=>{
-    //     if(!item?.role){
-    //   Notification("Validation Error","PLease Assign Role to "+item.label,"danger");
-    //   vlaid = false;
-    //     }
-    //   })
-    //   return vlaid;
-    // }
-    return true;
-  };
+     return true;
+  }
 
-  const handleSubmit = () => {
-    // if(!isValid())
-    // {
-    //   return;
-    // }
+  const handleSubmit=()=>{
+
+    if(!isValid())
+    {
+      return;
+    }
     const dataa = {
       GoalName: dataModel.GoalName,
       GoalDescription: dataModel.GoalDescription,
@@ -122,10 +113,8 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
       endDate: dataModel.endDate,
       companyName: user.company,
     };
-    console.log(
-      'hddddddddddddddddddddddddddddddddddddddddddddddcsddsbnbnbsdnbbb',
-      dataa
-    );
+
+
 
     const url = 'http://localhost:5000/api/Goals/Create';
     const header = {
@@ -238,26 +227,7 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
                         placeholder="End Date"
                         name="endDate"
                       />
-                      {/* <Select
-                        closeMenuOnSelect={false}
-                        components={animatedComponents}
-                        styles={{
-                          control: (styles) => ({
-                            ...styles,
-                            backgroundColor: 'white',
-                            color: 'black',
-                            borderColor: 'white',
-                            marginTop: 10,
-                            zIndex: 100,
-                          }),
-                        }}
-                        isMulti
-                        defaultValue={dataModel.team}
-                        options={Members}
-                        onChange={(value: any) => {
-                          setDataModel({ ...dataModel, team: value });
-                        }}
-                      /> */}
+
                     </div>
                     <div
                       className="View-Profile-Button"
