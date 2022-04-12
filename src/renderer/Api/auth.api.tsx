@@ -154,13 +154,10 @@ class ApiCntainerClass {
 
   GetProjectteam(pid:number,token:string)
   {
-
-
     const header = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     }
-
   return http.get(`/Project/getProjectTeam/${pid}`,{headers:header});
   }
   AddTeamMember(pid:number,data:any,token:string){
@@ -185,8 +182,6 @@ class ApiCntainerClass {
     };
     return http.delete(`/Project/reomoveteam/${teamid}`,{headers:header});
   }
-
-
 }
 
 export default new ApiCntainerClass();
