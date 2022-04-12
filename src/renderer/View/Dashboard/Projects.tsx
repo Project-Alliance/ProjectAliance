@@ -148,17 +148,15 @@ function Projects({ sideBar = 'flex',...props }) {
       <div className="seprator" style={{ marginTop: 0 }} />
       <div className="main-container-project-management">
       <Switch>
-
-
         <Route  exact path="/documentation">
             <Documentation />
         </Route>
         <Route path='/list' exact>
-          {/* <h1>List</h1> */}
+          <h1>List</h1>
           <MyTask />
         </Route>
         <Route path='/board' exact>
-          <Board />
+          {/* <Board /> */}
         </Route>
         <Route path='/timeline' exact>
           <TimeLine />

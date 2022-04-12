@@ -1,20 +1,29 @@
 // import { flexbox, maxHeight } from '@mui/system';
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 // import InputButton from 'renderer/Components/InputButton';
 import Popup from '../View/CreateProjectForm/Popup';
 import {projectGoalModel} from './GoalModel';
 import {useSelector,useDispatch} from "react-redux";
+
 // import Api from "renderer/Api/auth.api";
 // import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import axios from 'axios';
-import {Button,Box,} from '@mui/material';
-import {Notification} from 'renderer/Util/Notification/Notify'
-import {blue} from "renderer/AppConstants";
-import {Label,Input,SelectRole,Row,Tab,TabPanel,TabsList,TabsUnstyled} from 'renderer/Components/muiStyledComponent';
+import { Button, Box } from '@mui/material';
+import { Notification } from 'renderer/Util/Notification/Notify';
+import { blue } from 'renderer/AppConstants';
+import {
+  Label,
+  Input,
+  SelectRole,
+  Row,
+  Tab,
+  TabPanel,
+  TabsList,
+  TabsUnstyled,
+} from 'renderer/Components/muiStyledComponent';
 import { header } from './layout/styled';
 import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
-
 
 interface ColourOption {
   readonly value: string;
@@ -22,21 +31,19 @@ interface ColourOption {
   readonly color: string;
   readonly isFixed?: boolean;
   readonly isDisabled?: boolean;
-
 }
 
-const rolesForSelection=[]
+const rolesForSelection = [];
 
 const animatedComponents = makeAnimated();
-function Project_Goals({isOpen,setIsOpen}:any) {
-
-  const MemberSelect=(item:any)=>({
+function Project_Goals({ isOpen, setIsOpen }: any) {
+  const MemberSelect = (item: any) => ({
     value: item.id,
     label: item.name,
-    color: "#aeeeee",
+    color: '#aeeeee',
     isFixed: true,
-    isDisabled: false
-  })
+    isDisabled: false,
+  });
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -46,14 +53,14 @@ function Project_Goals({isOpen,setIsOpen}:any) {
   const dispatch = useDispatch();
   // const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
 
-  const [dataModel,setDataModel] = useState(projectGoalModel);
-  const onTitileChangeHandle=(event:any)=>{
-    setDataModel({...dataModel,"GoalName":event.target.value});
-  }
-  const onDescriptionChangeHandle=(event:any)=>{
-    setDataModel({...dataModel,"GoalDescription":event.target.value});
-  }
-  const onStartDateChangeHandle=(event:any)=>{
+  const [dataModel, setDataModel] = useState(projectGoalModel);
+  const onTitileChangeHandle = (event: any) => {
+    setDataModel({ ...dataModel, GoalName: event.target.value });
+  };
+  const onDescriptionChangeHandle = (event: any) => {
+    setDataModel({ ...dataModel, GoalDescription: event.target.value });
+  };
+  const onStartDateChangeHandle = (event: any) => {
     console.log(event.target.value);
     setDataModel({...dataModel,"startDate":event.target.value});
   }
@@ -62,22 +69,22 @@ function Project_Goals({isOpen,setIsOpen}:any) {
   }
 
 
-  const isValid=()=>{
-    if(dataModel.GoalName.length==0)
-    {
-      Notification("Validation Error","Name Is required","danger");
+  const isValid = () => {
+    if (dataModel.GoalName.length == 0) {
+      Notification('Validation Error', 'Name Is required', 'danger');
       return false;
-    }
-    else if(dataModel.GoalDescription.length==0)
-    {
-      Notification("Validation Error","Describe About your project","danger");
+    } else if (dataModel.GoalDescription.length == 0) {
+      Notification('Validation Error', 'Describe About your project', 'danger');
       false;
-    }else if(dataModel.endDate.length==0){
-      Notification("Validation Error","Goals Due Date is required","danger");
+    } else if (dataModel.endDate.length == 0) {
+      Notification('Validation Error', 'Goals Due Date is required', 'danger');
       return false;
-    }
-    else if(dataModel.startDate.length==0){
-      Notification("Validation Error","Goals start Date is required","danger");
+    } else if (dataModel.startDate.length == 0) {
+      Notification(
+        'Validation Error',
+        'Goals start Date is required',
+        'danger'
+      );
       return false;
     }
      return true;
@@ -102,13 +109,14 @@ function Project_Goals({isOpen,setIsOpen}:any) {
     const url = 'http://localhost:5000/api/Goals/Create';
     const header = {
       'Content-Type': 'application/json',
-      'Authorization': "Bearer "+ user.accessToken
+      Authorization: 'Bearer ' + user.accessToken,
     };
-    axios.post(url,dataa, {headers:header} )
-    .then((res) => {
-      debugger
-      if (res.status == 200) {
-        Notification("Crearted",res.data.message,"success");
+    axios
+      .post(url, dataa, { headers: header })
+      .then((res) => {
+        debugger;
+        if (res.status == 200) {
+          Notification('Crearted', res.data.message, 'success');
 
         togglePopup();
         dispatch(GetGoals(user.company, user.accessToken));
@@ -145,7 +153,7 @@ function Project_Goals({isOpen,setIsOpen}:any) {
               >
                 Add A Projeat Goals
               </Box>
-              <TabsUnstyled value={TabV} defaultValue={0}  className="Scrollbar">
+              <TabsUnstyled value={TabV} defaultValue={0} className="Scrollbar">
                 <TabsList>
                   <Tab>Project Goals</Tab>
                 </TabsList>
@@ -154,7 +162,12 @@ function Project_Goals({isOpen,setIsOpen}:any) {
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <input
                         className="form-control"
-                        style={{ marginTop: 10, marginBottom: 10,height:30,fontSize:12 }}
+                        style={{
+                          marginTop: 10,
+                          marginBottom: 10,
+                          height: 30,
+                          fontSize: 12,
+                        }}
                         onChange={onTitileChangeHandle}
                         value={dataModel.GoalName}
                         type="text"
@@ -168,7 +181,7 @@ function Project_Goals({isOpen,setIsOpen}:any) {
                           marginBottom: 10,
                           maxHeight: 120,
                           minWidth: 80,
-                          fontSize:12
+                          fontSize: 12,
                         }}
                         onChange={onDescriptionChangeHandle}
                         value={dataModel.GoalDescription}
@@ -177,7 +190,12 @@ function Project_Goals({isOpen,setIsOpen}:any) {
                       />
                       <input
                         className="form-control"
-                        style={{ marginTop: 10, marginBottom: 10,height:30,fontSize:12 }}
+                        style={{
+                          marginTop: 10,
+                          marginBottom: 10,
+                          height: 30,
+                          fontSize: 12,
+                        }}
                         onChange={onStartDateChangeHandle}
                         value={dataModel.startDate}
                         type="text"
@@ -188,12 +206,17 @@ function Project_Goals({isOpen,setIsOpen}:any) {
                       />
                       <input
                         className="form-control"
-                        style={{ marginTop: 10, marginBottom: 10,height:30,fontSize:12 }}
+                        style={{
+                          marginTop: 10,
+                          marginBottom: 10,
+                          height: 30,
+                          fontSize: 12,
+                        }}
                         onChange={onEndDateChangeHandle}
                         min={dataModel.startDate}
                         value={dataModel.endDate}
                         type="text"
-                        onFocus={(e) => (e.target.type = 'date' )}
+                        onFocus={(e) => (e.target.type = 'date')}
                         onBlur={(e) => (e.target.type = 'text')}
                         placeholder="End Date"
                         name="endDate"
@@ -215,8 +238,9 @@ function Project_Goals({isOpen,setIsOpen}:any) {
                           textTransform: 'unset',
                         }}
                         onClick={() => {
-                         handleSubmit();
-                        }}>
+                          handleSubmit();
+                        }}
+                      >
                         Save
                       </Button>
                     </div>
