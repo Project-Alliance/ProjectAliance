@@ -78,6 +78,7 @@ export default function DocumentManagement({ history, sideBar }: Props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleAdd = (id:string) => {
     setIsOpen(true);
     setSectionId(id)
@@ -99,6 +100,7 @@ export default function DocumentManagement({ history, sideBar }: Props) {
     });
     setAnchorEl(null);
   };
+
   React.useEffect(() => {
     if (selectedProject?.pid) {
       dispatch(GetDocument(selectedProject.pid,user?.accessToken));
