@@ -29,7 +29,9 @@ import Requirements from './Requirements';
 import DocumentManagement from './DocumentsMangement';
 import ProjectTeam from './ProjectTeam';
 import Goals from './Goals';
-
+// import AddMembers from '../CreateProjectForm/AddMembers';
+import AddMemberRoute from '../CreateProjectForm/createOrganization';
+import Settings from './Setting';
 
 
 export default function index() {
@@ -162,10 +164,13 @@ export default function index() {
               <Route path="/Goals"  >
                 <Goals ParentHistory={history}  sideBar={displaySlide} />
               </Route>
+              <Route path="/addmembers">
+                <AddMemberRoute />
+              </Route>
               {/* <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
               </Route> */}
-              <Route path="/setting"  >
+              {/* <Route path="/setting"  >
                 <div>
                 <button
                     onClick={() => {
@@ -174,7 +179,12 @@ export default function index() {
                     logout
                   </button>
                 </div>
-              </Route>
+              </Route> */}
+
+            <Route path="/setting">
+              <Settings />
+            </Route>
+
             <Route  exact>
             <Home ParentHistory={history} sideBar={displaySlide} />
             </Route>

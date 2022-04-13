@@ -225,7 +225,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                   justifyContent: 'space-between',
                 }}
               >
-                <div>
+                <div style={{width:450}}>
                   <div
                     style={{
                       margin: 10,
@@ -248,7 +248,8 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                 </div>
                 <div style={{ marginLeft: 10 }}>
                   <div style={{ margin: 10, fontFamily: 'sans-serif' }}>
-                    {item.statingDate}
+                    {/* {item.statingDate} */}
+                    {new Date(item.startDate).toDateString()}
                   </div>
                   <div
                     style={{
@@ -257,7 +258,8 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                       fontFamily: 'sans-serif',
                     }}
                   >
-                    {item.endingDate}
+                     {new Date(item.endDate).toDateString()}
+                    {/* {item.endingDate} */}
                   </div>
                 </div>
                 <div>

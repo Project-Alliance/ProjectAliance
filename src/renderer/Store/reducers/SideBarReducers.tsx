@@ -49,7 +49,8 @@ export const HomeSideBarButtons=[
   title:"Invite Teammates",
   font:"AntDesign",
   iconName:"addusergroup",
-  to:"/invites",
+  to:"/addmembers",
+
 
 },
 {
@@ -167,7 +168,7 @@ export const ProjectSideBarButtons=[
   title:"Invite Teammates",
   font:"AntDesign",
   iconName:"addusergroup",
-  to:"/invites",
+  to:"/addmembers",
 
 },
 {

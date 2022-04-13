@@ -53,9 +53,9 @@ export default function App() {
         {/* <AuthRoute path="/createProject">
           <CreateProject />
         </AuthRoute> */}
-        <AuthRoute path="/addmembers">
+        {/* <AuthRoute path="/addmembers">
           <CreateOrganization />
-        </AuthRoute>
+        </AuthRoute> */}
 
         <AuthRoute path="/dashboard">
           <Dashboard />
