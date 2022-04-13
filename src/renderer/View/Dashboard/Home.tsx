@@ -434,7 +434,7 @@ const Home = (props: any) => {
               <InputButton
                 onClick={() => {
                   // getData()
-                  props.ParentHistory.push('/addmembers');
+                  history.push('/addmembers');
                 }}
                 className="Create-Button"
                 buttonStyle={{

@@ -14,26 +14,15 @@ import { Col, Row } from 'react-bootstrap';
 import CreateOrganizationCom from 'renderer/View/CreateProjectForm/CreateOrganizationCom';
 import AddMembers from './AddMembers';
 
-function App() {
+function AddMemberRoute() {
   const history = useHistory();
 
   return (
     <div className="Container">
       <Row className="row">
         <Col className="col col1">
-          <Router>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={() => <Redirect to="/createOrganization/addmembers" />}
-              />
+            <AddMembers history={history} />
 
-              <Route path="/createOrganization/addmembers" exact>
-                <AddMembers ParentHistory={history} />
-              </Route>
-            </Switch>
-          </Router>
         </Col>
 
         <Col className="col-5 col1 LeftSide">
@@ -44,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default AddMemberRoute;
