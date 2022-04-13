@@ -27,7 +27,7 @@ const returnDuration = (startDate: string, endDate: string) => {
 
 const data = [
   {
-    id: '-1',
+    id: '',
     name: '',
     start: formatDate(new Date()),
     end: formatDate(new Date()),
@@ -60,7 +60,7 @@ const MyTask = () => {
   );
   React.useEffect(() => {
     if (projects.length > 0) {
-      //console.log(selectedProject);
+      console.log(selectedProject);
       // setSelectedProject(DefaultProject?.pid!=undefined?DefaultProject:projects[0]);
     }
   });
@@ -72,25 +72,25 @@ const MyTask = () => {
   const [view, setView] = React.useState({ GridView: '50%', GanttView: '50%' });
 
   function onViewChange(mode: any) {
-    //console.log(mode);
+    console.log(mode);
   }
 
   function onDateChange(task: any, start: any, end: any) {
-    //console.log(task, start, end);
+    console.log(task, start, end);
   }
 
   function onProgressChange(task: any, progress: any) {
-    //console.log(task, progress);
+    console.log(task, progress);
   }
 
   function onClick(task: any) {
-    //console.log(task);
+    console.log(task);
   }
 
   function handleViewChange(event: any) {
     if (event.target.value == 'GridView') {
       setView({ GridView: '100%', GanttView: '0%' });
-      //console.log(
+      console.log(
         (view.GridView == '50%' || view.GridView == '100%') &&
           view.GanttView != '100%'
       );
