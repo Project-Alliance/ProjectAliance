@@ -16,6 +16,13 @@ declare module 'react-file-viewer' {
 }
 
 
+declare module 'frappe-gantt' {
+
+  export default class Gantt extends React.Component<any,any,any> {
+    constructor(ref:any,data:any,options:any);
+  }
+}
+
 interface icon {
 name: string,
 size: number,

@@ -30,9 +30,8 @@ import axios from 'axios';
 
 import FileViewer from 'react-file-viewer';
 // import { useTranslation } from 'react-i18next';
+import {defaultImage} from 'renderer/Constant/Images';
 
-const defaultImage =
-  'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 
 interface Props {
   ParentHistory?: RouteComponentProps['history'];

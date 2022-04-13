@@ -148,10 +148,6 @@ export default function index() {
               <Route path="/reporting"  >
               <ReportingScreen ParentHistory={history} history={history} sideBar={displaySlide} />
               </Route>
-              <Route path="/inbox"  >
-
-              {/* <Inbox ParentHistory={history} sideBar={displaySlide} /> */}
-              </Route>
               <Route path="/manage-documents"  >
               <DocumentManagement history={history} sideBar={displaySlide} />
               </Route>
@@ -164,6 +160,10 @@ export default function index() {
               <Route path="/Goals"  >
                 <Goals ParentHistory={history}  sideBar={displaySlide} />
               </Route>
+              <Route path="/inbox"  >
+              <Inbox ParentHistory={history} sideBar={displaySlide} />
+              </Route>
+       
               <Route path="/addmembers">
                 <AddMemberRoute />
               </Route>

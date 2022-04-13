@@ -248,7 +248,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                 </div>
                 <div style={{ marginLeft: 10 }}>
                   <div style={{ margin: 10, fontFamily: 'sans-serif' }}>
-                    {/* {item.statingDate} */}
+ 
                     {new Date(item.startDate).toDateString()}
                   </div>
                   <div
@@ -260,6 +260,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                   >
                      {new Date(item.endDate).toDateString()}
                     {/* {item.endingDate} */}
+ 
                   </div>
                 </div>
                 <div>

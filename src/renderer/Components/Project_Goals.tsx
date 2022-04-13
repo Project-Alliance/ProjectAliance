@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 // import InputButton from 'renderer/Components/InputButton';
 import Popup from '../View/CreateProjectForm/Popup';
+ 
 import { projectGoalModel } from './GoalModel';
 import { useDispatch, useSelector } from 'react-redux';
+ 
 // import Api from "renderer/Api/auth.api";
 // import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -21,6 +23,9 @@ import {
   TabsList,
   TabsUnstyled,
 } from 'renderer/Components/muiStyledComponent';
+ 
+import { header } from './layout/styled';
+ 
 import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
 
 interface ColourOption {
@@ -45,13 +50,10 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
-  };
-  const [TabV, setTabV] = useState(0);
-  const [addNewRole, setAddNewRole] = useState(-1);
-  const [error, setError] = useState('');
-  const [newRole, setNewRole] = useState<any>([]);
-  const [addRole, setAddRole] = useState<any>('');
-  const user = useSelector(({ auth }: any) => auth.user);
+  }
+  const [TabV,setTabV] = useState(0);
+  const user = useSelector(({auth}:any)=>auth.user);
+ 
   const dispatch = useDispatch();
   // const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
 
@@ -64,21 +66,12 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
   };
   const onStartDateChangeHandle = (event: any) => {
     console.log(event.target.value);
-    setDataModel({ ...dataModel, startDate: event.target.value });
-  };
-  const onEndDateChangeHandle = (event: any) => {
-    setDataModel({ ...dataModel, endDate: event.target.value });
-  };
-  // const HandleRole=(event:any,index:any)=>{
+    setDataModel({...dataModel,"startDate":event.target.value});
+  }
+  const onEndDateChangeHandle=(event:any)=>{
+    setDataModel({...dataModel,"endDate":event.target.value});
+  }
 
-  //   if(event.target.value=="Add New")
-  //   {
-  //     setAddNewRole(index)
-  //   }
-  //   else{
-  //     setDataModel({...dataModel,"team":dataModel.team.map((item:any,i:any)=>i==index?{...item,role:event.target.value}:item)})
-  //   }
-  // }
 
   const isValid = () => {
     if (dataModel.GoalName.length == 0) {
@@ -128,21 +121,24 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
         debugger;
         if (res.status == 200) {
           Notification('Crearted', res.data.message, 'success');
+        togglePopup();
+        dispatch(GetGoals(user.company, user.accessToken));
+        setDataModel({ ...projectGoalModel });
+      } else {
+        Notification("Error",res.data.message,"danger");
+      }
+    })
+    .catch((err) => {
+      debugger
+      if(err?.message=="Network Error")
+      Notification("Error","Network Error","danger");
+      else
+      Notification("Error",err?.response?.data?.message,"danger");
 
-          togglePopup();
-          dispatch(GetGoals(user.company, user.accessToken));
-          setDataModel({ ...projectGoalModel });
-        } else {
-          Notification('Error', res.data.message, 'danger');
-        }
-      })
-      .catch((err) => {
-        debugger;
-        if (err?.message == 'Network Error')
-          Notification('Error', 'Network Error', 'danger');
-        else Notification('Error', err?.response?.data?.message, 'danger');
-      });
-  };
+    });
+
+  }
+ 
   return (
     <>
       {isOpen && (

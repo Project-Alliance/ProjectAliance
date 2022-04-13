@@ -199,28 +199,28 @@ function Projects({ sideBar = 'flex', ...props }) {
           </div>
         </div>
 
-        <div className="seprator" style={{ marginTop: 0 }} />
-        <div className="main-container-project-management">
-          <Switch>
-            <Route exact path="/documentation">
-              <Documentation />
-            </Route>
-            <Route path="/list" exact>
-              <h1>List</h1>
-              <MyTask />
-            </Route>
-            <Route path="/board" exact>
-              {/* <Board /> */}
-            </Route>
-            <Route path="/timeline" exact>
-              <TimeLine />
-            </Route>
-            <Route path="/clander" exact>
-              <h1>CLander</h1>
-            </Route>
-            <Route exact render={() => <Redirect to="/board" />} />
-          </Switch>
-        </div>
+      <div className="seprator" style={{ marginTop: 0 }} />
+      <div className="main-container-project-management">
+      <Switch>
+        <Route  exact path="/documentation">
+            <Documentation />
+        </Route>
+        <Route path='/list' exact>
+          <h1>List</h1>
+          <MyTask />
+        </Route>
+        <Route path='/board' exact>
+          {/* <Board /> */}
+        </Route>
+        <Route path='/timeline' exact>
+          {/* <TimeLine /> */}
+        </Route>
+        <Route path='/clander' exact>
+          <h1>CLander</h1>
+        </Route>
+        <Route exact render={()=>(<Redirect to="/board" />)} />
+      </Switch>
+
       </div>
     </Router>
   );
