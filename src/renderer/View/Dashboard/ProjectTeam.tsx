@@ -117,12 +117,12 @@ export default function ProjectTeam({ history, sideBar }: Props) {
 
     if (res?.status == 200) {
       setTeam(res.data);
-      // //console.log(employee);
+      // console.log(employee);
       let team = res.data;
       let addTeam = employee.filter((item: any) =>
         !team.find((item2: any) => item2.uid == item.uid)
       );
-      //console.log("check it now",res.data);
+      console.log("check it now",res.data);
       setMembers(addTeam.length > 0 ? addTeam : []);
       return res.data;
     }
@@ -407,7 +407,7 @@ const AddProjectTeamFrom = ({
       Notification('error', 'Please select atleast one member', 'danger');
       return;
     }
-    //console.log(dataModel.team);
+    console.log(dataModel.team);
 
     if(requestType=="")
    {
@@ -428,7 +428,7 @@ const AddProjectTeamFrom = ({
         Notification('Error', 'Can not added', 'warning');
       }
     }).catch((err) => {
-      //console.log(err);
+      console.log(err);
       Notification('Error', 'Can not added', 'danger');
     });}
     else if(requestType=="update")
@@ -450,7 +450,7 @@ const AddProjectTeamFrom = ({
           Notification('Error', 'Can not updated', 'warning');
         }
       }).catch(err=>{
-        //console.log(err);
+        console.log(err);
         Notification('Error', 'Can not updated', 'danger');
       })
     }

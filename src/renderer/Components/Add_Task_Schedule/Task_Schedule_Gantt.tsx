@@ -33,7 +33,7 @@ export default function Task_Schedule_Gantt({data}:propsType) {
       clearTimeout(promiseTimeout);
       clearTimeout(keyStrokeTimeoutRef.current);
 
-      //console.log('called', params.props.value);
+      console.log('called', params.props.value);
 
       // basic debouncing here
       keyStrokeTimeoutRef.current = setTimeout(async () => {

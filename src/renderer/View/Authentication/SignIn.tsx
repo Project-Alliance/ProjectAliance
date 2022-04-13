@@ -68,7 +68,7 @@ if(isCheckingR)
           iconName="google"
           font="MaterialCommunityIcons"
           className="CusomtButtonTitle"
-          // onClick={()=>//console.log(error)}
+          // onClick={()=>console.log(error)}
           buttonStyle={{
             backgroundImage: `linear-gradient(to right, #F9B035 0%, #F98C4E 53%, #F96767 100%)`,
             boxShadow: `3.994px 22.651px 57px  rgba(249, 103, 103, 0.259)`,

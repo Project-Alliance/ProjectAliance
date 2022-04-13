@@ -21,7 +21,7 @@ function CreateOrgCom() {
   const onSubmit: SubmitHandler<IFormInput> = (Data) => {
   //
   //  dispatch(signin(Data))
-     //console.log(Data);
+     console.log(Data);
   };
   const User = useSelector(({auth}:AUTH) => auth.user);
   const Check = (token:string)=>{
@@ -37,11 +37,11 @@ function CreateOrgCom() {
   }
   CreateOrg.createOrganizationApi(data,token)
   .then(res=>{
-    //console.log(res);
+    console.log(res);
 
   })
   .catch(err=>{
-//console.log(err);
+console.log(err);
   })
   }
   return (

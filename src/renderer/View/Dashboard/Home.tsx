@@ -196,7 +196,7 @@ const Home = (props: any) => {
                 <DropDownMenuSelect
                   values={option}
                   handleOnClick={() => {
-                    //console.log('drop down');
+                    console.log('drop down');
                   }}
                 />
               </div>
@@ -312,7 +312,7 @@ const Home = (props: any) => {
                     <DropDownMenuSelect
                       values={option}
                       handleOnClick={(value:any) => {
-                        //console.log('drop down');
+                        console.log('drop down');
                       }}
                     />
                   </div>

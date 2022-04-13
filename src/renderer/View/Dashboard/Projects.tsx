@@ -48,7 +48,7 @@ function Projects({ sideBar = 'flex',...props }) {
             <DropDownMenuSelect
               values={option}
               handleOnClick={() => {
-                //console.log('drop down');
+                console.log('drop down');
               }}
             />
 
@@ -159,7 +159,7 @@ function Projects({ sideBar = 'flex',...props }) {
           {/* <Board /> */}
         </Route>
         <Route path='/timeline' exact>
-          <TimeLine />
+          {/* <TimeLine /> */}
         </Route>
         <Route path='/clander' exact>
           <h1>CLander</h1>

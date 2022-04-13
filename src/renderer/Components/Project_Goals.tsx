@@ -61,7 +61,7 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
     setDataModel({ ...dataModel, GoalDescription: event.target.value });
   };
   const onStartDateChangeHandle = (event: any) => {
-    //console.log(event.target.value);
+    console.log(event.target.value);
     setDataModel({...dataModel,"startDate":event.target.value});
   }
   const onEndDateChangeHandle=(event:any)=>{
