@@ -93,7 +93,7 @@ export default function Register() {
     return true;
   };
   const onSubmit = (data: any) => {
-    console.log(data);
+    //console.log(data);
     if (ValidateModel()) {
       dispatch(REGISTER(data));
     }

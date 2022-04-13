@@ -8,5 +8,5 @@ ipcMain.on('download-url', (event, url) => {
 export const saveFile= async (url:string) => {
   const response = await fetch(url);
   const file = await response.blob();
-  console.log(file);
+  //console.log(file);
 }

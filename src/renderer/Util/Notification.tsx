@@ -8,7 +8,7 @@ export default {
       Notification.requestPermission()
         .then(permission => {
           if (permission === 'granted') {
-            console.log('Permission has been granted!');
+            //console.log('Permission has been granted!');
           }
         })
     }

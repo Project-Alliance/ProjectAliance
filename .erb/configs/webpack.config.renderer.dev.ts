@@ -31,7 +31,7 @@ if (
   !requiredByDLLConfig &&
   !(fs.existsSync(webpackPaths.dllPath) && fs.existsSync(manifest))
 ) {
-  console.log(
+  //console.log(
     chalk.black.bgYellow.bold(
       'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
     )
@@ -180,7 +180,7 @@ const configuration: webpack.Configuration = {
       verbose: true,
     },
     onBeforeSetupMiddleware() {
-      console.log('Starting Main Process...');
+      //console.log('Starting Main Process...');
       spawn('npm', ['run', 'start:main'], {
         shell: true,
         env: process.env,

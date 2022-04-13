@@ -57,7 +57,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
     setDataModel({...dataModel,"projectDescription":event.target.value});
   }
   const onStartDateChangeHandle=(event:any)=>{
-    console.log(event.target.value);
+    //console.log(event.target.value);
     setDataModel({...dataModel,"startDate":event.target.value});
   }
   const onEndDateChangeHandle=(event:any)=>{
@@ -120,7 +120,7 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
       endDate: dataModel.endDate,
       team:dataModel.team
     };
-    console.log(dataa)
+    //console.log(dataa)
     // setDataModel({...dataModel,"company":user.company});
     Api.CreateProject(dataa, user.accessToken)
       .then((res) => {

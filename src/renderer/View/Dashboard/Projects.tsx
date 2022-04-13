@@ -48,7 +48,7 @@ function Projects({ sideBar = 'flex',...props }) {
             <DropDownMenuSelect
               values={option}
               handleOnClick={() => {
-                console.log('drop down');
+                //console.log('drop down');
               }}
             />
 

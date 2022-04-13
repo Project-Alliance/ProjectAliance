@@ -240,6 +240,7 @@
     "history": "^5.2.0",
     "keycode-js": "^3.1.0",
     "lint": "^0.7.0",
+    "moment": "^2.29.2",
     "react": "^17.0.2",
     "react-avatar-group": "^1.0.2",
     "react-bootstrap": "^2.0.2",

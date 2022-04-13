@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'development') {
   resolveHtmlPath = (htmlFileName: string) => {
     const url = new URL(`http://localhost:${port}`);
     url.pathname = htmlFileName;
-    console.log(url.href)
+    //console.log(url.href)
 
     return url.href;
   };

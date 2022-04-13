@@ -1,7 +1,7 @@
 import Notification from '../../Util/Notification';
 
 export default (store:any) => (next:any) => (action:any) => {
-  console.log(store)
+  //console.log(store)
 
     switch(action.type) {
       case 'APP_IS_ONLINE':

@@ -30,9 +30,8 @@ import axios from 'axios';
 
 import FileViewer from 'react-file-viewer';
 // import { useTranslation } from 'react-i18next';
+import {defaultImage} from 'renderer/Constant/Images';
 
-const defaultImage =
-  'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 
 interface Props {
   ParentHistory?: RouteComponentProps['history'];
@@ -280,7 +279,7 @@ const Item=({document,index,openDropDown,sectionId,previewFile,setPreviewFile}:i
       }else {
         Notification("Error",'Can not updated',"warning");
       }}).catch(err=>{
-        console.log(err);
+        //console.log(err);
         Notification("Error",'Can not updated',"danger");
       });
 
@@ -469,7 +468,7 @@ const AddDocumentSections = ({ isOpen, setIsOpen }: uploadcomprops) => {
     data.projectId=selectedProject?.pid;
     Api.CreateDocumentSection(data,user?.accessToken).then((res:any)=>{
       debugger
-      console.log("res",res)
+      //console.log("res",res)
       if(res.status==200){
         dispatch(GetDocument(selectedProject?.pid,user?.accessToken));
         setDataModel(DocumentSection);
@@ -588,7 +587,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
   });
   React.useEffect(()=>{
     Api.GetProjectteam(Number(projectId),user?.accessToken).then((res:any)=>{
-      console.log(res.data)
+      //console.log(res.data)
       if(res.status==200){
         let team=res.data.map((item:any)=>MemberSelect(item));
         setMembers(team);

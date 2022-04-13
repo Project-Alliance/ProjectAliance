@@ -1,102 +1,207 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams,GridValueFormatterParams } from '@mui/x-data-grid';
-import InputButton from '../InputButton';
-import Icon from 'react-web-vector-icons';
-import { display } from '@mui/system';
+import {
+  DataGrid,
+  gridPageCountSelector,
+  gridPageSelector,
+  useGridApiContext,
+  useGridSelector,
+  GridToolbar,
+  GridColDef,
+  GridEditCellProps,
+  GridPreProcessEditCellProps,
+} from '@mui/x-data-grid';
+
+import { Theme, styled } from '@mui/material/styles';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Notification from 'renderer/Util/Notification';
+import {
+  StyledDataGrid,
+  CustomPagination,
+  customCheckbox,
+  formatDate,
+  propsType,
+} from './CustomGridCompoment';
 
 
+let promiseTimeout: any;
+export default function Task_Schedule_Gantt({data}:propsType) {
+  const keyStrokeTimeoutRef = React.useRef<any>();
 
-const columns: GridColDef[] = [
+  const onEditCell = (params: any) =>
+    new Promise<GridEditCellProps>((resolve) => {
+      clearTimeout(promiseTimeout);
+      clearTimeout(keyStrokeTimeoutRef.current);
 
-  { field: 'id', headerName: 'ID', width: 10, hide: true },
-  { field: 'no', headerName: 'No', width: 10, },
-  // {
-  //   field:duration:'365 Days' ',task_Name',
-  //   headerName:duration:'365 Days' ',task_Name',
-  //   width: 70,
-  //   // editable: true,
-  //   renderCell: (params) => <img src={params.value} style={{borderWidth:'2px',borderColor:'blue',borderStyle:'solid',borderRadius:'30px'}} />,
-  // },
-  {
-    field:'task_Name',
-    headerName: 'Task Name',
-    minWidth: 130,
-    editable: true,
-  },
-  {
-    field: 'duration',
-    headerName: 'Duration',
-    width: 100,
-    editable: true,
-    cellClassName:'duration1'
+      //console.log('called', params.props.value);
 
-  },
-  {
-    field: 'start',
-    headerName: 'Start',
-    width: 120,
-    type:'date',
-    editable: true,
-  },
-  {
-    field: 'finish',
-    headerName: 'Finish',
-    width: 120,
-    type:'date',
-    editable: true,
-  },
-  {
-    field: 'predecessors',
-    headerName: 'Predecessor',
-    description: 'how many people are doing',
-    sortable: false,
-    width: 150,
-  },
+      // basic debouncing here
+      keyStrokeTimeoutRef.current = setTimeout(async () => {
+        try {
+          resolve({ ...params.props, error: params.props.value === '3' });
+        } catch (error) {
+          console.error(error);
+        }
+      }, 500);
+    });
+  const columns: GridColDef[] = [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 10,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            fontSize: 10,
+          }}
+        >
+          {params.value}
+        </div>
+      ),
+    },
+    // {
+    //   field:duration:'365 Days' ',task_Name',
+    //   headerName:duration:'365 Days' ',task_Name',
+    //   width: 70,
+    //   // editable: true,
+    //   renderCell: (params) => <img src={params.value} style={{borderWidth:'2px',borderColor:'blue',borderStyle:'solid',borderRadius:'30px'}} />,
+    // },
+    {
+      field: 'name',
+      headerName: 'name',
+      minWidth: 80,
+      editable: true,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            fontSize: 10,
+          }}
+        >
+          {params.value}
+        </div>
+      ),
+    },
+    {
+      field: 'duration',
+      headerName: 'Duration',
+      width: 80,
+      editable: false,
+      cellClassName: 'duration1',
+      renderCell: (params) => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            fontSize: 10,
+          }}
+        >
+          {params.value}
+        </div>
+      ),
+    },
+    {
+      field: 'start',
+      headerName: 'Start',
+      width: 80,
+      type: 'date',
+      editable: true,
+      preProcessEditCellProps: onEditCell,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            fontSize: 10,
+          }}
+        >
+          {formatDate(params.value)}
+        </div>
+      ),
+    },
+    {
+      field: 'end',
+      headerName: 'end',
+      width: 80,
+      type: 'date',
+      editable: true,
 
-  {
-    field: 'resource',
-    headerName: 'Resource Name',
-    description: 'This will update the data cell.',
-    sortable: false,
-    width: 150,
-  },
-  {
-    field: 'new_column',
-    headerName: 'Add New column',
-    description: 'This will update the data cell.',
-    sortable: false,
-    width: 150,
-  },
-];
+      preProcessEditCellProps: onEditCell,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            fontSize: 10,
+          }}
+        >
+          {formatDate(params.value)}
+        </div>
+      ),
+    },
+    {
+      field: 'dependencies',
+      headerName: 'dependencies',
+      description: 'On which task it depends',
+      sortable: false,
+      width: 80,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            fontSize: 10,
+          }}
+        >
+          {params.value}
+        </div>
+      ),
+    },
 
-const rows = [
-  { id: 1,no:1, duration:'365 Days'  ,task_Name: "Development",start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 2,no:2, duration:'365 Days'  ,task_Name: "Scope", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 3,no:3, duration:'365 Days'  ,task_Name: "Analysis ", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 4,no:4, duration:'365 Days'  ,task_Name: "Design", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 5,no:5, duration:'365 Days'  ,task_Name: "Development", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 6,no:6, duration:'365 Days'  ,task_Name: "Testing", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 7,no:7, duration:'365 Days'  ,task_Name: "Training", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 8,no:8, duration:'365 Days'  ,task_Name: "Documentation", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 9,no:9, duration:'365 Days'  ,task_Name: "Pilot", start:'10/02/2022',finish:'03/02/2023',  },
-  { id: 10,no:10,duration:'365 Days', task_Name: "Deployment", start:'10/02/2022',finish:'03/02/2023', },
-  { id: 11,no:11,duration:'365 Days', task_Name: "Post Implement", start:'10/02/2022',finish:'03/02/2023',  },
+    // {
+    //   field: 'resource',
+    //   headerName: 'Resource Name',
+    //   description: 'This will update the data cell.',
+    //   sortable: false,
+    //   width: 80,
 
-];
-
-export default function Task_Schedule_Gantt() {
-
-  // console.log(data)
+    //   renderCell: (params) => (
+    //     <div
+    //       style={{
+    //         display: 'flex',
+    //         flexDirection: 'row',
+    //         alignItems: 'center',
+    //         fontSize: 10,
+    //       }}
+    //     >
+    //       {params.value}
+    //     </div>
+    //   ),
+    // },
+  ];
   return (
-    <div style={{ height: 600, width: '100%'}}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={100}
-        rowsPerPageOptions={[100]}
+    <div style={{ height: 600, width: '100%' }}>
+      <StyledDataGrid
         checkboxSelection
-        disableSelectionOnClick/>
+        pageSize={30}
+        rowsPerPageOptions={[30]}
+        disableSelectionOnClick
+        components={{
+          Pagination: CustomPagination,
+          Toolbar: GridToolbar,
+        }}
+        rows={data}
+        columns={columns}
+      />
     </div>
   );
 }
-
