@@ -48,7 +48,7 @@ export const sideBarButtons=[
   title:"Invite Teammates",
   font:"AntDesign",
   iconName:"addusergroup",
-  to:"/invites",
+  to:"/addmembers",
 
 },
 {
@@ -197,7 +197,7 @@ export const links = [
   },
   {
     to: '/calender',
-    label: 'Clander',
+    label: 'Calnder',
   },
 ];
 
