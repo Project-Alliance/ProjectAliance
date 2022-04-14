@@ -43,9 +43,9 @@ const isDevelopment =
 //   require('electron-debug')();
 // }
 
-if (isDevelopment) {
-  require('electron-debug')();
-}
+// if (isDevelopment) {
+//   require('electron-debug')();
+// }
 
 
 const installExtensions = async () => {
