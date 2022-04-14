@@ -10,6 +10,7 @@ import {
   ProjectIcon,
   Row,
 } from 'renderer/Components/layout';
+import InputButton from 'renderer/Components/InputButton';
 import TimeLine from './gantt';
 import { COLORS, size } from 'renderer/AppConstants';
 import { defaultImage } from 'renderer/Constant/Images';
@@ -18,6 +19,9 @@ import Tooltip from '@mui/material/Tooltip';
 
 import Gantt from 'frappe-gantt';
 import { formatDate } from 'renderer/Components/Add_Task_Schedule/CustomGridCompoment';
+import Add_Schedule from 'renderer/Components/Add_Task_Schedule/Add_Schedule';
+import Api from "renderer/Api/auth.api";
+
 
 const returnDuration = (startDate: string, endDate: string) => {
   var a = moment(startDate, 'YYYY-MM-DD');
@@ -25,7 +29,7 @@ const returnDuration = (startDate: string, endDate: string) => {
   return b.diff(a, 'days');
 };
 
-const data = [
+const Data = [
   {
     id: '',
     name: '',
@@ -35,18 +39,59 @@ const data = [
     dependencies: '',
     duration: '',
   },
-  // {
-  //   id: 'Task 2',
-  //   custom_class: 'c-red',
-  //   name: 'Design',
-  //   start: '2017-02-01',
-  //   end: '2017-02-31',
-  //   progress: 20,
-  //   dependencies: 'Task 1',
-  //   duration: returnDuration('2017-02-01', '2017-02-28'),
-  // },
+
 ];
 const MyTask = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  var [state, setState] = useState({ textAreaValue: '' });
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const [data,setData]=React.useState<any>(Data);
+
+
+  const getSchedule=()=>{
+    Api.GetSchedule(selectedProject?.pid,user?.token)
+    .then(res=>{
+      if(res.status==200)
+      {
+        let DATA=res.data.map((item:any)=>({duration:returnDuration(item.start,item.end),id:item.id.toString(),dependencies:item?.dependancies,...item}))
+console.log(DATA)
+      chart.current = new Gantt(ref.current, DATA, {
+        on_view_change: onViewChange,
+        on_date_change: onDateChange,
+        on_progress_change: onProgressChange,
+        on_click: onClick,
+      });
+      setData(DATA)
+      }
+    }).catch(err=>{
+      console.error(err)
+    })
+  }
+  React.useEffect(()=>{
+
+      getSchedule()
+
+  },[])
+
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  var handleChange = (event: any) => {
+    setState({ textAreaValue: event.target.value });
+  };
+
   const projects = useSelector(({ Project }: any) =>
     Project?.data?.projects ? Project?.data?.projects : []
   );
@@ -58,12 +103,7 @@ const MyTask = () => {
   const [selectedProject, setSelectedProject] = React.useState(
     DefaultProject?.pid != undefined ? DefaultProject : projects[0]
   );
-  React.useEffect(() => {
-    if (projects.length > 0) {
-      console.log(selectedProject);
-      // setSelectedProject(DefaultProject?.pid!=undefined?DefaultProject:projects[0]);
-    }
-  });
+
 
   // Gannt Chart coding detail
 
@@ -129,7 +169,7 @@ const MyTask = () => {
             />
           </ProjectIcon>
           <Col style={{ marginLeft: 5 }}>
-            <H2 style={{ color: COLORS.primary }}>Document Management</H2>
+            <H2 style={{ color: COLORS.primary }}>Project Schedule</H2>
             <Row style={{ alignItems: 'center' }}>
               <H1>{selectedProject?.projectTitle}</H1>
               <select
@@ -147,8 +187,30 @@ const MyTask = () => {
                   <option value={item.pid}>{item.projectTitle}</option>
                 ))}
               </select>
+
             </Row>
+
           </Col>
+        </Row>
+        <Add_Schedule getSchedule={getSchedule} ProjectId={selectedProject?.pid} isOpen={isOpen} setIsOpen={setIsOpen} />
+        <Row style={{marginLeft:'23rem'}}>
+        <div >
+              <InputButton
+               onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+                className="Create-Button"
+                buttonStyle={{
+                  backgroundImage: ` linear-gradient(to right, #0905AF 0%, #0905AF 47%, #0905AF 100%)`,
+                  boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
+                  color: '#FFFFFF',
+                  width: 100,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                title="ADD"
+              />
+            </div>
         </Row>
         <Row style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
           <Tooltip title="Select View">
@@ -181,6 +243,7 @@ const MyTask = () => {
             style={{ marginRight: 10 }}
           />
         </Row>
+
       </Header>
 
       <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -253,6 +316,7 @@ const MyTask = () => {
               Month
             </button>
           </div>
+
         </div>
       </div>
     </div>
