@@ -1,3 +1,4 @@
+import { AnyListenerPredicate } from "@reduxjs/toolkit/dist/listenerMiddleware/types";
 import { StringifyOptions } from "querystring";
 import http from "../Util/http-common";
 
@@ -190,7 +191,21 @@ class ApiCntainerClass {
     };
     return http.delete(`/goals/delete/${goalid}`,{headers:header});
   }
+
+  GetSchedule(pid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/schedule/${pid}`,{headers:header});
+  }
+  CreateSchedule(pid:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Schedule/create/${pid}`,data,{headers:header});
+  }
+
 }
-
-
 export default new ApiCntainerClass();

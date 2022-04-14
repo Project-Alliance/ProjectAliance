@@ -9,6 +9,7 @@ import DocumentManager from './reducers/Document.Reducers';
 import {SideBarButton} from "./reducers/SideBarReducers"
 import {SelectedProject} from "./reducers/SelectedProjectReducers"
 import ProjectGoals from "./reducers/Goals.reducer"
+import ProjectSchdule from "./reducers/Schedule.reducer"
 
 
 
@@ -27,7 +28,8 @@ const store = createStore(
     DocumentManager,
     organization:Organization,
     Members:Members,
-    ProjectGoals:ProjectGoals
+    ProjectGoals:ProjectGoals,
+    // ProjectSchdule:ProjectSchdule,
   }),
   applyMiddleware(...middleware)
 );

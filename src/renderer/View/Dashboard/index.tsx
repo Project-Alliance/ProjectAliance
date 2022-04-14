@@ -160,10 +160,10 @@ export default function index() {
               <Route path="/Goals"  >
                 <Goals ParentHistory={history}  sideBar={displaySlide} />
               </Route>
-              <Route path="/inbox"  >
+              {/* <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
-              </Route>
-       
+              </Route> */}
+
               <Route path="/addmembers">
                 <AddMemberRoute />
               </Route>

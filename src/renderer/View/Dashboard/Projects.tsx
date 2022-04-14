@@ -222,7 +222,11 @@ function Projects({ sideBar = 'flex', ...props }) {
       </Switch>
 
       </div>
+<<<<<<< HEAD
       </div>
+=======
+    </div>
+>>>>>>> 876b53129b58f7116f4ddebed0d4687b5d9d94b7
     </Router>
   );
 }
