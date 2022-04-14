@@ -222,6 +222,7 @@ function Projects({ sideBar = 'flex', ...props }) {
       </Switch>
 
       </div>
+      </div>
     </Router>
   );
 }

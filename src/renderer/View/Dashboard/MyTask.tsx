@@ -17,7 +17,7 @@ import moment from 'moment';
 import Tooltip from '@mui/material/Tooltip';
 
 import Gantt from 'frappe-gantt';
-import { formatDate } from 'renderer/Components/Add_Task_Schedule/CustomGridCompoment';
+import { formatDate, Props } from 'renderer/Components/Add_Task_Schedule/CustomGridCompoment';
 
 const returnDuration = (startDate: string, endDate: string) => {
   var a = moment(startDate, 'YYYY-MM-DD');
@@ -27,7 +27,7 @@ const returnDuration = (startDate: string, endDate: string) => {
 
 const data = [
   {
-    id: '',
+    id: 'insert',
     name: '',
     start: formatDate(new Date()),
     end: formatDate(new Date()),
@@ -102,6 +102,11 @@ const MyTask = () => {
     } else {
       setView({ GridView: '50%', GanttView: '50%' });
       return;
+    }
+  }
+  function handleEdit(params:Props){
+    if(params?.row?.id=="insert"){
+      alert(JSON.stringify(params?.row))
     }
   }
 
@@ -195,7 +200,7 @@ const MyTask = () => {
             border: '0.1px solid #FFFFFF',
           }}
         >
-          <Task_Schedule_Gantt data={data} />
+          <Task_Schedule_Gantt data={data} handleEdit={handleEdit} />
           {/* <Table theadData={theadData} tbodyData={tbodyData} /> */}
         </div>
 
