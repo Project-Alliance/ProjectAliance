@@ -222,7 +222,7 @@ function Projects({ sideBar = 'flex', ...props }) {
       </Switch>
 
       </div>
-    </div>
+      </div>
     </Router>
   );
 }

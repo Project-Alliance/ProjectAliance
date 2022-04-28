@@ -8,7 +8,9 @@ import {
   useGridApiContext,
   useGridSelector,GridToolbar,GridColDef,
   GridEditCellProps,
-  GridPreProcessEditCellProps
+  GridPreProcessEditCellProps,
+  GridCellEditCommitParams,
+  GridCellEditStopParams
 } from '@mui/x-data-grid';
 
 import { Theme, styled } from '@mui/material/styles';
@@ -149,7 +151,10 @@ export interface itemType{
     progress: number,
     dependencies: string
 }
+export interface Props extends GridCellEditStopParams{
 
+}
 export interface propsType{
-    data:itemType[]
+    data:itemType[],
+    handleEdit?:(props:Props)=>void,
 }

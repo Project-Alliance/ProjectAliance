@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Popup from '../../View/CreateProjectForm/Popup';
 
 import { projectGoalModel } from '../GoalModel';
-import { projectScheduleModel } from './ScheduleModel';
+import { projectScheduleModel ,projectScheduleModelType} from './ScheduleModel';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import Api from "renderer/Api/auth.api";
@@ -24,23 +24,9 @@ import {
   TabsList,
   TabsUnstyled,
 } from 'renderer/Components/muiStyledComponent';
+import Slider from '@mui/material/Slider';
 
-// import { header } from '../layout/styled';
-
-import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
-
-interface ColourOption {
-  readonly value: string;
-  readonly label: string;
-  readonly color: string;
-  readonly isFixed?: boolean;
-  readonly isDisabled?: boolean;
-}
-
-const rolesForSelection = [];
-
-const animatedComponents = makeAnimated();
-function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
+function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule,update=false,DATA=projectScheduleModel }: any) {
   const MemberSelect = (item: any) => ({
     value: item.id,
     label: item.name,
@@ -52,36 +38,39 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
+
   const [TabV,setTabV] = useState(0);
   const user = useSelector(({auth}:any)=>auth.user);
 
   const dispatch = useDispatch();
   // const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
 
-  const [dataModel, setDataModel] = useState(projectScheduleModel);
+  const [dataModel, setDataModel] = useState<projectScheduleModelType>(DATA);
   const onTitileChangeHandle = (event: any) => {
     setDataModel({ ...dataModel, name: event.target.value });
   };
   const onDependencyChangeHandle = (event: any) => {
-    setDataModel({ ...dataModel, Dependency: event.target.value });
+    setDataModel({ ...dataModel, dependencies: event.target.value });
   };
   const onStartDateChangeHandle = (event: any) => {
     console.log(event.target.value);
-    setDataModel({...dataModel,"startDate":event.target.value});
+    setDataModel({...dataModel,start:event.target.value});
   }
   const onEndDateChangeHandle=(event:any)=>{
-    setDataModel({...dataModel,"endDate":event.target.value});
+    setDataModel({...dataModel,end:event.target.value});
   }
-
+  const handleProgressChange=(event:any)=>{
+    setDataModel({...dataModel,"progress":event.target.value});
+  }
 
   const isValid = () => {
     if (dataModel.name.length == 0) {
       Notification('Validation Error', 'Name Is required', 'danger');
       return false;
-    } else if (dataModel.endDate.length == 0) {
+    } else if (dataModel.end.length == 0) {
       Notification('Validation Error', 'Due Date is required', 'danger');
       return false;
-    } else if (dataModel.startDate.length == 0) {
+    } else if (dataModel.start.length == 0) {
       Notification(
         'Validation Error',
         'Goals start Date is required',
@@ -102,13 +91,37 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
     const data = {
       "name" : dataModel.name,
    "ProjectId" :  ProjectId,
-   "start":dataModel.startDate,
-   "end" :  dataModel.endDate,
+   "start":dataModel.start,
+   "end" :  dataModel.end,
    "AssignTo": 1,
-   "dependancies" :  dataModel.Dependency,
-   "progress":0
+   "dependancies" :  dataModel.dependencies,
+   "progress":dataModel.progress
     };
 
+    if(update)
+    {
+      Api.updateSchedule(DATA.id,data,user?.accessToken)
+      .then((res) => {
+
+        if (res.status == 200) {
+          Notification('Crearted', res.data.message, 'success');
+          getSchedule();
+        togglePopup();
+        setDataModel({ ...projectScheduleModel });
+      } else {
+        Notification("Error",res.data.message,"danger");
+      }
+    })
+    .catch((err) => {
+      debugger
+      if(err?.message=="Network Error")
+      Notification("Error what","Network Error","danger");
+      else
+      Notification("Error here",JSON.stringify(err),"danger");
+
+    });
+    }
+    else{
       Api.CreateSchedule(ProjectId,data,user?.accessToken)
       .then((res) => {
         debugger;
@@ -129,6 +142,7 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
       Notification("Error here",JSON.stringify(err),"danger");
 
     });
+    }
 
   }
 
@@ -148,7 +162,7 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
                   marginBottom: 10,
                 }}
               >
-                Wanted to Add Schedule?
+               {update?" Wanted to update Schedule?":" Wanted to Add Schedule?"}
               </Box>
               <TabsUnstyled value={TabV} defaultValue={0} className="Scrollbar">
                 <TabsList>
@@ -166,7 +180,7 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
                           fontSize: 12,
                         }}
                         onChange={onTitileChangeHandle}
-                        value={dataModel.name}
+                        defaultValue={dataModel.name}
                         type="text"
                         placeholder="Enter a Task Name"
                         name="GoalName"
@@ -180,12 +194,12 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
                           fontSize: 12,
                         }}
                         onChange={onStartDateChangeHandle}
-                        value={dataModel.startDate}
+                        defaultValue={dataModel.start}
                         type="text"
                         onFocus={(e) => (e.target.type = 'date')}
                         onBlur={(e) => (e.target.type = 'text')}
                         placeholder="Start Date"
-                        name="startDate"
+                        name="start"
                       />
                       <input
                         className="form-control"
@@ -196,13 +210,13 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
                           fontSize: 12,
                         }}
                         onChange={onEndDateChangeHandle}
-                        min={dataModel.startDate}
-                        value={dataModel.endDate}
+                        min={dataModel.start}
+                        defaultValue={dataModel.end}
                         type="text"
                         onFocus={(e) => (e.target.type = 'date')}
                         onBlur={(e) => (e.target.type = 'text')}
                         placeholder="End Date"
-                        name="endDate"
+                        name="end"
                       />
 
                       <input
@@ -214,12 +228,22 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
                           fontSize: 12,
                         }}
                         onChange={onDependencyChangeHandle}
-                        value={dataModel.Dependency}
+                        defaultValue={dataModel.dependencies}
                         type="text"
                         placeholder="Enter Dependency Task"
                         name="DependsOn"
                       />
 
+                      <Slider
+                        aria-label="Progress"
+                        defaultValue={dataModel.progress}
+                        valueLabelDisplay="auto"
+                        step={1}
+                        onChange={handleProgressChange}
+                        marks
+                        min={0}
+                        max={100}
+                      />
 
                     </div>
                     <div
@@ -236,9 +260,7 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule }: any) {
                           fontSize: 16,
                           textTransform: 'unset',
                         }}
-                        onClick={() => {
-                          handleSubmit();
-                        }}
+                        onClick={handleSubmit}
                       >
                         Save
                       </Button>

@@ -2,9 +2,25 @@ export const  projectScheduleModel= {
 
 
   name:'',
-  startDate:'',
-  endDate:'',
+  start:'',
+  end:'',
   team:[] as any,
-  "Dependency":"",
+  dependencies:"",
+  progress:0,
+  id:0
+
+
+}
+
+export type  projectScheduleModelType= {
+
+
+  name:string,
+  start:string,
+  end:string,
+  team:any[],
+  dependencies:string,
+  progress:number;
+  id?:number
 
 }

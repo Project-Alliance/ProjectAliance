@@ -1,14 +1,7 @@
 import * as React from 'react';
 import {
-  DataGrid,
-  gridPageCountSelector,
-  gridPageSelector,
-  useGridApiContext,
-  useGridSelector,
   GridToolbar,
   GridColDef,
-  GridEditCellProps,
-  GridPreProcessEditCellProps,
 } from '@mui/x-data-grid';
 
 import { Theme, styled } from '@mui/material/styles';
@@ -18,32 +11,15 @@ import Notification from 'renderer/Util/Notification';
 import {
   StyledDataGrid,
   CustomPagination,
-  customCheckbox,
   formatDate,
   propsType,
 } from './CustomGridCompoment';
 
 
 let promiseTimeout: any;
-export default function Task_Schedule_Gantt({data}:propsType) {
-  const keyStrokeTimeoutRef = React.useRef<any>();
+export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
 
-  const onEditCell = (params: any) =>
-    new Promise<GridEditCellProps>((resolve) => {
-      clearTimeout(promiseTimeout);
-      clearTimeout(keyStrokeTimeoutRef.current);
 
-      console.log('called', params.props.value);
-
-      // basic debouncing here
-      keyStrokeTimeoutRef.current = setTimeout(async () => {
-        try {
-          resolve({ ...params.props, error: params.props.value === '3' });
-        } catch (error) {
-          console.error(error);
-        }
-      }, 500);
-    });
   const columns: GridColDef[] = [
     {
       field: 'id',
@@ -112,7 +88,6 @@ export default function Task_Schedule_Gantt({data}:propsType) {
       width: 80,
       type: 'date',
       editable: true,
-      preProcessEditCellProps: onEditCell,
       renderCell: (params) => (
         <div
           style={{
@@ -133,7 +108,6 @@ export default function Task_Schedule_Gantt({data}:propsType) {
       type: 'date',
       editable: true,
 
-      preProcessEditCellProps: onEditCell,
       renderCell: (params) => (
         <div
           style={{
@@ -153,6 +127,11 @@ export default function Task_Schedule_Gantt({data}:propsType) {
       description: 'On which task it depends',
       sortable: false,
       width: 80,
+      editable: true,
+      renderEditCell: (params) => (<select>
+        <option value="">Select</option>
+
+      </select>),
       renderCell: (params) => (
         <div
           style={{
@@ -201,6 +180,8 @@ export default function Task_Schedule_Gantt({data}:propsType) {
         }}
         rows={data}
         columns={columns}
+        onCellDoubleClick={handleEdit}
+
       />
     </div>
   );
