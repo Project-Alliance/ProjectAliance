@@ -22,6 +22,10 @@ import { formatDate, Props } from 'renderer/Components/Add_Task_Schedule/CustomG
 
 import Add_Schedule from 'renderer/Components/Add_Task_Schedule/Add_Schedule';
 import Api from "renderer/Api/auth.api";
+import "./style.scss";
+import {Notification} from 'renderer/Util/Notification/Notify';
+import { projectScheduleModelType } from 'renderer/Components/Add_Task_Schedule/ScheduleModel';
+
 
 
 const returnDuration = (startDate: string, endDate: string) => {
@@ -42,56 +46,27 @@ const Data = [
   },
 
 ];
+
+const gannttData= (item:any)=>({
+  id: item.id,
+  name: item.name,
+  start: new Date(item.start),
+  end: new Date(item.end),
+  progress: item.progress,
+  dependencies: item.dependencies,
+  duration: item.duration,
+
+})
 const MyTask = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   var [state, setState] = useState({ textAreaValue: '' });
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [data,setData]=React.useState<any>(Data);
+  const [rowData, setRowData] = useState<projectScheduleModelType>(data);
 
-
-  const getSchedule=()=>{
-    Api.GetSchedule(selectedProject?.pid,user?.token)
-    .then(res=>{
-      if(res.status==200)
-      {
-        let DATA=res.data.map((item:any)=>({duration:returnDuration(item.start,item.end),id:item.id.toString(),dependencies:item?.dependancies,...item}))
-console.log(DATA)
-      chart.current = new Gantt(ref.current, DATA, {
-        on_view_change: onViewChange,
-        on_date_change: onDateChange,
-        on_progress_change: onProgressChange,
-        on_click: onClick,
-      });
-      setData(DATA)
-      }
-    }).catch(err=>{
-      console.error(err)
-    })
-  }
-  React.useEffect(()=>{
-
-      getSchedule()
-
-  },[])
-
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
-
-  var handleChange = (event: any) => {
-    setState({ textAreaValue: event.target.value });
-  };
 
   const projects = useSelector(({ Project }: any) =>
     Project?.data?.projects ? Project?.data?.projects : []
@@ -112,12 +87,70 @@ console.log(DATA)
   const chart = useRef<any>();
   const [view, setView] = React.useState({ GridView: '50%', GanttView: '50%' });
 
-  function onViewChange(mode: any) {
-    console.log(mode);
+
+  const getSchedule=()=>{
+    Api.GetSchedule(selectedProject?.pid,user?.token)
+    .then(res=>{
+      if(res.status==200)
+      {
+        let DATA=res.data.map((item:any)=>({
+          id:item.id.toString(),
+          name:item.name,
+          start:formatDate(item.start),
+          end:formatDate(item.end),
+          progress:item.progress,
+          dependencies:item?.dependancies,
+          duration:returnDuration(item.start,item.end)
+        }))
+        console.log(DATA)
+      chart.current.refresh(DATA.map((item:any)=>gannttData(item)))
+      setData(DATA)
+      }
+    }).catch(err=>{
+      console.error(err)
+    })
   }
+  React.useEffect(()=>{
+      getSchedule()
+
+  },[selectedProject])
+
+
+
+
+
 
   function onDateChange(task: any, start: any, end: any) {
-    console.log(task, start, end);
+    const data = {
+      "name" : task.name,
+      "start":task._start,
+      "end" :  task._end,
+      "dependancies" :  task.dependencies.join(","),
+      "progress":task.progress,
+      id:task.id
+    };
+
+    alert(JSON.stringify(data))
+
+      Api.updateSchedule(task.id,data,user?.accessToken)
+      .then((res) => {
+
+        if (res.status == 200) {
+          Notification('Crearted', res.data.message, 'success');
+          getSchedule();
+      } else {
+        Notification("Error",res.data.message,"danger");
+      }
+    })
+    .catch((err) => {
+      debugger
+      if(err?.message=="Network Error")
+      Notification("Error what","Network Error","danger");
+      else
+      Notification("Error here",JSON.stringify(err),"danger");
+
+    });
+
   }
 
   function onProgressChange(task: any, progress: any) {
@@ -145,22 +178,24 @@ console.log(DATA)
       return;
     }
   }
-  function handleEdit(params:Props){
-    if(params?.row?.id=="insert"){
-      alert(JSON.stringify(params?.row))
-    }
-  }
+
 
   useEffect(() => {
     if (chart.current) return;
 
     chart.current = new Gantt(ref.current, data, {
-      on_view_change: onViewChange,
       on_date_change: onDateChange,
       on_progress_change: onProgressChange,
       on_click: onClick,
     });
   }, [data]);
+
+  const handleDuabbleClick =async(params:Props)=>{
+    // console.log(params.row)
+    await setRowData(params.row)
+    setIsOpenUpdate(true);
+
+  }
 
   return (
     <div className="Main_Task_List">
@@ -198,8 +233,9 @@ console.log(DATA)
 
           </Col>
         </Row>
-        <Add_Schedule getSchedule={getSchedule} ProjectId={selectedProject?.pid} isOpen={isOpen} setIsOpen={setIsOpen} />
-        <Row style={{marginLeft:'23rem'}}>
+        {isOpen&&<Add_Schedule getSchedule={getSchedule} ProjectId={selectedProject?.pid} isOpen={isOpen} setIsOpen={setIsOpen} />}
+{        isOpenUpdate&&<Add_Schedule getSchedule={getSchedule} ProjectId={selectedProject?.pid} isOpen={isOpenUpdate} setIsOpen={setIsOpenUpdate} update={true} DATA={rowData} />
+}        <Row style={{marginLeft:'23rem'}}>
         <div >
               <InputButton
                onClick={() => {
@@ -264,10 +300,11 @@ console.log(DATA)
             border: '0.1px solid #FFFFFF',
           }}
         >
-          <Task_Schedule_Gantt data={data} handleEdit={handleEdit} />
+          <Task_Schedule_Gantt data={data} handleEdit={handleDuabbleClick} />
           {/* <Table theadData={theadData} tbodyData={tbodyData} /> */}
         </div>
 
+{/* Gant Chart Sets here */}
         <div
           style={{
             border: 1,
@@ -282,9 +319,11 @@ console.log(DATA)
             height: '100%',
           }}
         >
-          <div style={{ width: '100%', height: '80vh' }}>
-            <svg id="gantt" ref={ref}></svg>
-          </div>
+         <div style={{border:1,borderStyle:'solid',borderColor:'#26c7e7',height:600}}>
+      <div style={{width:"100%",}}>
+        <svg  id="gantt" ref={ref}></svg>
+      </div>
+     </div>
           <div className="mx-auto mt-3 btn-group" role="group">
             <button
               type="button"

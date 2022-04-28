@@ -180,7 +180,7 @@ export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
         }}
         rows={data}
         columns={columns}
-        onCellEditCommit={handleEdit}
+        onCellDoubleClick={handleEdit}
 
       />
     </div>

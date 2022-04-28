@@ -207,5 +207,13 @@ class ApiCntainerClass {
     return http.post(`/Schedule/create/${pid}`,data,{headers:header});
   }
 
+  updateSchedule(sid:string,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Schedule/update/${sid}`,data,{headers:header});
+  }
+
 }
 export default new ApiCntainerClass();
