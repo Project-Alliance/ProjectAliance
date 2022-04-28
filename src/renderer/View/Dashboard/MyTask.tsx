@@ -24,9 +24,7 @@ import Add_Schedule from 'renderer/Components/Add_Task_Schedule/Add_Schedule';
 import Api from "renderer/Api/auth.api";
 import "./style.scss";
 import {Notification} from 'renderer/Util/Notification/Notify';
-import { projectScheduleModelType } from 'renderer/Components/Add_Task_Schedule/ScheduleModel';
-
-
+import { projectScheduleModel, projectScheduleModelType } from 'renderer/Components/Add_Task_Schedule/ScheduleModel';
 
 const returnDuration = (startDate: string, endDate: string) => {
   var a = moment(startDate, 'YYYY-MM-DD');
@@ -44,7 +42,6 @@ const Data = [
     dependencies: '',
     duration: '',
   },
-
 ];
 
 const gannttData= (item:any)=>({
@@ -58,14 +55,18 @@ const gannttData= (item:any)=>({
 
 })
 const MyTask = () => {
-
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   var [state, setState] = useState({ textAreaValue: '' });
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [data,setData]=React.useState<any>(Data);
-  const [rowData, setRowData] = useState<projectScheduleModelType>(data);
+  const [rowData, setRowData] = useState<projectScheduleModelType>(projectScheduleModel);
+  const [data, setData] = React.useState<any>(Data);
+
+  React.useEffect(() => {
+    getSchedule();
+  }, []);
+
 
 
   const projects = useSelector(({ Project }: any) =>
@@ -79,7 +80,6 @@ const MyTask = () => {
   const [selectedProject, setSelectedProject] = React.useState(
     DefaultProject?.pid != undefined ? DefaultProject : projects[0]
   );
-
 
   // Gannt Chart coding detail
 
@@ -228,9 +228,7 @@ const MyTask = () => {
                   <option value={item.pid}>{item.projectTitle}</option>
                 ))}
               </select>
-
             </Row>
-
           </Col>
         </Row>
         {isOpen&&<Add_Schedule getSchedule={getSchedule} ProjectId={selectedProject?.pid} isOpen={isOpen} setIsOpen={setIsOpen} />}
@@ -239,20 +237,21 @@ const MyTask = () => {
         <div >
               <InputButton
                onClick={() => {
+
                 setIsOpen(!isOpen);
               }}
-                className="Create-Button"
-                buttonStyle={{
-                  backgroundImage: ` linear-gradient(to right, #0905AF 0%, #0905AF 47%, #0905AF 100%)`,
-                  boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
-                  color: '#FFFFFF',
-                  width: 100,
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                title="ADD"
-              />
-            </div>
+              className="Create-Button"
+              buttonStyle={{
+                backgroundImage: ` linear-gradient(to right, #0905AF 0%, #0905AF 47%, #0905AF 100%)`,
+                boxShadow: `3.994px 22.651px 57px rgba(97, 73, 205, 0.259)`,
+                color: '#FFFFFF',
+                width: 100,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              title="ADD"
+            />
+          </div>
         </Row>
         <Row style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
           <Tooltip title="Select View">
@@ -285,7 +284,6 @@ const MyTask = () => {
             style={{ marginRight: 10 }}
           />
         </Row>
-
       </Header>
 
       <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -361,7 +359,6 @@ const MyTask = () => {
               Month
             </button>
           </div>
-
         </div>
       </div>
     </div>

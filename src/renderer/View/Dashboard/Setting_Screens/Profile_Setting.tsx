@@ -1,22 +1,19 @@
 import * as React from 'react';
 import {
   Container,
-  Header,
-  ProjectIcon,
   Row,
   Col,
-  H1,
-  H2,
 } from 'renderer/Components/layout';
-import Icon from 'react-web-vector-icons';
-import PhoneInput from 'react-phone-input-2';
-import CustomButton from 'renderer/Components/Button';
+
 import { Button, CircularProgress } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { logout } from 'renderer/Store/Actions/auth.action';
 
 const Profile = () => {
 
   const [error, setError] = React.useState({ message: '', status: false });
   const [loader, setLoader] = React.useState(false);
+  const dispatch = useDispatch();
 
   const validateData = () => {
 
@@ -211,8 +208,33 @@ const Profile = () => {
               {loader ? <CircularProgress size={30} /> : 'Update Profile'}
             </Button>
           </Col>
+        </Row>
+
+        <Row className="button-Style">
+          <Col>
+            <Button
+              disabled={loader}
+              // onClick={() => CreateUser()}
+              onClick={() => {
+                dispatch(logout());
+              }}
+              className="ButtonStyle btn Create-Button"
+              style={{
+                borderWidth: 2,
+                borderStyle: 'solid',
+                borderColor: '#EBEBEB',
+                color: '#000000',
+                width: 200,
+                marginTop: 5,
+                borderRadius: 15,
+              }}
+            >
+              {loader ? <CircularProgress size={30} /> : 'Logout'}
+            </Button>
+          </Col>
 
         </Row>
+
       </form>
 
 
