@@ -215,5 +215,14 @@ class ApiCntainerClass {
     return http.put(`/Schedule/update/${sid}`,data,{headers:header});
   }
 
+  
+
+  // GetPermission(id:number,token:string){
+  //   const header ={
+  //     'Content-Type': 'application/json',
+  //     'Authorization': "Bearer "+ token
+  //   };
+  //   return http.get(`/permission/get/${id}`,{headers:header});
+
 }
 export default new ApiCntainerClass();

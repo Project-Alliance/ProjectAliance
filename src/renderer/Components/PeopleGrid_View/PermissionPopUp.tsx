@@ -1,13 +1,7 @@
-// import { flexbox, maxHeight } from '@mui/system';
 import React, { useState } from 'react';
-// import InputButton from 'renderer/Components/InputButton';
-import Popup from '../View/CreateProjectForm/Popup';
-
-import { projectGoalModel } from './GoalModel';
+import Popup from 'renderer/View/CreateProjectForm/Popup';
+import { projectGoalModel } from '../GoalModel';
 import { useDispatch, useSelector } from 'react-redux';
-
-// import Api from "renderer/Api/auth.api";
-// import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import axios from 'axios';
 import { Button, Box } from '@mui/material';
@@ -39,7 +33,8 @@ interface ColourOption {
 const rolesForSelection = [];
 
 const animatedComponents = makeAnimated();
-function Project_Goals({ isOpen, setIsOpen }: any) {
+
+const PermissionPopUp = ({ isOpen, setIsOpen }: any) => {
   const MemberSelect = (item: any) => ({
     value: item.id,
     label: item.name,
@@ -50,9 +45,10 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
-  }
-  const [TabV,setTabV] = useState(0);
-  const user = useSelector(({auth}:any)=>auth.user);
+  };
+
+  const [TabV, setTabV] = useState(0);
+  const user = useSelector(({ auth }: any) => auth.user);
 
   const dispatch = useDispatch();
   // const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
@@ -66,12 +62,11 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
   };
   const onStartDateChangeHandle = (event: any) => {
     console.log(event.target.value);
-    setDataModel({...dataModel,"startDate":event.target.value});
-  }
-  const onEndDateChangeHandle=(event:any)=>{
-    setDataModel({...dataModel,"endDate":event.target.value});
-  }
-
+    setDataModel({ ...dataModel, startDate: event.target.value });
+  };
+  const onEndDateChangeHandle = (event: any) => {
+    setDataModel({ ...dataModel, endDate: event.target.value });
+  };
 
   const isValid = () => {
     if (dataModel.GoalName.length == 0) {
@@ -91,13 +86,11 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
       );
       return false;
     }
-     return true;
-  }
+    return true;
+  };
 
-  const handleSubmit=()=>{
-
-    if(!isValid())
-    {
+  const handleSubmit = () => {
+    if (!isValid()) {
       return;
     }
     const dataa = {
@@ -107,8 +100,6 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
       endDate: dataModel.endDate,
       companyName: user.company,
     };
-
-
 
     const url = 'http://localhost:5000/api/Goals/Create';
     const header = {
@@ -121,23 +112,20 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
         debugger;
         if (res.status == 200) {
           Notification('Crearted', res.data.message, 'success');
-        togglePopup();
-        dispatch(GetGoals(user.company, user.accessToken));
-        setDataModel({ ...projectGoalModel });
-      } else {
-        Notification("Error",res.data.message,"danger");
-      }
-    })
-    .catch((err) => {
-      debugger
-      if(err?.message=="Network Error")
-      Notification("Error","Network Error","danger");
-      else
-      Notification("Error",err?.response?.data?.message,"danger");
-
-    });
-
-  }
+          togglePopup();
+          dispatch(GetGoals(user.company, user.accessToken));
+          setDataModel({ ...projectGoalModel });
+        } else {
+          Notification('Error', res.data.message, 'danger');
+        }
+      })
+      .catch((err) => {
+        debugger;
+        if (err?.message == 'Network Error')
+          Notification('Error', 'Network Error', 'danger');
+        else Notification('Error', err?.response?.data?.message, 'danger');
+      });
+  };
 
   return (
     <>
@@ -155,77 +143,129 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
                   marginBottom: 10,
                 }}
               >
-                Add A Projeat Goals
+                Permission Management of User
               </Box>
               <TabsUnstyled value={TabV} defaultValue={0} className="Scrollbar">
                 <TabsList>
-                  <Tab>Project Goals</Tab>
+                  <Tab>Project Permissions</Tab>
                 </TabsList>
                 <TabPanel value={0}>
                   <form>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Box
+                      style={{
+                        display: 'flex',
+                        color: blue['500'],
+                        fontSize: 18,
+                        marginLeft: 20,
+                        marginBottom: 10,
+                      }}
+                    >
+                      Manage Memebers
+                    </Box>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-Around',
+                      }}
+                    >
+                      <Box
+                        style={{
+                          display: 'flex',
+                          color: blue['500'],
+                          fontSize: 16,
+                          marginLeft: 12,
+                          marginBottom: 10,
+                        }}
+                      >
+                        Read
+                      </Box>
                       <input
-                        className="form-control"
-                        style={{
-                          marginTop: 10,
-                          marginBottom: 10,
-                          height: 30,
-                          fontSize: 12,
-                        }}
-                        onChange={onTitileChangeHandle}
-                        value={dataModel.GoalName}
-                        type="text"
-                        placeholder="Enter a Goal Name"
-                        name="GoalName"
+                        type="checkbox"
+                        id="topping"
+                        name="topping"
+                        value="Paneer"
+                        style={{ marginTop: 6, color: blue['500'] }}
                       />
-                      <textarea
-                        className="form-control"
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-Around',
+                      }}
+                    >
+                      <Box
                         style={{
-                          marginTop: 10,
+                          display: 'flex',
+                          color: blue['500'],
+                          fontSize: 16,
+                          marginLeft: 8,
                           marginBottom: 10,
-                          maxHeight: 120,
-                          minWidth: 80,
-                          fontSize: 12,
                         }}
-                        onChange={onDescriptionChangeHandle}
-                        value={dataModel.GoalDescription}
-                        placeholder="Enter Goals Description"
-                        name="GoalDescription"
-                      />
+                      >
+                        Create
+                      </Box>
                       <input
-                        className="form-control"
-                        style={{
-                          marginTop: 10,
-                          marginBottom: 10,
-                          height: 30,
-                          fontSize: 12,
-                        }}
-                        onChange={onStartDateChangeHandle}
-                        value={dataModel.startDate}
-                        type="text"
-                        onFocus={(e) => (e.target.type = 'date')}
-                        onBlur={(e) => (e.target.type = 'text')}
-                        placeholder="Start Date"
-                        name="startDate"
+                        type="checkbox"
+                        id="topping"
+                        name="topping"
+                        value="Paneer"
+                        style={{ marginTop: 6, color: blue['500'] }}
                       />
-                      <input
-                        className="form-control"
-                        style={{
-                          marginTop: 10,
-                          marginBottom: 10,
-                          height: 30,
-                          fontSize: 12,
-                        }}
-                        onChange={onEndDateChangeHandle}
-                        min={dataModel.startDate}
-                        value={dataModel.endDate}
-                        type="text"
-                        onFocus={(e) => (e.target.type = 'date')}
-                        onBlur={(e) => (e.target.type = 'text')}
-                        placeholder="End Date"
-                        name="endDate"
-                      />
+                    </div>
 
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-Around',
+                      }}
+                    >
+                      <Box
+                        style={{
+                          display: 'flex',
+                          color: blue['500'],
+                          fontSize: 16,
+                          marginLeft: 11,
+                          marginBottom: 10,
+                        }}
+                      >
+                        Delete
+                      </Box>
+                      <input
+                        type="checkbox"
+                        id="topping"
+                        name="topping"
+                        value="Paneer"
+                        style={{ marginTop: 6, color: blue['500'] }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-Around',
+                      }}
+                    >
+                      <Box
+                        style={{
+                          display: 'flex',
+                          color: blue['500'],
+                          fontSize: 16,
+                          marginLeft: 10,
+                          marginBottom: 10,
+                        }}
+                      >
+                        Update
+                      </Box>
+                      <input
+                        type="checkbox"
+                        id="topping"
+                        name="topping"
+                        value="Paneer"
+                        style={{ marginTop: 6, color: blue['500'] }}
+                      />
                     </div>
                     <div
                       className="View-Profile-Button"
@@ -257,6 +297,6 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
       )}
     </>
   );
-}
+};
 
-export default Project_Goals;
+export default PermissionPopUp;
