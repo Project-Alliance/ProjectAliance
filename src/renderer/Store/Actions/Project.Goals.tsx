@@ -8,10 +8,10 @@ const GetGoals = (company: string, accessToken: string) => (dispatch: any) => {
   Api.GetGoals(company, accessToken)
     .then((data) => {
       if (data?.status == 200) {
-        debugger;
+
         dispatch({ type: 'GET_GOALS_SUCCESS', goals: data.data });
       } else {
-        debugger;
+
         dispatch({ type: 'GET_GOALS_ERROR', error: data?.data });
       }
     })
