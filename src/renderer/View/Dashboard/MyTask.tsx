@@ -130,7 +130,7 @@ const MyTask = () => {
       id:task.id
     };
 
-    alert(JSON.stringify(data))
+
 
       Api.updateSchedule(task.id,data,user?.accessToken)
       .then((res) => {
@@ -153,9 +153,42 @@ const MyTask = () => {
 
   }
 
-  function onProgressChange(task: any, progress: any) {
-    console.log(task, progress);
+
+  function onProgressChange(task: any, progress:number) {
+    console.log(task,"skldfj",progress)
+    const data = {
+      "name" : task.name,
+      "start":task.start,
+      "end" :  task.end,
+      "dependancies" :  task.dependencies.join(","),
+      "progress":task.progress,
+      id:task.id
+    };
+
+
+
+      Api.updateSchedule(task.id,data,user?.accessToken)
+      .then((res) => {
+
+        if (res.status == 200) {
+          Notification('Crearted', res.data.message, 'success');
+          getSchedule();
+      } else {
+        Notification("Error",res.data.message,"danger");
+      }
+    })
+    .catch((err) => {
+      debugger
+      if(err?.message=="Network Error")
+      Notification("Error what","Network Error","danger");
+      else
+      Notification("Error here",JSON.stringify(err),"danger");
+
+    });
+
   }
+
+
 
   function onClick(task: any) {
     console.log(task);
