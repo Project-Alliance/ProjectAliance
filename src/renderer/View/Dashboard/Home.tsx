@@ -36,7 +36,7 @@ const Home = (props: any) => {
   const user = useSelector(({ auth }: any) => auth.user);
   const Members = useSelector(({ Members }: any) => Members.data);
   const getMonth = (month: any) => {
-    const months = [
+  const months = [
       'January',
       'February',
       'March',
@@ -54,16 +54,16 @@ const Home = (props: any) => {
   }
   let date= new Date();
 // alert(JSON.stringify(user.role))
-  if(user.role=="Member")
-  {
-    return(
-     <div style={{height: "100vh", width: "100%",justifyContent: 'center',alignItems: 'center',display: 'flex'}}>
-       <WorkINProgress />
-     </div>
+  // if(user.role=="Member")
+  // {
+  //   return(
+  //    <div style={{height: "100vh", width: "100%",justifyContent: 'center',alignItems: 'center',display: 'flex'}}>
+  //      <WorkINProgress />
+  //    </div>
 
 
-    )
-  }
+  //   )
+  // }
 
   return (
     <div
