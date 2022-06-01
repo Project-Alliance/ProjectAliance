@@ -101,7 +101,7 @@ export default function DocumentManagement({ history, sideBar }: Props) {
   };
 
   React.useEffect(() => {
-    if (selectedProject?.pid) {
+    if (selectedProject?.pid&&document?.length===0) {
       dispatch(GetDocument(selectedProject.pid,user?.accessToken));
     }
   },[])
@@ -577,7 +577,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
   };
 
   const MemberSelect = (item: any) => ({
-    value: item.userId,
+    value: item.id,
     label: item.name,
     color: '#aeeeee',
     isFixed: true,
@@ -585,7 +585,9 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
     role:item.role,
     email:item.email,
   });
-  React.useEffect(()=>{
+  const [Members,setMembers] = React.useState<any>([]);
+  const MembersGet=()=>{
+    if(Members?.length==0)
     Api.GetProjectteam(Number(projectId),user?.accessToken).then((res:any)=>{
       console.log(res.data)
       if(res.status==200){
@@ -593,9 +595,12 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
         setMembers(team);
       }
     }).catch((err:any)=>{})
-  })
+  }
+  React.useEffect(()=>{
+    MembersGet()
+  },[])
   const animatedComponents = makeAnimated();
-  const [Members,setMembers] = React.useState<any>();
+
 
 
 
@@ -664,7 +669,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
         formData.append("documentVersion", dataModel.documentVersion);
         formData.append("sectionId", sectionId?sectionId:"");
         formData.append("projectId", projectId?projectId:"");
-
+        formData.append("sharewith", dataModel.team.value);
 
 
         try {
@@ -801,11 +806,11 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
                         zIndex: 100,
                       }),
                     }}
-                    isMulti
+                    isMulti={false}
                     defaultValue={dataModel.team}
                     options={Members}
                     onChange={(value: any) => {
-                      setDataModel({ ...dataModel, team: value });
+                      setDataModel({ ...dataModel, team: value});
                     }}
                   />
                 </div>
