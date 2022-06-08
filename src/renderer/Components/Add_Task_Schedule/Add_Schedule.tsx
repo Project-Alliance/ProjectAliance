@@ -100,7 +100,7 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule,update=false,
 
     if(update)
     {
-      Api.updateSchedule(DATA.id,data,user?.accessToken)
+      Api.updateQualitySchedule(DATA.id,data,user?.accessToken)
       .then((res) => {
 
         if (res.status == 200) {
@@ -122,7 +122,7 @@ function Project_Schdule({ isOpen, setIsOpen,ProjectId,getSchedule,update=false,
     });
     }
     else{
-      Api.CreateSchedule(ProjectId,data,user?.accessToken)
+      Api.CreateQualitySchedule(ProjectId,data,user?.accessToken)
       .then((res) => {
         debugger;
         if (res.status == 200) {
