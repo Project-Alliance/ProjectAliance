@@ -98,27 +98,22 @@ export const ProjectSideBarButtons=[
   iconName:"tencent-weibo",
   to:"/design"
 },
+
 {
 
-  title:"Development",
-  font:"Entypo",
-  iconName:"code",
-  to:"/development"
-},
-{
-
-  title:"Testing",
+  title:"Quality",
   font:"Feather",
   iconName:"sliders",
-  to:"/testing"
+  to:"/quality"
 },
 {
 
-  title:"Release",
-  font:"AntDesign",
-  iconName:"rocket1",
-  to:"/release"
+  title:"Change Management",
+  font:"MaterialIcons",
+  iconName:"track-changes",
+  to:"/change"
 },
+
 {
 
   title:"Manage Project Team",

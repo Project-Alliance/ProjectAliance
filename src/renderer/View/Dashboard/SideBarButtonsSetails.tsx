@@ -201,6 +201,24 @@ export const links = [
   },
 ];
 
+export const QualityButtons = [
+  {
+    to: '/planing',
+    label: 'Planing',
+  },
+  {
+    to: '/TestSchedule',
+    label: 'Test Schedule',
+  },
+  {
+    to: '/Execution Result',
+    label: 'Test Result',
+  },
+  {
+    to: '/Defects',
+    label: 'Defects',
+  },
+];
 
 
 export const projects=[

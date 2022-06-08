@@ -152,7 +152,7 @@ export interface itemType{
     dependencies: string
 }
 export interface Props extends GridCellEditStopParams{
-
+row:any,
 }
 export interface propsType{
     data:itemType[],
