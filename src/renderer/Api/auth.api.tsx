@@ -295,5 +295,51 @@ class ApiCntainerClass {
     return http.delete(`/Requirements/deleteAttachment?reqId=${rid}`,{headers:header});
   }
 
+
+  CreateEnviorment(pid:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addEnviorment?pid=${pid}`,data,{headers:header});
+  }
+  CreateTestPlan(envId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addTestPlan?envId=${envId}`,data,{headers:header});
+  }
+
+  CreateTestCases(testPlanId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addTestCase?testPlanId=${testPlanId}`,data,{headers:header});
+  }
+  CreateTestResult(testCaseId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'multipart/form-data;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addTestResult?testCaseId=${testCaseId}`,data,{headers:header});
+  }
+  getTestCases(pid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Quality/getTestCases?pid=${pid}`,{headers:header});
+  }
+
+  getRequirementBasedTestCases(pid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Quality/getRequirementBasedTestCases?pid=${pid}`,{headers:header});
+  }
+
 }
 export default new ApiCntainerClass();

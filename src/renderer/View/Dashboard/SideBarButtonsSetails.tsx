@@ -178,6 +178,127 @@ export const option = {
     },
   ],
 };
+
+export const EnvOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'Add New Enviorment',
+      label: 'Add New Enviorment',labelStyle:{fontSize:10},
+      hidden: false,
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+    {
+      value: 'View Enviornment Detail',
+      label: 'View Enviornment Detail',
+      labelStyle:{fontSize:10},
+      hidden: false,
+      icon: {
+        name: 'content-duplicate',
+        color: '#000',
+        size: 20,
+        font: 'MaterialCommunityIcons',
+      },
+    },
+    {
+      value: 'Add New Test Plan',
+      label: 'Add New Test Plan',
+      hidden: false,
+      labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+  ],
+};
+export const TestPlanOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'Add New Test Cases',
+      label: 'Add New Test Cases',
+      hidden: false,
+      labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+
+  ],
+};
+export const TestCaseResultOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'Create Test Case Result',
+      label: 'Create Test Case Result',
+      hidden: false,labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+
+  ],
+};
 export const links = [
   {
     to: '/documentation',
