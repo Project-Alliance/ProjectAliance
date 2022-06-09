@@ -26,12 +26,13 @@ import { getMembers } from 'renderer/Store/Actions/members.action';
 import ReportingScreen from './Reporting';
 import Inbox from 'renderer/Components/Chat Module';
 import Requirements from './Requirements';
-import DocumentManagement from './DocumentsMangement';
+import DesignManagement from './DesignManagement';
 import ProjectTeam from './ProjectTeam';
 import Goals from './Goals';
 // import AddMembers from '../CreateProjectForm/AddMembers';
 import AddMemberRoute from '../CreateProjectForm/createOrganization';
 import Settings from './Setting';
+import Quality from './QualityManagement';
 
 
 export default function index() {
@@ -148,8 +149,8 @@ export default function index() {
               <Route path="/reporting"  >
               <ReportingScreen ParentHistory={history} history={history} sideBar={displaySlide} />
               </Route>
-              <Route path="/manage-documents"  >
-              <DocumentManagement history={history} sideBar={displaySlide} />
+              <Route path="/design"  >
+              <DesignManagement history={history} sideBar={displaySlide} />
               </Route>
               <Route path="/ManageTeam"  >
               <ProjectTeam history={history} sideBar={displaySlide} />
@@ -160,6 +161,9 @@ export default function index() {
               <Route path="/Goals"  >
                 <Goals ParentHistory={history}  sideBar={displaySlide} />
               </Route>
+              <Route path="/quality"  >
+                <Quality sideBar={displaySlide}  />
+              </Route>
               {/* <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
               </Route> */}
@@ -167,9 +171,9 @@ export default function index() {
               <Route path="/addmembers">
                 <AddMemberRoute />
               </Route>
-              {/* <Route path="/inbox"  >
+               <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
-              </Route> */}
+              </Route>
               {/* <Route path="/setting"  >
                 <div>
                 <button

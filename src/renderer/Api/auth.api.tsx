@@ -281,5 +281,131 @@ class ApiCntainerClass {
   //   };
   //   return http.get(`/permission/get/${id}`,{headers:header});
 
+  GetQualitySchedule(pid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/QualitySchedule/${pid}`,{headers:header});
+  }
+  CreateQualitySchedule(pid:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/QualitySchedule/create/${pid}`,data,{headers:header});
+  }
+
+  updateQualitySchedule(sid:string,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/QualitySchedule/update/${sid}`,data,{headers:header});
+  }
+// Requirment Module Api
+  createRequirementModule(projectId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Requirements/createModule/${projectId}`,data,{headers:header});
+  }
+  createRequirement(moduleId:number,projectId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Requirements/create?projectId=${projectId}&moduleId=${moduleId}`,data,{headers:header});
+  }
+  updateRequirement(rid:number,projectId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Requirements/update?reqId=${rid}&projectId=${projectId}`,data,{headers:header});
+  }
+  deleteRequirement(rid:number,projectId:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Requirements/delete?reqId=${rid}&projectId=${projectId}`,{headers:header});
+  }
+  deleteRequirementModule(mid:number,projectId:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Requirements/deleteModule?moduleId=${mid}&projectId=${projectId}`,{headers:header});
+  }
+  updateRequirementModule(mid:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Requirements/updateModule?moduleId=${mid}`,data,{headers:header});
+  }
+  getRequirementModule(projectId:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Requirements/get/${projectId}`,{headers:header});
+  }
+  deleteAttchment(rid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Requirements/deleteAttachment?reqId=${rid}`,{headers:header});
+  }
+
+
+  CreateEnviorment(pid:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addEnviorment?pid=${pid}`,data,{headers:header});
+  }
+  CreateTestPlan(envId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addTestPlan?envId=${envId}`,data,{headers:header});
+  }
+
+  CreateTestCases(testPlanId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addTestCase?testPlanId=${testPlanId}`,data,{headers:header});
+  }
+  CreateTestResult(testCaseId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'multipart/form-data;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Quality/addTestResult?testCaseId=${testCaseId}`,data,{headers:header});
+  }
+  getTestCases(pid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Quality/getTestCases?pid=${pid}`,{headers:header});
+  }
+
+  getRequirementBasedTestCases(pid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Quality/getRequirementBasedTestCases?pid=${pid}`,{headers:header});
+  }
+
 }
 export default new ApiCntainerClass();

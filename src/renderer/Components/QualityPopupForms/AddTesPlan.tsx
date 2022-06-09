@@ -1,9 +1,6 @@
 
 import PropTypes from "prop-types"
 import React from 'react';
-import { Container,Header,ProjectIcon ,Row,Col,H1,H2,SCard,Text
-,ChartBox
-} from 'renderer/Components/layout';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {Avatar,Box,Button} from '@mui/material';
@@ -11,56 +8,49 @@ import {Avatar,Box,Button} from '@mui/material';
 import { Notification } from 'renderer/Util/Notification/Notify';
 import Api from 'renderer/Api/auth.api';
 import Popup from 'renderer/View/CreateProjectForm/Popup';
-import { ModuleData } from "./DataModel";
+import { TestPlanData } from "./DataModel";
 import { COLORS } from "renderer/AppConstants";
+import Icon from "react-web-vector-icons";
 
 
 
-const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
+const AddTestPlan = ({ isOpen, setIsOpen,updateData,envId }: any) => {
   const togglePopup = () => {
-    setDataModel(ModuleData);
+    setDataModel(TestPlanData);
     setIsOpen(!isOpen);
   };
-  const MemberSelect = (item: any) => ({
-    value: item.id,
-    label: item.name,
-    color: '#aeeeee',
-    isFixed: true,
-    isDisabled: false,
-  });
 
-  const Members = useSelector(({ Members }: any) =>
-    Members.data.map((item: any) => MemberSelect(item))
-  );
-  const [dataModel, setDataModel] = React.useState(ModuleData);
+  const [dataModel, setDataModel] = React.useState(TestPlanData);
   const onNameChangeHandle = (event: any) => {
-    setDataModel({ ...dataModel, name: event.target.value });
+    setDataModel({ ...dataModel, Name: event.target.value });
   };
-  const onStatusChange = (event: any) => {
-    setDataModel({ ...dataModel, status: event.target.value });
+  const onDescriptionChange = (event: any) => {
+    setDataModel({ ...dataModel, Description: event.target.value });
   };
+
 
   const user = useSelector(({ auth }: any) => auth?.user);
 
 
   const CreateModule=()=>{
-    if(dataModel.name.length==0){
+    console.log(dataModel)
+    if(dataModel.Name.length==0){
       Notification('Error','Please enter Module Name',"danger");
       return;
     }
-    else if(dataModel.status.length==0){
+    else if(dataModel.Description.length==0){
       Notification('Error','Please enter Status',"danger");
       return;
     }
 
-    Api.createRequirementModule(projectId,dataModel,user?.accessToken).then((res:any)=>{
-      debugger
-      console.log("res",res)
+    Api.CreateTestPlan(envId,dataModel,user?.accessToken).then((res:any)=>{
+
       if(res.status==200){
 
-        setDataModel(ModuleData);
+        setDataModel(TestPlanData);
         setIsOpen(false);
-        Notification('Success','Module Created Successfully',"success");
+        updateData()
+        Notification('Success','Test Plan Added Successfully',"success");
       }else{
         Notification('Error','Something went wrong',"danger");
       }
@@ -88,7 +78,7 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
                   marginBottom: 10,
                 }}
               >
-                Create Module
+                Add Test Plan
               </Box>
 
               <form>
@@ -102,10 +92,10 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
                       fontSize: 12,
                     }}
                     onChange={onNameChangeHandle}
-                    value={dataModel.name}
+                    value={dataModel.Name}
                     type="text"
-                    placeholder="Module Name"
-                    name="moduleName"
+                    placeholder="Test Plan Name"
+                    name="Name"
                   />
                   <input
                     className="form-control"
@@ -115,12 +105,13 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
                       height: 30,
                       fontSize: 12,
                     }}
-                    onChange={onStatusChange}
-                    value={dataModel.status}
+                    onChange={onDescriptionChange}
+                    value={dataModel.Description}
                     type="text"
-                    placeholder="Module Status"
-                    name="ModuleStatus"
+                    placeholder="Test Plan Description"
+                    name="description"
                   />
+
 
 
 
@@ -143,7 +134,7 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
                       textTransform: 'unset',
                     }}
                   >
-                    Create Module
+                    Create Test Plan
                   </Button>
                 </div>
               </form>
@@ -155,10 +146,11 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
   );
 };
 
-CreateProjectPopup.propTypes = {
+AddTestPlan.propTypes = {
+  envId: PropTypes.any,
   isOpen: PropTypes.bool,
-  projectId: PropTypes.any,
-  setIsOpen: PropTypes.func
+  setIsOpen: PropTypes.func,
+  updateData: PropTypes.func
 }
 
-export default CreateProjectPopup
+export default AddTestPlan

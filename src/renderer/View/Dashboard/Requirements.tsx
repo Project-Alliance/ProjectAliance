@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Container,Header,ProjectIcon ,Row,Col,H1,H2,H5,SCard,Text,
 InputP,InputReq
 } from 'renderer/Components/layout';
@@ -6,6 +7,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { COLORS } from 'renderer/AppConstants';
 import { useDispatch, useSelector } from 'react-redux';
 import {Avatar,Button} from '@mui/material';
+
 import Api from 'renderer/Api/auth.api';
 import CreateProjectPopup from 'renderer/Components/RequirementComponent/CreateModulePopup';
 import CreateRequirementPopUp from 'renderer/Components/RequirementComponent/CreateRequirement_PopUp';
@@ -20,6 +22,7 @@ import CustomComponent from 'renderer/Components/Comments/comment';
 // import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // import { TreeItem } from '@mui/lab';
 // import { TreeView } from '@mui/lab';
+
 
 const defaultImage = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 interface Props {
@@ -39,13 +42,13 @@ export default function Requirements({ history, sideBar }: Props) {
   const user = useSelector(({ auth }: any) => auth?.user);
   const selectedProject = useSelector(({SelectedProject}: any) => SelectedProject);
   const [isOpen,setIsOpen] = useState(false);
+
   const [isOpenR,setOpenR] = useState(false);
   const [requirement,setRequirement]=useState([]);
   const [reqModule,setReqModule] = useState([]);
   const [isDetail,setIsdetail]=useState(false)
   const [moduleId,setModuleId]=useState(0);
   const [projectId,setProjectId]=useState(0);
-
   const [dataModel,setDataModel]=useState({name:"",status:""})
   const getRequirements=async ()=>{
    let req=await Api.getRequirementModule(selectedProject.pid,user.accessToken)
@@ -53,7 +56,7 @@ export default function Requirements({ history, sideBar }: Props) {
       console.log(err)
     })
     if(req?.data){
-      console.log("data is hereeeeeeeeeeeee",req.data)
+
     setRequirement(req?.data);}
   }
 
@@ -86,6 +89,7 @@ export default function Requirements({ history, sideBar }: Props) {
     setDataModel({ ...dataModel, status: event.target.value });
   };
 
+
   const onNameChangeHandle = (event: any) => {
     setDataModel({ ...dataModel, name: event.target.value });
   };
@@ -102,6 +106,7 @@ export default function Requirements({ history, sideBar }: Props) {
   <Container style={{overflowY:"scroll"}}>
     {/* Header Start  */}
     <CreateProjectPopup isOpen={isOpen} setIsOpen={setIsOpen} projectId={selectedProject.pid} />
+
     {isOpenR&&moduleId&&<CreateRequirementPopUp isOpen={isOpenR} setIsOpen={setOpenR} projectId={selectedProject.pid} moduleId={moduleId}   />}
 
     <Header style={{justifyContent:'space-between'}}>
@@ -138,6 +143,7 @@ export default function Requirements({ history, sideBar }: Props) {
     Create Module
     </Button>
    </Row>
+
     <div style={{height:"100vh",display:'flex',flexDirection:'row',background:COLORS.lightGray3}}>
      {!isDetail ?
       <div className={"col-md-2"} style={{height:'100vh',backgroundColor:COLORS.primary}}>
@@ -279,3 +285,5 @@ export default function Requirements({ history, sideBar }: Props) {
 
   </Container>);
 }
+
+

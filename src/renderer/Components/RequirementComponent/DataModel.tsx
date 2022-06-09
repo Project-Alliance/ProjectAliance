@@ -12,4 +12,5 @@ export const RequirementData={
   modifeidOn :"",
   file:"",
   fileName:''
+
 }

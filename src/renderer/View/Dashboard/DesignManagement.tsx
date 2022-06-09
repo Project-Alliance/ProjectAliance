@@ -101,7 +101,7 @@ export default function DocumentManagement({ history, sideBar }: Props) {
   };
 
   React.useEffect(() => {
-    if (selectedProject?.pid) {
+    if (selectedProject?.pid&&document?.length===0) {
       dispatch(GetDocument(selectedProject.pid,user?.accessToken));
     }
   },[])
@@ -117,7 +117,7 @@ export default function DocumentManagement({ history, sideBar }: Props) {
 
       </ProjectIcon>
       <Col style={{marginLeft:5}}>
-        <H2 style={{color:COLORS.primary}}>Document Management</H2>
+        <H2 style={{color:COLORS.primary}}>Design Management</H2>
         <Row style={{alignItems:'center'}}>
         <H1>{selectedProject?.projectTitle}</H1>
 
@@ -194,7 +194,7 @@ export default function DocumentManagement({ history, sideBar }: Props) {
         }}
       >
         <MenuItem onClick={()=>handleDelete(section.sectionId)}>Delete</MenuItem>
-        <MenuItem onClick={()=>handleAdd(section.sectionId)}>Add Document</MenuItem>
+        <MenuItem onClick={()=>handleAdd(section.sectionId)}>Add Design Document</MenuItem>
       </Menu>
     </div>
         </Row>
@@ -275,7 +275,7 @@ const Item=({document,index,openDropDown,sectionId,previewFile,setPreviewFile}:i
     Api.UpdateDocument(documentId,document,accessToken).then(res=>{
       if(res.status===200){
         dispatch(GetDocument(selectedProject?.pid,user?.accessToken));
-        Notification("Sucess",'Document Updated Successfully',"success");
+        Notification("Sucess",'Desing Document Updated Successfully',"success");
       }else {
         Notification("Error",'Can not updated',"warning");
       }}).catch(err=>{
@@ -289,7 +289,7 @@ const Item=({document,index,openDropDown,sectionId,previewFile,setPreviewFile}:i
       Api.DeleteDocument(document?.documentId,user?.accessToken).then(res=>{
         if(res.status===200){
           dispatch(GetDocument(selectedProject?.pid,user?.accessToken));
-          Notification("Sucess",'Document Deleted Successfully',"success");
+          Notification("Sucess",'Design Document Deleted Successfully',"success");
         }else {
           Notification("Error",'Can not deleted',"warning");
         }
@@ -501,7 +501,7 @@ const AddDocumentSections = ({ isOpen, setIsOpen }: uploadcomprops) => {
                   marginBottom: 10,
                 }}
               >
-                Create Document Section
+                Create Design Folder
               </Box>
 
               <form>
@@ -577,7 +577,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
   };
 
   const MemberSelect = (item: any) => ({
-    value: item.userId,
+    value: item.id,
     label: item.name,
     color: '#aeeeee',
     isFixed: true,
@@ -585,7 +585,9 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
     role:item.role,
     email:item.email,
   });
-  React.useEffect(()=>{
+  const [Members,setMembers] = React.useState<any>([]);
+  const MembersGet=()=>{
+    if(Members?.length==0)
     Api.GetProjectteam(Number(projectId),user?.accessToken).then((res:any)=>{
       console.log(res.data)
       if(res.status==200){
@@ -593,9 +595,12 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
         setMembers(team);
       }
     }).catch((err:any)=>{})
-  })
+  }
+  React.useEffect(()=>{
+    MembersGet()
+  },[])
   const animatedComponents = makeAnimated();
-  const [Members,setMembers] = React.useState<any>();
+
 
 
 
@@ -619,23 +624,23 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
   };
   const SubmitDocument=async ()=>{
     if(dataModel.documentName.length==0){
-      Notification('Error','Please enter Document Name',"danger");
+      Notification('Error','Please enter Design Document Name',"danger");
       return;
     }
     else if(dataModel.documentDescription.length==0){
-      Notification('Error','Please enter Document Description',"danger");
+      Notification('Error','Please enter Design Document Description',"danger");
       return;
     }
     else if(dataModel.documentFile.length==0){
-      Notification('Error','Please select Document File',"danger");
+      Notification('Error','Please select Design Document File',"danger");
       return;
     }
     else if(dataModel.documentStatus.length==0){
-      Notification('Error','Please select Document Status',"danger");
+      Notification('Error','Please select Design Document Status',"danger");
       return;
     }
     else if(dataModel.documentVersion.length==0){
-      Notification('Error','Please enter Document Version',"danger");
+      Notification('Error','Please enter Design Document Version',"danger");
       return;
     }
     else if(dataModel.team.length==0){
@@ -647,7 +652,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
       return;
     }
     else if(dataModel.documentFile.size>5000000){
-      Notification('Error','Please select Document File less than 5 MB',"danger");
+      Notification('Error','Please select Design Document File less than 5 MB',"danger");
       return;
     }
 
@@ -664,7 +669,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
         formData.append("documentVersion", dataModel.documentVersion);
         formData.append("sectionId", sectionId?sectionId:"");
         formData.append("projectId", projectId?projectId:"");
-
+        formData.append("sharewith", dataModel.team.value);
 
 
         try {
@@ -682,12 +687,12 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
                 setIsOpen(false);
                 setDataModel(documentFormAttribute);
                 dispatch(GetDocument(projectId?projectId:"0",user?.accessToken));
-                Notification('Success','Document Uploaded Successfully',"success");
+                Notification('Success','Design Document Uploaded Successfully',"success");
               }
 
             })
             .catch(error => {
-              Notification('Error','Document Not Uploaded',"danger");
+              Notification('Error','Design Document Not Uploaded',"danger");
         })}
         catch (error) {}
 
@@ -717,7 +722,7 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
                   marginBottom: 10,
                 }}
               >
-                Upload Document
+                Upload Design Document
               </Box>
 
               <form>
@@ -801,11 +806,11 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
                         zIndex: 100,
                       }),
                     }}
-                    isMulti
+                    isMulti={false}
                     defaultValue={dataModel.team}
                     options={Members}
                     onChange={(value: any) => {
-                      setDataModel({ ...dataModel, team: value });
+                      setDataModel({ ...dataModel, team: value});
                     }}
                   />
                 </div>

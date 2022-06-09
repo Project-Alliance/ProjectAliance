@@ -232,6 +232,7 @@ export const option3 = {
           font="AntDesign"
           color="rgb(175, 173, 173)"
           size={12}
+
           style={{ height: 12, width: 20 }}
         />
       </div>
@@ -239,6 +240,7 @@ export const option3 = {
   ),
   options: [
     {
+
       value: 'Add',
       label: 'Add Req...',
       hidden: false,
@@ -250,6 +252,7 @@ export const option3 = {
       },
     },
     {
+
       value: 'Delete',
       label: 'Delete Module',
       hidden: false,
@@ -264,6 +267,38 @@ export const option3 = {
   ],
 };
 
+export const TestCaseResultOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'Create Test Case Result',
+      label: 'Create Test Case Result',
+      hidden: false,labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+
+  ],
+};
 
 export const links = [
   {
@@ -288,6 +323,24 @@ export const links = [
   },
 ];
 
+export const QualityButtons = [
+  {
+    to: '/planing',
+    label: 'Planing',
+  },
+  {
+    to: '/TestSchedule',
+    label: 'Test Schedule',
+  },
+  {
+    to: '/Execution Result',
+    label: 'Test Result',
+  },
+  {
+    to: '/Defects',
+    label: 'Defects',
+  },
+];
 
 
 export const projects=[

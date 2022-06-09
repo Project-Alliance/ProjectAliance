@@ -210,7 +210,7 @@ function Projects({ sideBar = 'flex', ...props }) {
           <MyTask />
         </Route>
         <Route path='/board' exact>
-          {/* <Board /> */}
+           <Board />
         </Route>
         <Route path='/timeline' exact>
           {/* <TimeLine /> */}
