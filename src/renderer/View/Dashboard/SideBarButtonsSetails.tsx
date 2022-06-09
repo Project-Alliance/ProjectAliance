@@ -119,6 +119,47 @@ export const options1= [
       ]
   }
 ]
+
+export const options3= [
+  {
+      value: 'Projects',
+      label: 'Project Allaince',
+      hidden: false,
+      icon: {
+        name:'addusergroup',
+        color:'#000',
+        size:20,
+        font:"AntDesign"
+      },
+      options: [
+          {
+              value: 'Sample-Sub-Menu',
+              label: 'Sample-Sub-Menu',
+              hidden: false,
+              icon: {
+                name:'addusergroup',
+                color:'#000',
+                size:20,
+                font:"AntDesign"
+              },
+
+          },
+          {
+            value: 'Sample-Sub-Menu',
+            label: 'Sample-Sub-Menu',
+            hidden: false,
+            icon: {
+              name:'addusergroup',
+              color:'#000',
+              size:20,
+              font:"AntDesign"
+            },
+
+        },
+      ]
+  }
+]
+
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import Icon from "react-web-vector-icons";
 
@@ -178,6 +219,52 @@ export const option = {
     },
   ],
 };
+
+export const option3 = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Project Actions</Tooltip>}
+    >
+      <div style={{marginLeft:6}}>
+        <Icon
+          name="caretdown"
+          font="AntDesign"
+          color="rgb(175, 173, 173)"
+          size={12}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'Add',
+      label: 'Add Req...',
+      hidden: false,
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 18,
+        font: 'Feather',
+      },
+    },
+    {
+      value: 'Delete',
+      label: 'Delete Module',
+      hidden: false,
+      icon: {
+        name: 'delete',
+        color: '#000',
+        size: 18,
+        font: 'AntDesign',
+      },
+    },
+
+  ],
+};
+
+
 export const links = [
   {
     to: '/documentation',
