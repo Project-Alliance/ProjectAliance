@@ -279,5 +279,3 @@ export default function Requirements({ history, sideBar }: Props) {
 
   </Container>);
 }
-
-
