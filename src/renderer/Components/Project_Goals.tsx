@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 // import InputButton from 'renderer/Components/InputButton';
 import Popup from '../View/CreateProjectForm/Popup';
- 
+
 import { projectGoalModel } from './GoalModel';
 import { useDispatch, useSelector } from 'react-redux';
- 
+
 // import Api from "renderer/Api/auth.api";
 // import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -23,9 +23,9 @@ import {
   TabsList,
   TabsUnstyled,
 } from 'renderer/Components/muiStyledComponent';
- 
+
 import { header } from './layout/styled';
- 
+
 import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
 
 interface ColourOption {
@@ -53,7 +53,7 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
   }
   const [TabV,setTabV] = useState(0);
   const user = useSelector(({auth}:any)=>auth.user);
- 
+
   const dispatch = useDispatch();
   // const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
 
@@ -138,7 +138,7 @@ function Project_Goals({ isOpen, setIsOpen }: any) {
     });
 
   }
- 
+
   return (
     <>
       {isOpen && (

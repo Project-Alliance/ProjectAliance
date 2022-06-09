@@ -491,6 +491,7 @@ todo-row-Date {
 
 
 
+
 $gl-ms         : "screen and (max-width: 23.5em)"; // up to 360px
 $gl-xs         : "screen and (max-width: 35.5em)"; // up to 568px
 $gl-sm         : "screen and (max-width: 48em)";   // max 768px
@@ -615,4 +616,8 @@ table{
       }
     }
   }
+
+.input_req{
+  background-color: #EFEFF1;
+
 }

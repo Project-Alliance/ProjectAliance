@@ -1,15 +1,16 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import InputButton from '../InputButton';
 import Icon from 'react-web-vector-icons';
 import { useSelector,useDispatch } from 'react-redux';
 import {deleteMembers} from "../../Store/Actions/members.action"
-
+import PermissionPopUp from 'renderer/Components/PeopleGrid_View/PermissionPopUp';
 
 
 export default function DataGridDemo({data=[]}:any) {
   const dispatch = useDispatch();
-        const user = useSelector(({ auth }: any) => auth.user);
+  const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector(({ auth }: any) => auth.user);
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 40,editable:false },
 
@@ -102,8 +103,28 @@ export default function DataGridDemo({data=[]}:any) {
       renderCell: (cellValues) => {
         return (
 
-          <div  style={{marginLeft:20}} onClick={()=>alert(cellValues.id)}>
+          <div  style={{marginLeft:20}} onClick={()=>alert(cellValues.id)} >
             <Icon  name='sharealt' font='AntDesign'  color='black'  size={25}  // style={{}}
+          />
+          </div>
+
+        );
+      }
+    },
+    {
+      field: 'Permissions',
+      headerName: 'Permissions',
+      // description: 'This will Share the data cell to your Members.',
+      sortable: false,
+      width: 100,
+      renderCell: (cellValues) => {
+        return (
+
+          <div  style={{marginLeft:20}} onClick={(props: any) => {
+            // props.ParentHistory.push('/createOrganization');
+            setIsOpen(!isOpen);
+          }} >
+             <Icon  name='lock1' font='AntDesign'  color='black'  size={25}  // style={{}}
           />
           </div>
 
@@ -113,6 +134,7 @@ export default function DataGridDemo({data=[]}:any) {
   ];
   return (
     <div style={{ height: 600, width: '100%'}}>
+       <PermissionPopUp isOpen={isOpen} setIsOpen={setIsOpen} />
       <DataGrid
         rows={data}
         columns={columns}
