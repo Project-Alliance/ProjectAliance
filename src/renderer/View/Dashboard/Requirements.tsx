@@ -82,12 +82,7 @@ export default function Requirements({ history, sideBar }: Props) {
     getRequirements();}
   }
 
-  const onNameChangeHandle = (event: any) => {
-    setDataModel({ ...dataModel, name: event.target.value });
-  };
-  const onStatusChangeHandle = (event: any) => {
-    setDataModel({ ...dataModel, status: event.target.value });
-  };
+
 
 
   const onNameChangeHandle = (event: any) => {
