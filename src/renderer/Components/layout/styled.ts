@@ -59,6 +59,11 @@ font-size: 14px;
 font-family: Inter, sans-serif;
 `;
 
+export const H5=styled('div')`
+font-size: 12px;
+font-family: Inter, sans-serif;
+`;
+
 export const SmaalCardBox=styled('div')`
 font-size: ${size.normalFont}px;
 font-family: Inter, sans-serif;
@@ -101,6 +106,20 @@ export const InputP=styled('input')`
   border: 1px solid ${COLORS.primary};
 }
 `;
+
+export const InputReq=styled('input')`
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  font-size: ${size.normalFont}px;
+  width: 50;
+&:focus{
+  border: 1px solid ${COLORS.primary};
+}
+`;
+
 
 export const InputSelect=styled('select')`
   border: none;
