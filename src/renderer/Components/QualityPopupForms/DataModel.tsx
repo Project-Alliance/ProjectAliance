@@ -2,7 +2,7 @@ export const ModuleData={
   name:"",
   status:""
 }
-export const Enviorment={
+export const EnviormentData={
   "name":"",
   "description":"",
   "summary":"",
@@ -15,4 +15,22 @@ export const Enviorment={
           "value":""
       },
   ]
+}
+export const TestPlanData={
+  "Name":"",
+  "Description":""
+}
+export const TestCaseData={
+  "Name":"",
+  "categoryName":"",
+  "categoryType":"",
+  "testType":""
+}
+
+export const TestCaseResult={
+  Description:"",
+  url:'',
+  ExpectedOutcomeFile:'',
+  testOutComeFile:'',
+
 }

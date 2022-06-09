@@ -20,7 +20,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Gantt from 'frappe-gantt';
 import { formatDate, Props } from 'renderer/Components/Add_Task_Schedule/CustomGridCompoment';
 
-import Add_Schedule from 'renderer/Components/Add_Task_Schedule/Add_Schedule';
+import Add_Schedule from 'renderer/Components/Add_Task_Schedule/Add_Test_Schedule';
 import Api from "renderer/Api/auth.api";
 import "./style.scss";
 import {Notification} from 'renderer/Util/Notification/Notify';

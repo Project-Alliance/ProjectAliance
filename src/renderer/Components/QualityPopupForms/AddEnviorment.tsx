@@ -10,56 +10,63 @@ import {Avatar,Box,Button} from '@mui/material';
 import { Notification } from 'renderer/Util/Notification/Notify';
 import Api from 'renderer/Api/auth.api';
 import Popup from 'renderer/View/CreateProjectForm/Popup';
-import { ModuleData } from "./DataModel";
+import { EnviormentData } from "./DataModel";
 import { COLORS } from "renderer/AppConstants";
+import Icon from "react-web-vector-icons";
 
 
 
-const AddEnviorment = ({ projectId,isOpen, setIsOpen }: any) => {
+const AddEnviorment = ({ projectId,isOpen, setIsOpen,isRequirementBased=false,updateData }: any) => {
   const togglePopup = () => {
-    setDataModel(ModuleData);
+    setDataModel(EnviormentData);
     setIsOpen(!isOpen);
   };
-  const MemberSelect = (item: any) => ({
-    value: item.id,
-    label: item.name,
-    color: '#aeeeee',
-    isFixed: true,
-    isDisabled: false,
-  });
 
-  const Members = useSelector(({ Members }: any) =>
-    Members.data.map((item: any) => MemberSelect(item))
-  );
-  const [dataModel, setDataModel] = React.useState(ModuleData);
+  const [dataModel, setDataModel] = React.useState(EnviormentData);
   const onNameChangeHandle = (event: any) => {
     setDataModel({ ...dataModel, name: event.target.value });
   };
-  const onStatusChange = (event: any) => {
-    setDataModel({ ...dataModel, status: event.target.value });
+  const onDescriptionChange = (event: any) => {
+    setDataModel({ ...dataModel, description: event.target.value });
   };
 
+  const onSummeryChange = (event: any) => {
+    setDataModel({ ...dataModel, summary: event.target.value });
+  };
+
+  const onEnviormentTypeChange = (event: any) => {
+    setDataModel({ ...dataModel, TestType: event.target.value });
+  };
   const user = useSelector(({ auth }: any) => auth?.user);
 
 
   const CreateModule=()=>{
+    console.log(dataModel)
     if(dataModel.name.length==0){
       Notification('Error','Please enter Module Name',"danger");
       return;
     }
-    else if(dataModel.status.length==0){
+    else if(dataModel.description.length==0){
+      Notification('Error','Please enter Status',"danger");
+      return;
+    }else if(dataModel.TestType.length==0){
+      Notification('Error','Please enter Status',"danger");
+      return;
+    }else if(dataModel.summary.length==0){
       Notification('Error','Please enter Status',"danger");
       return;
     }
-
-    Api.createRequirementModule(projectId,dataModel,user?.accessToken).then((res:any)=>{
+    let data=dataModel;
+    data.isRequirementBased=isRequirementBased;
+    Api.CreateEnviorment(projectId,data,user?.accessToken).then((res:any)=>{
       debugger
       console.log("res",res)
       if(res.status==200){
 
-        setDataModel(ModuleData);
+        setDataModel(EnviormentData);
         setIsOpen(false);
-        Notification('Success','Module Created Successfully',"success");
+        updateData()
+        Notification('Success','Envioroment Added Successfully',"success");
       }else{
         Notification('Error','Something went wrong',"danger");
       }
@@ -87,7 +94,7 @@ const AddEnviorment = ({ projectId,isOpen, setIsOpen }: any) => {
                   marginBottom: 10,
                 }}
               >
-                Create Module
+                Add Enviorment
               </Box>
 
               <form>
@@ -103,8 +110,8 @@ const AddEnviorment = ({ projectId,isOpen, setIsOpen }: any) => {
                     onChange={onNameChangeHandle}
                     value={dataModel.name}
                     type="text"
-                    placeholder="Module Name"
-                    name="moduleName"
+                    placeholder="Enviorment Name"
+                    name="Name"
                   />
                   <input
                     className="form-control"
@@ -114,13 +121,117 @@ const AddEnviorment = ({ projectId,isOpen, setIsOpen }: any) => {
                       height: 30,
                       fontSize: 12,
                     }}
-                    onChange={onStatusChange}
-                    value={dataModel.status}
+                    onChange={onDescriptionChange}
+                    value={dataModel.description}
                     type="text"
-                    placeholder="Module Status"
-                    name="ModuleStatus"
+                    placeholder="Enviorement Description"
+                    name="description"
+                  />
+                  <input
+                    className="form-control"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      height: 30,
+                      fontSize: 12,
+                    }}
+                    onChange={onSummeryChange}
+                    value={dataModel.summary}
+                    type="text"
+                    placeholder="summary"
+                    name="summary"
+                  />
+                  <input
+                    className="form-control"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      height: 30,
+                      fontSize: 12,
+                    }}
+                    onChange={onEnviormentTypeChange}
+                    value={dataModel.TestType}
+                    type="text"
+                    placeholder="Enviorment Type"
+                    name="TestType"
                   />
 
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Lab Resource Name</th>
+                        <th>Lab Resource Type</th>
+                        <th>
+                          <Button onClick={()=>{
+                            let resourceArray=dataModel.res;
+                            resourceArray.push({
+                              "name":"",
+                              "value":""
+                          })
+                          setDataModel({...dataModel,res:resourceArray})
+                          }}>
+                            <Icon name="plus" font="AntDesign" size={25} color={COLORS.white} />
+                          </Button>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dataModel.res.map((item:any,index:number)=>(
+                        <tr>
+                          <td>
+                          <input
+                    className="form-control"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      height: 30,
+                      fontSize: 12,
+                    }}
+                    onChange={({target}:any)=>{
+                      let array = dataModel.res;
+                      array[index].name=target.value;
+                      setDataModel({...dataModel,res:array})
+                    }}
+                    value={dataModel.res[index].name}
+                    type="text"
+                    placeholder="Enviorment Name"
+                    name="EnvName"
+                  />
+                          </td>
+                          <td>
+
+                          <input
+                    className="form-control"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      height: 30,
+                      fontSize: 12,
+                    }}
+                    onChange={({target}:any)=>{
+                      let array = dataModel.res;
+                      array[index].value=target.value;
+                      setDataModel({...dataModel,res:array})
+                    }}
+                    value={dataModel.res[index].value}
+                    type="text"
+                    placeholder="Enviorment Type"
+                    name="EnvType"
+                  />
+                          </td>
+                          <td>
+                          <Button onClick={()=>{
+                            let resourceArray=dataModel.res.filter((_,i)=>i!=index)
+
+                          setDataModel({...dataModel,res:resourceArray})
+                          }}>
+                            <Icon name="delete" font="AntDesign" size={25} color={COLORS.white} />
+                          </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
 
 
 
@@ -142,7 +253,7 @@ const AddEnviorment = ({ projectId,isOpen, setIsOpen }: any) => {
                       textTransform: 'unset',
                     }}
                   >
-                    Create Module
+                    Create Enviorment
                   </Button>
                 </div>
               </form>
@@ -156,8 +267,10 @@ const AddEnviorment = ({ projectId,isOpen, setIsOpen }: any) => {
 
 AddEnviorment.propTypes = {
   isOpen: PropTypes.bool,
+  isRequirementBased: PropTypes.bool,
   projectId: PropTypes.any,
-  setIsOpen: PropTypes.func
+  setIsOpen: PropTypes.func,
+  updateData: PropTypes.any
 }
 
 export default AddEnviorment
