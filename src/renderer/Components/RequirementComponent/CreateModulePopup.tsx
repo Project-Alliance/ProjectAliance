@@ -1,12 +1,11 @@
 
 import PropTypes from "prop-types"
 import React from 'react';
-<<<<<<< HEAD
-=======
+
 import { Container,Header,ProjectIcon ,Row,Col,H1,H2,SCard,Text
 ,ChartBox
 } from 'renderer/Components/layout';
->>>>>>> 6cf0368 (a)
+
 import { useDispatch, useSelector } from 'react-redux';
 import {Avatar,Box,Button} from '@mui/material';
 

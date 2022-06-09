@@ -10,10 +10,8 @@ export const RequirementData={
   moduleId:"",
   modifiedBy :"",
   modifeidOn :"",
-<<<<<<< HEAD
+
   file:"",
   fileName:''
-=======
-  file:[]
->>>>>>> 6cf0368 (a)
+
 }
