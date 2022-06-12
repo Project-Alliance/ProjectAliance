@@ -33,6 +33,7 @@ import Goals from './Goals';
 import AddMemberRoute from '../CreateProjectForm/createOrganization';
 import Settings from './Setting';
 import Quality from './QualityManagement';
+import Change from './ChangeManagment';
 
 
 export default function index() {
@@ -164,6 +165,9 @@ export default function index() {
               <Route path="/quality"  >
                 <Quality sideBar={displaySlide}  />
               </Route>
+              <Route path="/change"  >
+                <Change sideBar={displaySlide}  />
+              </Route>
               {/* <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
               </Route> */}
@@ -171,9 +175,9 @@ export default function index() {
               <Route path="/addmembers">
                 <AddMemberRoute />
               </Route>
-               <Route path="/inbox"  >
+               {/* <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
-              </Route>
+              </Route> */}
               {/* <Route path="/setting"  >
                 <div>
                 <button

@@ -119,7 +119,10 @@ export default function Requirements({ history, sideBar }: Props) {
 
   useEffect(() => {
     if(requirement.length==0)
-    getRequirements()
+    {
+    getRequirements();
+    }
+
   }, [requirement])
 
   return (
@@ -271,7 +274,7 @@ export default function Requirements({ history, sideBar }: Props) {
                           defaultValue={req?.attachments?.length>0?req?.attachments[0].name:""}
                           />
                     </div>
-                  <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}  onClick={()=>{ deleteReq(req.id,selectedProject.pid)}}>
+                  <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}  onClick={()=>{ deleteReq(req.id,selectedProject.pid); getRequirements()}}>
                         <Button className='col-sm-1' style={{fontSize:12,textTransform:'unset'}}>
                             <Icon
                             name="delete"
