@@ -272,6 +272,7 @@ class ApiCntainerClass {
     };
     return http.delete(`/Requirements/deleteAttachment?reqId=${rid}`,{headers:header});
   }
+<<<<<<< HEAD
 
   
 
@@ -281,6 +282,8 @@ class ApiCntainerClass {
   //     'Authorization': "Bearer "+ token
   //   };
   //   return http.get(`/permission/get/${id}`,{headers:header});
+=======
+>>>>>>> 6cf0368 (a)
 
 }
 export default new ApiCntainerClass();

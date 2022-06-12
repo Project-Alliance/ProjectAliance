@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { Container,Header,ProjectIcon ,Row,Col,H1,H2,H5,SCard,Text,
 InputP,InputReq
+=======
+import { Container,Header,ProjectIcon ,Row,Col,H1,H2,SCard,Text
+,ChartBox,
+InputP
+>>>>>>> 6cf0368 (a)
 } from 'renderer/Components/layout';
 import { RouteComponentProps } from 'react-router-dom';
 import { COLORS } from 'renderer/AppConstants';
 import { useDispatch, useSelector } from 'react-redux';
 import {Avatar,Button} from '@mui/material';
+<<<<<<< HEAD
 import Api from 'renderer/Api/auth.api';
 import CreateProjectPopup from 'renderer/Components/RequirementComponent/CreateModulePopup';
 import CreateRequirementPopUp from 'renderer/Components/RequirementComponent/CreateRequirement_PopUp';
@@ -20,6 +27,16 @@ import CustomComponent from 'renderer/Components/Comments/comment';
 // import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // import { TreeItem } from '@mui/lab';
 // import { TreeView } from '@mui/lab';
+=======
+import Popup from '../CreateProjectForm/Popup';
+import { Notification } from 'renderer/Util/Notification/Notify';
+import Api from 'renderer/Api/auth.api';
+import CreateProjectPopup from 'renderer/Components/RequirementComponent/CreateModulePopup';
+import { truncateSync } from 'original-fs';
+import Icon from 'react-web-vector-icons';
+
+
+>>>>>>> 6cf0368 (a)
 
 const defaultImage = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 interface Props {
@@ -39,6 +56,7 @@ export default function Requirements({ history, sideBar }: Props) {
   const user = useSelector(({ auth }: any) => auth?.user);
   const selectedProject = useSelector(({SelectedProject}: any) => SelectedProject);
   const [isOpen,setIsOpen] = useState(false);
+<<<<<<< HEAD
   const [isOpenR,setOpenR] = useState(false);
   const [requirement,setRequirement]=useState([]);
   const [reqModule,setReqModule] = useState([]);
@@ -46,6 +64,10 @@ export default function Requirements({ history, sideBar }: Props) {
   const [moduleId,setModuleId]=useState(0);
   const [projectId,setProjectId]=useState(0);
 
+=======
+  const [requirement,setRequirement]=useState([]);
+  const [isDetail,setIsdetail]=useState(false)
+>>>>>>> 6cf0368 (a)
   const [dataModel,setDataModel]=useState({name:"",status:""})
   const getRequirements=async ()=>{
    let req=await Api.getRequirementModule(selectedProject.pid,user.accessToken)
@@ -53,6 +75,7 @@ export default function Requirements({ history, sideBar }: Props) {
       console.log(err)
     })
     if(req?.data){
+<<<<<<< HEAD
       console.log("data is hereeeeeeeeeeeee",req.data)
     setRequirement(req?.data);}
   }
@@ -77,6 +100,10 @@ export default function Requirements({ history, sideBar }: Props) {
     if(req?.data){
       console.log(req.data)
     getRequirements();}
+=======
+      console.log(req.data)
+    setRequirement(req?.data);}
+>>>>>>> 6cf0368 (a)
   }
 
   const onNameChangeHandle = (event: any) => {
@@ -86,6 +113,7 @@ export default function Requirements({ history, sideBar }: Props) {
     setDataModel({ ...dataModel, status: event.target.value });
   };
 
+<<<<<<< HEAD
   const onNameChangeHandle = (event: any) => {
     setDataModel({ ...dataModel, name: event.target.value });
   };
@@ -93,6 +121,8 @@ export default function Requirements({ history, sideBar }: Props) {
     setDataModel({ ...dataModel, status: event.target.value });
   };
 
+=======
+>>>>>>> 6cf0368 (a)
   useEffect(() => {
     if(requirement.length==0)
     getRequirements()
@@ -102,8 +132,11 @@ export default function Requirements({ history, sideBar }: Props) {
   <Container style={{overflowY:"scroll"}}>
     {/* Header Start  */}
     <CreateProjectPopup isOpen={isOpen} setIsOpen={setIsOpen} projectId={selectedProject.pid} />
+<<<<<<< HEAD
     {isOpenR&&moduleId&&<CreateRequirementPopUp isOpen={isOpenR} setIsOpen={setOpenR} projectId={selectedProject.pid} moduleId={moduleId}   />}
 
+=======
+>>>>>>> 6cf0368 (a)
     <Header style={{justifyContent:'space-between'}}>
       <Row>
       <ProjectIcon style={{borderRadius:10}}>
@@ -138,6 +171,7 @@ export default function Requirements({ history, sideBar }: Props) {
     Create Module
     </Button>
    </Row>
+<<<<<<< HEAD
     <div style={{height:"100vh",display:'flex',flexDirection:'row',background:COLORS.lightGray3}}>
      {!isDetail ?
       <div className={"col-md-2"} style={{height:'100vh',backgroundColor:COLORS.primary}}>
@@ -273,9 +307,82 @@ export default function Requirements({ history, sideBar }: Props) {
         <div style={{color:COLORS.white,height:'4vh',textAlign:'center'}}>Comments</div>
         <div className="sepratorReq" />
             <CustomComponent />
+=======
+    <div className="row" style={{height:"100vh"}}>
+      <div className={isDetail?"col-md-9":"col-md-12"} style={{height:"100vh"}}>
+      <Row style={{alignItems:'center',justifyContent:'space-between'}} >
+                <H2 className='col-md-2' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold',textAlign:'left'}}>Name</H2>
+                <H2 className='col-md-2' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold',textAlign:'left'}}>Status</H2>
+                <H2 className='col-md-2' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold'}}>Modified BY</H2>
+                <H2 className='col-md-2' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold'}}>Modified On</H2>
+                <H2 className='col-md-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center',fontWeight:'bold'}}>Requirements</H2>
+
+                <H2 className='col-md-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center',fontWeight:'bold'}}>Delete</H2>
+                <H2 className='col-md-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center',fontWeight:'bold'}}>Comments</H2>
+              </Row>
+        {/* Sidebar Start */}
+        {requirement.map((item:any)=>{
+          return(
+              <Row style={{alignItems:'center',justifyContent:'space-between'}} >
+
+                <InputP
+                className='col-md-2'
+                onBlur={onNameChangeHandle}
+                defaultValue={item.moduleName} />
+                <InputP
+                className='col-md-2'
+                onBlur={onStatusChangeHandle}
+                defaultValue={item.moduleStatus} />
+                <H2 className='col-md-2' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center'}}>{item.modifiedBy}</H2>
+                <H2 className='col-md-2' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center'}}>{item.modifeidOn}</H2>
+              <div className='col-md-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}>
+                <Button
+
+                onClick={()=>setIsdetail(!isDetail)}
+                style={{fontSize:12,textTransform:'unset'}}
+                >
+               <Icon
+                name="share-square-o"
+                font='FontAwesome'
+                color={COLORS.primary}
+                size={20} />
+                </Button>
+</div><div className='col-md-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}>
+                <Button
+                className='col-md-1'
+                onClick={()=>setIsdetail(!isDetail)}
+                style={{fontSize:12,textTransform:'unset'}}
+                >
+                <Icon
+                name="delete"
+                font='AntDesign'
+                color={COLORS.primary}
+                size={20} />
+                </Button></div><div className='col-md-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}>
+                <Button
+                className='col-md-1'
+                onClick={()=>setIsdetail(!isDetail)}
+                style={{fontSize:12,textTransform:'unset'}}
+                >
+                <Icon
+                name="comments-o"
+                font='FontAwesome'
+                color={COLORS.primary}
+                size={20} />
+                </Button>
+                </div>
+              </Row>
+
+          )
+        })}
+        </div>
+        {isDetail&&<div className="col-md-3" style={{height:"100vh"}}>
+>>>>>>> 6cf0368 (a)
         </div>}
     </div>
 
 
   </Container>);
 }
+
+
