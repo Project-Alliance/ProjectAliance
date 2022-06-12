@@ -9,10 +9,10 @@ export const HomeSideBarButtons=[
   },
   {
 
-    title:"Project Schedule",
-    font:"FontAwesome",
-    iconName:"linode",
-    to:"/mytask"
+    title:"Mail Box",
+    font:"AntDesign",
+    iconName:"switcher",
+    to:"/mailbox"
 },
 {
 
@@ -21,13 +21,13 @@ export const HomeSideBarButtons=[
   iconName:"line-graph",
   to:"/reporting",
 },
-{
+// {
 
-  title:"Inbox",
-  font:"AntDesign",
-  iconName:"message1",
-  to:"/inbox"
-},
+//   title:"Inbox",
+//   font:"AntDesign",
+//   iconName:"message1",
+//   to:"/inbox"
+// },
 {
 
   title:"Goals",
@@ -77,13 +77,7 @@ export const ProjectSideBarButtons=[
             iconName:"back",
             to:"/"
   },
-  {
 
-    title:"Mail Document",
-    font:"AntDesign",
-    iconName:"switcher",
-    to:"/manage-documents"
-},
   {
 
     title:"Manage Requirements",
@@ -121,12 +115,12 @@ export const ProjectSideBarButtons=[
   iconName:"users",
   to:"/ManageTeam"
 },
-  {
+{
 
-    title:"My Task",
-    font:"FontAwesome",
-    iconName:"linode",
-    to:"/mytask"
+  title:"Project Schedule",
+  font:"FontAwesome",
+  iconName:"linode",
+  to:"/mytask"
 },
 {
 
@@ -135,13 +129,13 @@ export const ProjectSideBarButtons=[
   iconName:"line-graph",
   to:"/reporting",
 },
-{
+// {
 
-  title:"Inbox",
-  font:"AntDesign",
-  iconName:"message1",
-  to:"/inbox"
-},
+//   title:"Inbox",
+//   font:"AntDesign",
+//   iconName:"message1",
+//   to:"/inbox"
+// },
 {
 
   title:"Goals",

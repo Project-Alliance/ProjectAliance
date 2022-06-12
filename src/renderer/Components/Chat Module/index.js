@@ -10,9 +10,9 @@ const Inbox = ({ParentHistory,sideBar}) => {
     return (
        <ChatEngine
            height= "100vh"
-           projectID= "b8f6b621-092c-4471-a23a-ff6c98ba2646"
-           userName= "Irtaza"
-           userSecret="12345"
+           userName='azeem'
+           userSecret='a79eedb8-bf3b-4681-809a-8d484c3b117d'
+           projectID='a79eedb8-bf3b-4681-809a-8d484c3b117d'
            renderChatFeed={ (chatAppProps) => <ChatFeed  {... chatAppProps} />}
 
        />

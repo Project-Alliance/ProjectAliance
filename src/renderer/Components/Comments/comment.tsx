@@ -17,7 +17,7 @@ const CustomComponent = () => {
           comId: '013',
           userProfile: 'https://www.github.com/Rehan-05',
           fullName: 'Azeem Sarwar',
-          avatarUrl: 'https://ui-avatars.com/api/name=Adam&background=random',
+          avatarUrl: 'https://ui-avatars.com/api/name=Bakar&background=random',
           text: 'It took me 3 days to finish.Thanks! '
         }
       ]

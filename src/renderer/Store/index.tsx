@@ -10,6 +10,8 @@ import {SideBarButton} from "./reducers/SideBarReducers"
 import {SelectedProject} from "./reducers/SelectedProjectReducers"
 import ProjectGoals from "./reducers/Goals.reducer"
 import ProjectSchdule from "./reducers/Schedule.reducer"
+import mailReducer from "../View/Email/features/mailSlice"
+import userSlice from "../View/Email/features/userSlice"
 
 
 
@@ -29,6 +31,8 @@ const store = createStore(
     organization:Organization,
     Members:Members,
     ProjectGoals:ProjectGoals,
+    mail: mailReducer,
+    user: userSlice,
     // ProjectSchdule:ProjectSchdule,
   }),
   applyMiddleware(...middleware)

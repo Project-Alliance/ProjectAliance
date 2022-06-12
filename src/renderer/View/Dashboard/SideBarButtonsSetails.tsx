@@ -431,10 +431,7 @@ export const QualityButtons = [
     to: '/Execution Result',
     label: 'Test Result',
   },
-  {
-    to: '/Defects',
-    label: 'Defects',
-  },
+
 ];
 
 

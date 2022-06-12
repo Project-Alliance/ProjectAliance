@@ -25,6 +25,7 @@ import Button from 'renderer/Components/Button';
 import { getMembers } from 'renderer/Store/Actions/members.action';
 import WorkINProgress from './Work';
 import { size } from 'renderer/AppConstants';
+import Api from "renderer/Api/auth.api";
 
 
 const Home = (props: any) => {
@@ -53,18 +54,25 @@ const Home = (props: any) => {
     return months[month];
   }
   let date= new Date();
-// alert(JSON.stringify(user.role))
-  // if(user.role=="Member")
-  // {
-  //   return(
-  //    <div style={{height: "100vh", width: "100%",justifyContent: 'center',alignItems: 'center',display: 'flex'}}>
-  //      <WorkINProgress />
-  //    </div>
+  const [email, setEmail] = useState<any>([]);
+  const getMails = async () => {
+    try{let res= await Api.getReceivedMail(user?.accessToken)
+    if(res.status==200){
+      setEmail(res.data);
+    }else {
 
+    }}catch(e){
+      console.log(e)
+    }
+}
 
-  //   )
-  // }
-
+  React.useEffect(()=>{
+    if(email.length === 0){
+      getMails()
+    }
+  }, [email])
+  var day = new Date();
+  var hr = day.getHours();
   return (
     <div
       style={{
@@ -182,7 +190,7 @@ const Home = (props: any) => {
               marginTop: 10,
             }}
           >
-            <h1>Good Evening {user?.name}</h1>
+            <h1>{(hr >= 0 && hr < 12)? "Good Morning  " : (hr >= 12 && hr < 16)? "Good Afternoon  " : "Good Evening " }{user?.name}</h1>
           </div>
 
           <div className="Top-Team_Detail">
@@ -190,15 +198,7 @@ const Home = (props: any) => {
               style={{ width: '30%', display: 'flex', flexDirection: 'row' }}
             >
               <div style={{ fontFamily: 'inherit', fontStyle: 'normal' }}>
-                This Week
-              </div>
-              <div style={{ marginLeft: '45px' }}>
-                <DropDownMenuSelect
-                  values={option}
-                  handleOnClick={() => {
-                    console.log('drop down');
-                  }}
-                />
+                Total Projects {projects?.length}
               </div>
             </div>
 
@@ -213,11 +213,11 @@ const Home = (props: any) => {
               <div
                 style={{
                   marginLeft: '7px',
-                  fontSize: '16px',
+                  fontSize: '14px',
                   marginTop: '6px',
                 }}
               >
-                12 Task Completed
+                Completed Projects {projects?.filter((project: any) => project.status === 'Completed').length}
               </div>
             </div>
 
@@ -246,7 +246,7 @@ const Home = (props: any) => {
                   marginTop: '8px',
                 }}
               >
-                10 Collaborators
+               {Members?.length}  Collaborators
               </div>
             </div>
           </div>
@@ -255,11 +255,11 @@ const Home = (props: any) => {
         {/* Left Phase User Info  */}
 
         <div className="Project-Phase">
-          <div className="Divide-Phase">
+          <div  className="Divide-Phase">
             <div className="Top-Divide-Phase">
               <div className="Avatar-Div">
                 <AvatarGroup
-                  avatars={['Rehan']}
+                  avatars={[user?.name]}
                   initialCharacters={1}
                   max={1}
                   backgroundColor="#a12ee1"
@@ -271,13 +271,23 @@ const Home = (props: any) => {
               <div className="Avatar-Name-Icon">
                 <div style={{ marginLeft: '10px', marginTop: '10px' }}>
                   <h6 style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                    {user?.name}
+                    Unread Mail
                   </h6>
                 </div>
                 <div style={{ marginLeft: '10px', marginTop: '8px' }}>
                   <Icon name="user" font="Entypo" color="black" size={18} />
                 </div>
               </div>
+
+            </div>
+            <div style={{overflow:'hidden',overflowY:'scroll'}}>
+            {email&&email.filter((mail:any)=>!mail?.isRead).map((mail:any)=>(
+              <div
+              onClick={()=>{history.push("/mailbox")}}
+              style={{backgroundColor:"#ffff",padding:10,fontWeight:'bold'}} className='emailRow'>
+                <Icon name="mail" font="AntDesign" color={"#000"} size={25} style={{marginRight:5}} />
+                {mail.title}</div>
+            ))}
             </div>
           </div>
           {/* Right Phase Create Project Phase  */}
@@ -289,34 +299,7 @@ const Home = (props: any) => {
                     Projects
                   </h4>
                 </div>
-                <div
-                  style={{
-                    marginLeft: '25px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}
-                >
-                  <div>
-                    <h4
-                      style={{
-                        marginTop: 20,
-                        fontWeight: 'bold',
-                        fontSize: 12,
-                        color: '#B5B2B2',
-                      }}
-                    >
-                      Recent
-                    </h4>
-                  </div>
-                  <div style={{ marginTop: 16, marginLeft: '15px' }}>
-                    <DropDownMenuSelect
-                      values={option}
-                      handleOnClick={(value:any) => {
-                        console.log('drop down');
-                      }}
-                    />
-                  </div>
-                </div>
+
               </div>
 
               <button
