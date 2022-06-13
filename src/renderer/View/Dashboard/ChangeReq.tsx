@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { Container,Header,ProjectIcon ,Row,Col,H1,H2,H5,SCard,Text,
 InputP,InputReq
 } from 'renderer/Components/layout';
@@ -7,23 +6,19 @@ import { RouteComponentProps } from 'react-router-dom';
 import { COLORS } from 'renderer/AppConstants';
 import { useDispatch, useSelector } from 'react-redux';
 import {Avatar,Button} from '@mui/material';
-
 import Api from 'renderer/Api/auth.api';
-import CreateProjectPopup from 'renderer/Components/RequirementComponent/CreateModulePopup';
-import CreateRequirementPopUp from 'renderer/Components/RequirementComponent/CreateRequirement_PopUp';
 import Icon from 'react-web-vector-icons';
-import { option3 } from './SideBarButtonsSetails'
 import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
-import CustomComponent from 'renderer/Components/Comments/comment';
-
-
+import UpdateReq_PopUp from 'renderer/Components/RequirementComponent/Update_Req_PopUp';
+import { option4 } from './SideBarButtonsSetails'
+import UpdateReqModule from 'renderer/Components/RequirementComponent/Update_Module_PopUp';
 
 const defaultImage = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 interface Props {
   sideBar?: string;
   history: RouteComponentProps['history'];
 }
-export default function Requirements({ history, sideBar }: Props) {
+export default function ChangeReq() {
 
   const [counter, setCounter] = useState(0);
   const handleClick = () => {
@@ -36,38 +31,33 @@ export default function Requirements({ history, sideBar }: Props) {
   const user = useSelector(({ auth }: any) => auth?.user);
   const selectedProject = useSelector(({SelectedProject}: any) => SelectedProject);
   const [isOpen,setIsOpen] = useState(false);
-
-  const [isOpenR,setOpenR] = useState(false);
+  const [isOpenR,setIsOpenR] = useState(false);
   const [requirement,setRequirement]=useState([]);
   const [reqModule,setReqModule] = useState([]);
-  const [isDetail,setIsdetail]=useState(false)
-  const [moduleId,setModuleId]=useState(0);
-  const [projectId,setProjectId]=useState(0);
+  const [reqsID,setReqsID] = useState(0);
+  const [moduleIds,setModulesId] = useState(0);
   const [dataModel,setDataModel]=useState({name:"",status:""})
-
-
   const getRequirements=async ()=>{
    let req=await Api.getRequirementModule(selectedProject.pid,user.accessToken)
     .catch(err=>{
       console.log(err)
     })
     if(req?.data){
-
+      console.log("data is hereeeeeeeeeeeee",req.data)
     setRequirement(req?.data);}
   }
 
-
   //delete module api call
-  const deleteModule = async (mid:number,projectId:number)=>{
-    let req=await Api.deleteRequirementModule(mid,projectId,user.accessToken)
-    .catch(err=>{
-      console.log(err)
-    })
-    if(req?.data){
-      console.log(req.data)
-    getRequirements();}
-  }
 
+  // const deleteModule = async (mid:number,projectId:number)=>{
+  //   let req=await Api.deleteRequirementModule(mid,projectId,user.accessToken)
+  //   .catch(err=>{
+  //     console.log(err)
+  //   })
+  //   if(req?.data){
+  //     console.log(req.data)
+  //   getRequirements();}
+  // }
 
   const deleteReq= async (rid:number,projectId:number)=>{
     let req=await Api.deleteRequirement(rid,projectId,user.accessToken)
@@ -79,32 +69,29 @@ export default function Requirements({ history, sideBar }: Props) {
     getRequirements();}
   }
 
-
-
   const onNameChangeHandle = (event: any) => {
     setDataModel({ ...dataModel, name: event.target.value });
   };
-  const onStatusChangeHandle = (event: any) => {
-    setDataModel({ ...dataModel, status: event.target.value });
-  };
+  // const onStatusChangeHandle = (event: any) => {
+  //   setDataModel({ ...dataModel, status: event.target.value });
+  // };
 
+  // const onNameChangeHandle = (event: any) => {
+  //   setDataModel({ ...dataModel, name: event.target.value });
+  // };
 
   useEffect(() => {
     if(requirement.length==0)
-    {
-    getRequirements();
-    }
+    getRequirements()
   }, [requirement])
-
 
   return (
   <Container style={{overflowY:"scroll"}}>
     {/* Header Start  */}
-    <CreateProjectPopup isOpen={isOpen} setIsOpen={setIsOpen} projectId={selectedProject.pid} />
+    <UpdateReq_PopUp isOpen={isOpen} setIsOpen={setIsOpen} projectId={selectedProject.pid} reqs={reqsID} />
+    <UpdateReqModule isOpen={isOpenR} setIsOpen={setIsOpenR} moduleId={moduleIds} />
 
-    {isOpenR&&moduleId&&<CreateRequirementPopUp isOpen={isOpenR} setIsOpen={setOpenR} projectId={selectedProject.pid} moduleId={moduleId}   />}
-
-    <Header style={{justifyContent:'space-between'}}>
+    {/* <Header style={{justifyContent:'space-between'}}>
       <Row>
       <ProjectIcon style={{borderRadius:10}}>
         <img style={{height:35,width:35}} src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png" alt="firebase" />
@@ -122,10 +109,10 @@ export default function Requirements({ history, sideBar }: Props) {
         <input style={{width:200,marginRight:10,borderWidth:1,borderColor:COLORS.borderColor,borderRadius:20,height:30,padding:10, }} placeholder="Search" />
         <Avatar src={user?.profilePic?user?.profilePic:defaultImage} variant="circular" style={{marginRight:10}}/>
       </Row>
-    </Header>
+    </Header> */}
     {/* Header End */}
     {/* Body Start */}
-   <Row>
+   {/* <Row>
    <Button
    onClick={()=>setIsOpen(true)}
    style={{
@@ -137,10 +124,9 @@ export default function Requirements({ history, sideBar }: Props) {
     }}>
     Create Module
     </Button>
-   </Row>
-
+   </Row> */}
     <div style={{height:"100vh",display:'flex',flexDirection:'row',background:COLORS.lightGray3}}>
-     {!isDetail ?
+
       <div className={"col-md-2"} style={{height:'100vh',backgroundColor:COLORS.primary}}>
               <div style={{color:COLORS.white,height:'4vh',marginLeft:20}}>Module</div>
         <div className="sepratorReq" />
@@ -149,23 +135,19 @@ export default function Requirements({ history, sideBar }: Props) {
 
              <div style={{display:'flex',flexDirection:'row',marginTop:14,marginBottom:20}}>
                 <div style={{color:COLORS.white,height:'4vh',marginLeft:10,fontSize:15,width:'100%',cursor:'pointer',display:'flex',flexDirection:'row'}} onClick={()=>{ handleClick();
-
-                  setReqModule(item.requirements)}} >
+                  setReqModule(item.requirements);
+                }}
+                  >
                   <Icon  name='arrow-right' font='Entypo'  color='#B0C3CC'  size={15} />
                       {item.moduleName}
-                   <div style={{}}>
+                   <div>
                       <DropDownMenuSelect
-                        values={option3}
+                        values={option4}
                         className="Requirement_style"
-                        handleOnClick={(value:any) => {
-                          if(value == 'Add')
-                          {
-                           setModuleId(item.id);
-                           setProjectId(item.projectId);
-                           setOpenR(true);
-                          }
-                          else {
-                            deleteModule(item.id,item.projectId )}} }
+                        handleOnClick={() => {
+                          setModulesId(item.id);
+                          setIsOpenR(!isOpenR);
+                          } }
                         />
                    </div>
                 </div>
@@ -174,9 +156,9 @@ export default function Requirements({ history, sideBar }: Props) {
           )
         }
         )}
-      </div> : null}
+      </div>
 
-        <div className={isDetail?"col-md-9":"col-md-12"} style={{height:"100vh",width:'75%',marginLeft:10}}>
+        <div className={"col-md-12"} style={{height:"100vh",width:'75%',marginLeft:10}}>
               <Row style={{alignItems:'center',justifyContent:'space-between',height:'4vh'}} >
                 <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold'}}>Req Name</H5>
                 {/* <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold'}}>Req Status</H5>
@@ -190,9 +172,6 @@ export default function Requirements({ history, sideBar }: Props) {
               </Row>
               <div className="sepratorReq" />
         {/* Sidebar Start */}
-
-
-
 
               {reqModule.map((req:any)=>{
                 return(
@@ -241,7 +220,7 @@ export default function Requirements({ history, sideBar }: Props) {
                           defaultValue={req?.attachments?.length>0?req?.attachments[0].name:""}
                           />
                     </div>
-                  <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}  onClick={()=>{ deleteReq(req.id,selectedProject.pid); getRequirements()}}>
+                  <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}  onClick={()=>{ deleteReq(req.id,selectedProject.pid)}}>
                         <Button className='col-sm-1' style={{fontSize:12,textTransform:'unset'}}>
                             <Icon
                             name="delete"
@@ -250,35 +229,29 @@ export default function Requirements({ history, sideBar }: Props) {
                             size={20} />
                         </Button>
                     </div>
-                      <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}>
+                      <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}} onClick={()=>{
+                        setIsOpen(true);
+                        setReqsID(req.id);
+                        getRequirements();
+                      }}>
                       <Button
                       className='col-sm-1'
-                      onClick={()=>setIsdetail(!isDetail)}
-                      style={{fontSize:12,textTransform:'unset'}}
-                      >
-                      <Icon
-                      name="comments-o"
-                      font='FontAwesome'
-                      color={COLORS.primary}
-                      size={20} />
+                      style={{fontSize:12,textTransform:'unset'}}>
+                      <Icon  name='edit' font='AntDesign'  color={COLORS.primary}  size={25} />
                       </Button>
                       </div>
                     </Row>
               </>
                )} )}
-
-
         </div>
 
-        {isDetail&&<div className="col-md-4" style={{height:"100vh",backgroundColor:COLORS.primary}}>
+        {/* {isDetail&&<div className="col-md-4" style={{height:"100vh",backgroundColor:COLORS.primary}}>
         <div style={{color:COLORS.white,height:'4vh',textAlign:'center'}}>Comments</div>
         <div className="sepratorReq" />
             <CustomComponent />
-        </div>}
+        </div>} */}
     </div>
 
 
   </Container>);
 }
-
-

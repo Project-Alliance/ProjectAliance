@@ -5,6 +5,7 @@ import http from "../Util/http-common";
 class ApiCntainerClass {
 
 
+
   SignIn(data:any) {
 
     return http.post("/auth/signin", data);
@@ -214,7 +215,6 @@ class ApiCntainerClass {
     };
     return http.put(`/Schedule/update/${sid}`,data,{headers:header});
   }
-// Requirment Module Api
   createRequirementModule(projectId:number,data:any,token:string){
     const header ={
       'Content-Type': 'application/json',
@@ -272,7 +272,28 @@ class ApiCntainerClass {
     return http.delete(`/Requirements/deleteAttachment?reqId=${rid}`,{headers:header});
   }
 
-  
+  GetQualitySchedule(pid:number,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/QualitySchedule/${pid}`,{headers:header});
+  }
+  CreateQualitySchedule(pid:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/QualitySchedule/create/${pid}`,data,{headers:header});
+  }
+
+  updateQualitySchedule(sid:string,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/QualitySchedule/update/${sid}`,data,{headers:header});
+  }
 
   // GetPermission(id:number,token:string){
   //   const header ={
@@ -360,7 +381,6 @@ class ApiCntainerClass {
     };
     return http.delete(`/Requirements/deleteAttachment?reqId=${rid}`,{headers:header});
   }
-
 
   CreateEnviorment(pid:number,data:any,token:string){
     const header ={
