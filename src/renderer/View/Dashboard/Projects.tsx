@@ -209,9 +209,11 @@ function Projects({ sideBar = 'flex', ...props }) {
           <h1>List</h1>
           <MyTask />
         </Route>
-        {/* <Route path='/board' exact>
+
+        <Route path='/board' exact>
            <Board />
-        </Route> */}
+        </Route>
+
         <Route path='/timeline' exact>
           {/* <TimeLine /> */}
         </Route>
