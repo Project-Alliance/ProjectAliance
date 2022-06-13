@@ -1,11 +1,6 @@
 
 import PropTypes from "prop-types"
 import React from 'react';
-
-import { Container,Header,ProjectIcon ,Row,Col,H1,H2,SCard,Text
-,ChartBox
-} from 'renderer/Components/layout';
-
 import { useDispatch, useSelector } from 'react-redux';
 import {Avatar,Box,Button} from '@mui/material';
 
@@ -17,7 +12,7 @@ import { COLORS } from "renderer/AppConstants";
 
 
 
-const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
+const UpdateReqModule = ({ moduleId,isOpen, setIsOpen }: any) => {
   const togglePopup = () => {
     setDataModel(ModuleData);
     setIsOpen(!isOpen);
@@ -44,7 +39,7 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
   const user = useSelector(({ auth }: any) => auth?.user);
 
 
-  const CreateModule=()=>{
+  const UpdateModule=({moduleId}:any)=>{
     if(dataModel.name.length==0){
       Notification('Error','Please enter Module Name',"danger");
       return;
@@ -54,7 +49,7 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
       return;
     }
 
-    Api.createRequirementModule(projectId,dataModel,user?.accessToken).then((res:any)=>{
+    Api.updateRequirementModule(moduleId,dataModel,user?.accessToken).then((res:any)=>{
       debugger
       console.log("res",res)
       if(res.status==200){
@@ -89,7 +84,7 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
                   marginBottom: 10,
                 }}
               >
-                Create Module
+                Update Module
               </Box>
 
               <form>
@@ -137,14 +132,14 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
                 >
                   <Button
 
-                  onClick={CreateModule}
+                  onClick={()=>{UpdateModule(moduleId)}}
                     style={{
                       padding: 20,
                       fontSize: 16,
                       textTransform: 'unset',
                     }}
                   >
-                    Create Module
+                    Update Module
                   </Button>
                 </div>
               </form>
@@ -156,10 +151,10 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
   );
 };
 
-CreateProjectPopup.propTypes = {
-  isOpen: PropTypes.bool,
-  projectId: PropTypes.any,
+UpdateReqModule.propTypes = {
+  moduleId: PropTypes.any,
+  isOpen: PropTypes.any,
   setIsOpen: PropTypes.func
 }
 
-export default CreateProjectPopup
+export default UpdateReqModule

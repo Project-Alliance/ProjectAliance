@@ -13,13 +13,15 @@ import Popup from 'renderer/View/CreateProjectForm/Popup';
 import { RequirementData } from "./DataModel";
 import { COLORS } from "renderer/AppConstants";
 
+interface Req {
+  reqs: number,
+  projectId: number,
+  isOpen:any,
+  setIsOpen: any ,
+}
 
 
-
-const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any) => {
-
-
-
+const UpdateReq_PopUp = ({ reqs, projectId, isOpen, setIsOpen }: Req) => {
 
   const togglePopup = () => {
     setDataModel(RequirementData);
@@ -65,7 +67,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
   const user = useSelector(({ auth }: any) => auth?.user);
 
 
-  const CreateRequirement=(moduleId:any,projectId:any)=>{
+  const UpdateRequirement=(reqs:any,projectId:any)=>{
     debugger
     if(dataModel.name.length==0){
       Notification('Error','Please enter Module Name',"danger");
@@ -106,14 +108,14 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
       data.append("file", dataModel.file);
 
 
-    Api.createRequirement( moduleId,projectId , data , user?.accessToken ).then((res:any)=>{
+    Api.updateRequirement( reqs,projectId , data , user?.accessToken ).then((res:any)=>{
       debugger
       console.log("requirement for the specific module is here",res)
       if(res.status==200){
 
         setDataModel(RequirementData);
         setIsOpen(false);
-        Notification('Success','Module Created Successfully',"success");
+        Notification('Success','Requirement Change Successfully',"success");
       }else{
         Notification('Error','Something went wrong',"danger");
       }
@@ -141,7 +143,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                   marginBottom: 10,
                 }}
               >
-                Create Requirement
+                Update Requirement
               </Box>
 
               <form>
@@ -157,7 +159,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                     onChange={onNameChangeHandle}
                     value={dataModel.name}
                     type="text"
-                    placeholder="Requirement Name"
+                    placeholder="Module Name"
                     name="moduleName"
                   />
                   <input
@@ -171,7 +173,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                     onChange={onStatusChange}
                     value={dataModel.status}
                     type="text"
-                    placeholder="Requirement Status"
+                    placeholder="Module Status"
                     name="ModuleStatus"
                   />
                   <input
@@ -202,7 +204,48 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                     placeholder="Requirement Type"
                     name="requirementType"
                   />
-  
+                  {/* <input
+                    className="form-control"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      height: 30,
+                      fontSize: 12,
+                    }}
+                    onChange={onmoduleIdChange}
+                    value={dataModel.moduleId}
+                    type="text"
+                    placeholder="Module Id"
+                    name="moduleId"
+                  />
+                  <input
+                    className="form-control"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      height: 30,
+                      fontSize: 12,
+                    }}
+                    onChange={onmodifiedByChange}
+                    value={dataModel.modifiedBy}
+                    type="text"
+                    placeholder="Modified By"
+                    name="modifiedBy"
+                  />
+                  <input
+                    className="form-control"
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      height: 30,
+                      fontSize: 12,
+                    }}
+                    onChange={onmodifeidOnChange}
+                    value={dataModel.modifeidOn}
+                    type="text"
+                    placeholder="Modified On"
+                    name="modifeidOn"
+                  /> */}
                   <input
                     className="form-control"
                     style={{
@@ -229,14 +272,14 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                 >
                   <Button
 
-                  onClick={()=>{ CreateRequirement(moduleId,projectId)}}
+                  onClick={()=>{ UpdateRequirement(reqs,projectId)}}
                     style={{
                       padding: 20,
                       fontSize: 16,
                       textTransform: 'unset',
                     }}
                   >
-                    Create Requirement
+                    Update Requirement
                   </Button>
                 </div>
               </form>
@@ -248,11 +291,11 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
   );
 };
 
-CreateRequirementPopUp.propTypes = {
+UpdateReq_PopUp.propTypes = {
   isOpen: PropTypes.bool,
-  moduleId: PropTypes.any,
   projectId: PropTypes.any,
+  reqs: PropTypes.any,
   setIsOpen: PropTypes.func
 }
 
-export default CreateRequirementPopUp
+export default UpdateReq_PopUp;

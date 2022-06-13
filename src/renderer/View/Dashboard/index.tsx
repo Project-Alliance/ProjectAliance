@@ -36,6 +36,8 @@ import Quality from './QualityManagement';
 import Mailbox from '../Email/App';
 import Profile from './Profile/Profile';
 
+import Change from './ChangeManagment';
+
 
 export default function index() {
   const dispatch = useDispatch();
@@ -166,9 +168,17 @@ export default function index() {
               <Route path="/quality"  >
                 <Quality sideBar={displaySlide}  />
               </Route>
+
               <Route path="/mailbox"  >
                 <Mailbox   />
               </Route>
+
+
+              <Route path="/change"  >
+                <Change sideBar={displaySlide}  />
+              </Route>
+
+
               {/* <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
               </Route> */}
@@ -176,7 +186,14 @@ export default function index() {
               <Route path="/addmembers">
                 <AddMemberRoute />
               </Route>
+
                {/* <Route path="/inbox"  >
+
+
+               {/* <Route path="/inbox"  >
+               <Route path="/inbox"  >
+
+
               <Inbox ParentHistory={history} sideBar={displaySlide} />
               </Route> */}
               {/* <Route path="/setting"  >
