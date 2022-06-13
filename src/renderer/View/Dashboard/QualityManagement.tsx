@@ -36,6 +36,7 @@ import { color } from '@mui/system';
 import QualitySchedule from './QualitySchedule';
 import { useHistory } from 'react-router';
 import QualityPlaning from './QualityPlaning';
+import QualityResult from './QualityResult';
 
 
 
@@ -189,6 +190,7 @@ const Quality = ({sideBar = 'flex', ...props }) => {
         <>
         {selLink=="/TestSchedule"&&<QualitySchedule />}
         {selLink=="/planing"&&<QualityPlaning />}
+        {selLink=="/Execution Result"&&<QualityResult />}
         </>
 
     </div>

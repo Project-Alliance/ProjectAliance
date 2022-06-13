@@ -10,6 +10,7 @@
 @import './View/createProject/createProject.scss';
 @import './Style/index.scss';
 @import "frappe-gantt/dist/frappe-gantt.css";
+@import './View/Email/components/Login/Login.css';
 
 
 

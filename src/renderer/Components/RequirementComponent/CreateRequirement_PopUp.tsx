@@ -157,7 +157,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                     onChange={onNameChangeHandle}
                     value={dataModel.name}
                     type="text"
-                    placeholder="Module Name"
+                    placeholder="Requirement Name"
                     name="moduleName"
                   />
                   <input
@@ -171,7 +171,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                     onChange={onStatusChange}
                     value={dataModel.status}
                     type="text"
-                    placeholder="Module Status"
+                    placeholder="Requirement Status"
                     name="ModuleStatus"
                   />
                   <input
@@ -202,48 +202,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                     placeholder="Requirement Type"
                     name="requirementType"
                   />
-                  {/* <input
-                    className="form-control"
-                    style={{
-                      marginTop: 10,
-                      marginBottom: 10,
-                      height: 30,
-                      fontSize: 12,
-                    }}
-                    onChange={onmoduleIdChange}
-                    value={dataModel.moduleId}
-                    type="text"
-                    placeholder="Module Id"
-                    name="moduleId"
-                  />
-                  <input
-                    className="form-control"
-                    style={{
-                      marginTop: 10,
-                      marginBottom: 10,
-                      height: 30,
-                      fontSize: 12,
-                    }}
-                    onChange={onmodifiedByChange}
-                    value={dataModel.modifiedBy}
-                    type="text"
-                    placeholder="Modified By"
-                    name="modifiedBy"
-                  />
-                  <input
-                    className="form-control"
-                    style={{
-                      marginTop: 10,
-                      marginBottom: 10,
-                      height: 30,
-                      fontSize: 12,
-                    }}
-                    onChange={onmodifeidOnChange}
-                    value={dataModel.modifeidOn}
-                    type="text"
-                    placeholder="Modified On"
-                    name="modifeidOn"
-                  /> */}
+  
                   <input
                     className="form-control"
                     style={{

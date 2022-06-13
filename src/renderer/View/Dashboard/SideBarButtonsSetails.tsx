@@ -1,6 +1,97 @@
 
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import Icon from "react-web-vector-icons";
+export const options3= [
+  {
+      value: 'Projects',
+      label: 'Project Allaince',
+      hidden: false,
+      icon: {
+        name:'addusergroup',
+        color:'#000',
+        size:20,
+        font:"AntDesign"
+      },
+      options: [
+          {
+              value: 'Sample-Sub-Menu',
+              label: 'Sample-Sub-Menu',
+              hidden: false,
+              icon: {
+                name:'addusergroup',
+                color:'#000',
+                size:20,
+                font:"AntDesign"
+              },
+
+          },
+          {
+            value: 'Sample-Sub-Menu',
+            label: 'Sample-Sub-Menu',
+            hidden: false,
+            icon: {
+              name:'addusergroup',
+              color:'#000',
+              size:20,
+              font:"AntDesign"
+            },
+
+        },
+      ]
+  }
+]
+
+
+
+
+
+export const option3 = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Project Actions</Tooltip>}
+    >
+      <div style={{marginLeft:6}}>
+        <Icon
+          name="caretdown"
+          font="AntDesign"
+          color="rgb(175, 173, 173)"
+          size={12}
+
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+
+      value: 'Add',
+      label: 'Add Req...',
+      hidden: false,
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 18,
+        font: 'Feather',
+      },
+    },
+    {
+
+      value: 'Delete',
+      label: 'Delete Module',
+      hidden: false,
+      icon: {
+        name: 'delete',
+        color: '#000',
+        size: 18,
+        font: 'AntDesign',
+      },
+    },
+
+  ],
+};
+
 
 export const sideBarButtons=[
   {
@@ -241,6 +332,7 @@ export const options3= [
   }
 ]
 
+
 export const option = {
   placeholder: (
     <OverlayTrigger
@@ -296,19 +388,18 @@ export const option = {
   ],
 };
 
-export const option3 = {
+export const EnvOptions = {
   placeholder: (
     <OverlayTrigger
       placement="bottom"
-      overlay={<Tooltip id="tooltip-bottom">Project Actions</Tooltip>}
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
     >
-      <div style={{marginLeft:6}}>
+      <div>
         <Icon
-          name="caretdown"
-          font="AntDesign"
+          name='dots-three-vertical'
+          font="Entypo"
           color="rgb(175, 173, 173)"
-          size={12}
-
+          size={18}
           style={{ height: 12, width: 20 }}
         />
       </div>
@@ -316,34 +407,76 @@ export const option3 = {
   ),
   options: [
     {
-
-      value: 'Add',
-      label: 'Add Req...',
+      value: 'Add New Enviorment',
+      label: 'Add New Enviorment',labelStyle:{fontSize:10},
       hidden: false,
       icon: {
         name: 'edit-2',
         color: '#000',
-        size: 18,
+        size: 20,
         font: 'Feather',
       },
     },
     {
-
-      value: 'Delete',
-      label: 'Delete Module',
+      value: 'View Enviornment Detail',
+      label: 'View Enviornment Detail',
+      labelStyle:{fontSize:10},
       hidden: false,
       icon: {
-        name: 'delete',
+        name: 'content-duplicate',
         color: '#000',
-        size: 18,
-        font: 'AntDesign',
+        size: 20,
+        font: 'MaterialCommunityIcons',
+      },
+    },
+    {
+      value: 'Add New Test Plan',
+      label: 'Add New Test Plan',
+      hidden: false,
+      labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+  ],
+};
+export const TestPlanOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'Add New Test Cases',
+      label: 'Add New Test Cases',
+      hidden: false,
+      labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
       },
     },
 
+
   ],
 };
-
-
 export const TestCaseResultOptions = {
   placeholder: (
     <OverlayTrigger
@@ -376,8 +509,6 @@ export const TestCaseResultOptions = {
 
   ],
 };
-
-
 export const links = [
   {
     to: '/documentation',
@@ -414,10 +545,7 @@ export const QualityButtons = [
     to: '/Execution Result',
     label: 'Test Result',
   },
-  {
-    to: '/Defects',
-    label: 'Defects',
-  },
+
 ];
 
 

@@ -236,6 +236,7 @@
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.4",
     "electron-updater": "^4.6.5",
+    "firebase": "^8.10.1",
     "frappe-gantt": "^0.5.0",
     "generate-password": "^1.7.0",
     "history": "^5.2.0",
@@ -245,7 +246,6 @@
     "react": "^17.0.2",
     "react-avatar-group": "^1.0.2",
     "react-bootstrap": "^2.0.2",
-    "react-chat-engine": "^1.11.23",
     "react-comments-section": "^2.0.10",
     "react-dom": "^17.0.2",
     "react-file-viewer": "^0.5.0",
@@ -262,7 +262,6 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.0",
     "regenerator-runtime": "^0.13.9",
-    "serve": "^13.0.2",
     "stream": "0.0.2",
     "victory": "^36.3.1"
   },

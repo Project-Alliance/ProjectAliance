@@ -22,6 +22,7 @@ declare module 'frappe-gantt' {
     constructor(ref:any,data:any,options:any);
   }
 }
+declare module 'firebase';
 
 interface icon {
 name: string,

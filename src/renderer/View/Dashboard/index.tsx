@@ -33,6 +33,8 @@ import Goals from './Goals';
 import AddMemberRoute from '../CreateProjectForm/createOrganization';
 import Settings from './Setting';
 import Quality from './QualityManagement';
+import Mailbox from '../Email/App';
+import Profile from './Profile/Profile';
 
 import Change from './ChangeManagment';
 
@@ -167,9 +169,15 @@ export default function index() {
                 <Quality sideBar={displaySlide}  />
               </Route>
 
+              <Route path="/mailbox"  >
+                <Mailbox   />
+              </Route>
+
+
               <Route path="/change"  >
                 <Change sideBar={displaySlide}  />
               </Route>
+
 
               {/* <Route path="/inbox"  >
               <Inbox ParentHistory={history} sideBar={displaySlide} />
@@ -180,10 +188,14 @@ export default function index() {
               </Route>
 
                {/* <Route path="/inbox"  >
+
+
+               {/* <Route path="/inbox"  >
                <Route path="/inbox"  >
 
+
               <Inbox ParentHistory={history} sideBar={displaySlide} />
-              </Route>
+              </Route> */}
               {/* <Route path="/setting"  >
                 <div>
                 <button
@@ -197,6 +209,10 @@ export default function index() {
 
             <Route path="/setting">
               <Settings />
+            </Route>
+
+            <Route path="/account">
+              <Profile />
             </Route>
 
             <Route  exact>
