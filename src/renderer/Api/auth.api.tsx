@@ -280,6 +280,7 @@ class ApiCntainerClass {
     };
     return http.get(`/QualitySchedule/${pid}`,{headers:header});
   }
+
   CreateQualitySchedule(pid:number,data:any,token:string){
     const header ={
       'Content-Type': 'application/json',
@@ -296,36 +297,6 @@ class ApiCntainerClass {
     return http.put(`/QualitySchedule/update/${sid}`,data,{headers:header});
   }
 
-
-  // GetPermission(id:number,token:string){
-  //   const header ={
-  //     'Content-Type': 'application/json',
-  //     'Authorization': "Bearer "+ token
-  //   };
-  //   return http.get(`/permission/get/${id}`,{headers:header});
-
-  GetQualitySchedule(pid:number,token:string){
-    const header ={
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer "+ token
-    };
-    return http.get(`/QualitySchedule/${pid}`,{headers:header});
-  }
-  CreateQualitySchedule(pid:number,data:any,token:string){
-    const header ={
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer "+ token
-    };
-    return http.post(`/QualitySchedule/create/${pid}`,data,{headers:header});
-  }
-
-  updateQualitySchedule(sid:string,data:any,token:string){
-    const header ={
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer "+ token
-    };
-    return http.put(`/QualitySchedule/update/${sid}`,data,{headers:header});
-  }
 
 
   CreateEnviorment(pid:number,data:any,token:string){
@@ -417,10 +388,31 @@ class ApiCntainerClass {
   }
   deleteMail(mailId:number,token:string){
     const header ={
-      'Content-Type': 'multipart/form-data;',
+      'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     };
     return http.delete(`/mail/deleteMail?mailId=${mailId}`,{headers:header});
+  }
+  Addcomment(reqId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Comments/AddComments?reqId=${reqId}`,data,{headers:header});
+  }
+  AddReply(comId:string,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Comments/AddReplies?comId=${comId}`,data,{headers:header});
+  }
+  GetComment(reqId:number,token:string){
+    const header ={
+      'Content-Type': 'multipart/form-data;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Comments/GetComments?reqId=${reqId}`,{headers:header});
   }
 
 

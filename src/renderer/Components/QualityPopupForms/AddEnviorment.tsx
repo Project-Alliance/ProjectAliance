@@ -16,12 +16,12 @@ import Icon from "react-web-vector-icons";
 
 
 
-const AddEnviorment = ({ projectId,isOpen, setIsOpen,isRequirementBased=false,updateData }: any) => {
+const AddEnviorment = ({ projectId,isOpen, setIsOpen,isRequirementBased=false,updateData,requirementId }: any) => {
   const togglePopup = () => {
     setDataModel(EnviormentData);
     setIsOpen(!isOpen);
   };
-
+  // alert(requirementId)
   const [dataModel, setDataModel] = React.useState(EnviormentData);
   const onNameChangeHandle = (event: any) => {
     setDataModel({ ...dataModel, name: event.target.value });
@@ -58,6 +58,10 @@ const AddEnviorment = ({ projectId,isOpen, setIsOpen,isRequirementBased=false,up
     }
     let data=dataModel;
     data.isRequirementBased=isRequirementBased;
+    if(isRequirementBased)
+    {
+      data.requirementId=requirementId;
+    }
     Api.CreateEnviorment(projectId,data,user?.accessToken).then((res:any)=>{
       debugger
       console.log("res",res)
@@ -225,7 +229,7 @@ const AddEnviorment = ({ projectId,isOpen, setIsOpen,isRequirementBased=false,up
 
                           setDataModel({...dataModel,res:resourceArray})
                           }}>
-                            <Icon name="delete" font="AntDesign" size={25} color={COLORS.white} />
+                            <Icon name="delete" font="AntDesign" size={25} color={COLORS.black} />
                           </Button>
                           </td>
                         </tr>
@@ -269,8 +273,9 @@ AddEnviorment.propTypes = {
   isOpen: PropTypes.bool,
   isRequirementBased: PropTypes.bool,
   projectId: PropTypes.any,
+  requirementId: PropTypes.any,
   setIsOpen: PropTypes.func,
-  updateData: PropTypes.any
+  updateData: PropTypes.func
 }
 
 export default AddEnviorment
