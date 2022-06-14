@@ -17,7 +17,9 @@ import {
 } from 'react-router-dom';
 
 import { links, option } from './SideBarButtonsSetails';
-// import TimeLine from './gantt';
+
+import TimeLine from './gantt';
+
 import Board from './Board';
 import Documentation from './Documentation';
 import MyTask from './MyTask';

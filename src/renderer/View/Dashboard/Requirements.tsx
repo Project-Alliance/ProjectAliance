@@ -15,6 +15,9 @@ import Icon from 'react-web-vector-icons';
 import { option3 } from './SideBarButtonsSetails'
 import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
 import CustomComponent from 'renderer/Components/Comments/comment';
+import IconCloseButton from "@mui/icons-material/Close"
+import IconButton from "@mui/material/IconButton";
+import AddEnviorment from 'renderer/Components/QualityPopupForms/AddEnviorment';
 
 
 
@@ -36,6 +39,8 @@ export default function Requirements({ history, sideBar }: Props) {
   const user = useSelector(({ auth }: any) => auth?.user);
   const selectedProject = useSelector(({SelectedProject}: any) => SelectedProject);
   const [isOpen,setIsOpen] = useState(false);
+  const [isOpenEnv,setIsOpenEnv] = useState(false);
+  const [reqId1,setIsReqId1] = useState(0);
 
   const [isOpenR,setOpenR] = useState(false);
   const [requirement,setRequirement]=useState([]);
@@ -43,6 +48,7 @@ export default function Requirements({ history, sideBar }: Props) {
   const [isDetail,setIsdetail]=useState(false)
   const [moduleId,setModuleId]=useState(0);
   const [projectId,setProjectId]=useState(0);
+  const [reqId,setReqId]=useState(0);
   const [dataModel,setDataModel]=useState({name:"",status:""})
 
 
@@ -104,6 +110,14 @@ export default function Requirements({ history, sideBar }: Props) {
 
     {isOpenR&&moduleId&&<CreateRequirementPopUp isOpen={isOpenR} setIsOpen={setOpenR} projectId={selectedProject.pid} moduleId={moduleId}   />}
 
+    <AddEnviorment
+        isOpen={isOpenEnv}
+        setIsOpen={setIsOpenEnv}
+        projectId={selectedProject?.pid}
+        updateData={()=>{}}
+        requirementId={reqId1}
+        isRequirementBased={true}
+      />
     <Header style={{justifyContent:'space-between'}}>
       <Row>
       <ProjectIcon style={{borderRadius:10}}>
@@ -135,20 +149,18 @@ export default function Requirements({ history, sideBar }: Props) {
       padding: 5,
       backgroundColor: COLORS.primary,
     }}>
-    Create Module
+    Create Artifacts
     </Button>
    </Row>
 
     <div style={{height:"100vh",display:'flex',flexDirection:'row',background:COLORS.lightGray3}}>
      {!isDetail ?
-      <div className={"col-md-2"} style={{height:'100vh',backgroundColor:COLORS.primary}}>
-              <div style={{color:COLORS.white,height:'4vh',marginLeft:20}}>Module</div>
+      <div className={"col-md-2"} style={{height:'100vh',borderRightColor:COLORS.primary,borderStyle:'solid',borderWidth:0,borderRightWidth:2}}>
+              <div style={{color:COLORS.black,height:'4vh',alignSelf:'center',fontSize:16,fontWeight:'bold'}}>Module</div>
         <div className="sepratorReq" />
         { requirement.map((item:any)=>{
            return(<>
-
-             <div style={{display:'flex',flexDirection:'row',marginTop:14,marginBottom:20}}>
-                <div style={{color:COLORS.white,height:'4vh',marginLeft:10,fontSize:15,width:'100%',cursor:'pointer',display:'flex',flexDirection:'row'}} onClick={()=>{ handleClick();
+                <div className='emailRow' style={{color:COLORS.black,background:COLORS.white,height:'4vh',fontSize:15,width:'100%',cursor:'pointer',display:'flex',flexDirection:'row',justifyContent:'space-between'}} onClick={()=>{ handleClick();
 
                   setReqModule(item.requirements)}} >
                   <Icon  name='arrow-right' font='Entypo'  color='#B0C3CC'  size={15} />
@@ -169,14 +181,14 @@ export default function Requirements({ history, sideBar }: Props) {
                         />
                    </div>
                 </div>
-             </div>
+
              </>
           )
         }
         )}
       </div> : null}
 
-        <div className={isDetail?"col-md-9":"col-md-12"} style={{height:"100vh",width:'75%',marginLeft:10}}>
+        <div className={isDetail?"col-md-9":"col-md-12"} style={{minHeight:"80vh",width:'75%',marginLeft:10}}>
               <Row style={{alignItems:'center',justifyContent:'space-between',height:'4vh'}} >
                 <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold'}}>Req Name</H5>
                 {/* <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold'}}>Req Status</H5>
@@ -187,6 +199,8 @@ export default function Requirements({ history, sideBar }: Props) {
                 <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',fontWeight:'bold'}}>Attachment</H5>
                 <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center',fontWeight:'bold'}}>Delete</H5>
                 <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center',fontWeight:'bold'}}>Comment</H5>
+                <H5 className='col-sm-1' style={{color:COLORS.black,fontSize:12,fontFamily:'sans-serif',textAlign:'center',fontWeight:'bold'}}>Add Test Case</H5>
+
               </Row>
               <div className="sepratorReq" />
         {/* Sidebar Start */}
@@ -253,11 +267,30 @@ export default function Requirements({ history, sideBar }: Props) {
                       <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}>
                       <Button
                       className='col-sm-1'
-                      onClick={()=>setIsdetail(!isDetail)}
+                      onClick={()=>{
+                        setReqId(req.id)
+                        setIsdetail(!isDetail)}}
                       style={{fontSize:12,textTransform:'unset'}}
                       >
                       <Icon
                       name="comments-o"
+                      font='FontAwesome'
+                      color={COLORS.primary}
+                      size={20} />
+                      </Button>
+                      </div>
+
+                      <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}>
+                      <Button
+                      className='col-sm-1'
+                      onClick={()=>{
+
+                        setIsReqId1(req.id)
+                        setIsOpenEnv(!isDetail)}}
+                      style={{fontSize:12,textTransform:'unset'}}
+                      >
+                      <Icon
+                      name="plus"
                       font='FontAwesome'
                       color={COLORS.primary}
                       size={20} />
@@ -270,10 +303,15 @@ export default function Requirements({ history, sideBar }: Props) {
 
         </div>
 
-        {isDetail&&<div className="col-md-4" style={{height:"100vh",backgroundColor:COLORS.primary}}>
-        <div style={{color:COLORS.white,height:'4vh',textAlign:'center'}}>Comments</div>
+        {isDetail&&<div className="col-md-4" style={{backgroundColor:COLORS.primary,position:'absolute',right:20}}>
+        <div style={{color:COLORS.white,height:'4vh',textAlign:'center',display:'flex',flexDirection:'row',justifyContent:'space-between',margin:10}}>
+          Comments
+          <IconButton onClick={()=>setIsdetail(!isDetail)}>
+            <IconCloseButton />
+          </IconButton>
+        </div>
         <div className="sepratorReq" />
-            <CustomComponent />
+            <CustomComponent reqId={reqId} />
         </div>}
     </div>
 

@@ -30,7 +30,7 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
 // data required in header
   const projects = useSelector(({Project}: any) => Project?.data?.projects?Project?.data?.projects:[]);
   const [selectedProject,setSelectedProject] = React.useState(projects[0]);
-  const user = useSelector(({User}: any) => User?.data?.user);
+  const user = useSelector(({auth}: any) => auth?.user);
   const [state,setState] = React.useState<any>({})
   const data = [
     { x: "1.0", y: 2,fill:COLORS.blue1[200] }, { x: "2.0", y: 2 ,fill:COLORS.blue1[500]}, { x: "3.0", y: 3,fill:COLORS.blue1[700] }
@@ -97,7 +97,9 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
       </Row>
       <Row style={{justifyContent:'flex-end',alignItems:'center'}}>
         <input style={{width:200,marginRight:10,borderWidth:1,borderColor:COLORS.borderColor,borderRadius:20,height:30,padding:10, }} placeholder="Search" />
-        <Avatar src={user?.profilePic?user?.profilePic:defaultImage} variant="circular" style={{marginRight:10}}/>
+        <Avatar
+        src={user?.profilePic ? user?.profilePic : defaultImage}
+        variant="circular" style={{marginRight:10}}/>
       </Row>
     </Header>
     {/* Header End */}

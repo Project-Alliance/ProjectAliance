@@ -272,12 +272,6 @@ class ApiCntainerClass {
     return http.delete(`/Requirements/deleteAttachment?reqId=${rid}`,{headers:header});
   }
 
-  // GetPermission(id:number,token:string){
-  //   const header ={
-  //     'Content-Type': 'application/json',
-  //     'Authorization': "Bearer "+ token
-  //   };
-  //   return http.get(`/permission/get/${id}`,{headers:header});
 
   GetQualitySchedule(pid:number,token:string){
     const header ={
@@ -286,6 +280,7 @@ class ApiCntainerClass {
     };
     return http.get(`/QualitySchedule/${pid}`,{headers:header});
   }
+
   CreateQualitySchedule(pid:number,data:any,token:string){
     const header ={
       'Content-Type': 'application/json',
@@ -301,6 +296,7 @@ class ApiCntainerClass {
     };
     return http.put(`/QualitySchedule/update/${sid}`,data,{headers:header});
   }
+
 
 
   CreateEnviorment(pid:number,data:any,token:string){
@@ -392,10 +388,81 @@ class ApiCntainerClass {
   }
   deleteMail(mailId:number,token:string){
     const header ={
-      'Content-Type': 'multipart/form-data;',
+      'Content-Type': 'application/json',
       'Authorization': "Bearer "+ token
     };
     return http.delete(`/mail/deleteMail?mailId=${mailId}`,{headers:header});
+  }
+  Addcomment(reqId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Comments/AddComments?reqId=${reqId}`,data,{headers:header});
+  }
+  AddReply(comId:string,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Comments/AddReplies?comId=${comId}`,data,{headers:header});
+  }
+  GetComment(reqId:number,token:string){
+    const header ={
+      'Content-Type': 'multipart/form-data;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Comments/GetComments?reqId=${reqId}`,{headers:header});
+  }
+  AddBoardLane(projectId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Kanban/AddBoardLane?projectId=${projectId}`,data,{headers:header});
+  }
+  AddBoardCard(laneId:string,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Kanban/AddBoardCard?laneId=${laneId}`,data,{headers:header});
+  }
+  getBoardLane(projectId:string,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Kanban/getBoardLane?projectId=${projectId}`,{headers:header});
+  }
+  DeleteBoardLane(lid:string,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Kanban/deleteBoardLane?lid=${lid}`,{headers:header});
+  }
+  deleteBoardCard(cardId:string,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Kanban/deleteBoardCard?id=${cardId}`,{headers:header});
+  }
+
+  updateBoardLane(data:{lid:string;title:string;label:string;},token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Kanban/updateBoardLane?lid=${data.lid}&title=${data.title}&label=${data.label}`,data,{headers:header});
+  }
+  updateBoardCard(data:{id:string;title:string|null;label:string|null;description:string|null;laneId:string},token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Kanban/updateBoardCard?id=${data.id}&title=${data.title}&label=${data.label}&description=${data.description}&laneId=${data.laneId}`,data,{headers:header});
   }
   updateProfile(userName:string,data:any,token:string){
     debugger;
@@ -405,6 +472,7 @@ class ApiCntainerClass {
       'Access-Control-Allow-Origin': '*'
     };
     return http.put(`/auth/updateProfile?userName=${userName}`,data,{headers:header});
+
   }
 
 

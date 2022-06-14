@@ -191,6 +191,10 @@
   color: #333;
 }
 
+.req:hover {
+  background-color: #fff;
+  color: #333;
+}
 .People-project-Div {
   padding: 10px;
   width: 94%;
@@ -643,4 +647,7 @@ table{
   background-color: #EFEFF1;
 }
 
+.hideScroller::-webkit-scrollbar{
+  display: none;
+}
 
