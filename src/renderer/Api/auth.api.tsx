@@ -272,31 +272,6 @@ class ApiCntainerClass {
     return http.delete(`/Requirements/deleteAttachment?reqId=${rid}`,{headers:header});
   }
 
-
-  GetQualitySchedule(pid:number,token:string){
-    const header ={
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer "+ token
-    };
-    return http.get(`/QualitySchedule/${pid}`,{headers:header});
-  }
-  CreateQualitySchedule(pid:number,data:any,token:string){
-    const header ={
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer "+ token
-    };
-    return http.post(`/QualitySchedule/create/${pid}`,data,{headers:header});
-  }
-
-  updateQualitySchedule(sid:string,data:any,token:string){
-    const header ={
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer "+ token
-    };
-    return http.put(`/QualitySchedule/update/${sid}`,data,{headers:header});
-  }
-
-
   // GetPermission(id:number,token:string){
   //   const header ={
   //     'Content-Type': 'application/json',
@@ -421,6 +396,15 @@ class ApiCntainerClass {
       'Authorization': "Bearer "+ token
     };
     return http.delete(`/mail/deleteMail?mailId=${mailId}`,{headers:header});
+  }
+  updateProfile(userName:string,data:any,token:string){
+    debugger;
+    const header ={
+      'Content-Type': 'multipart/form-data;',
+      'Authorization': "Bearer "+ token,
+      'Access-Control-Allow-Origin': '*'
+    };
+    return http.put(`/auth/updateProfile?userName=${userName}`,data,{headers:header});
   }
 
 

@@ -17,8 +17,8 @@ import {
 } from 'react-router-dom';
 
 import { links, option } from './SideBarButtonsSetails';
-import TimeLine from './gantt';
-// import Board from './Board';
+// import TimeLine from './gantt';
+import Board from './Board';
 import Documentation from './Documentation';
 import MyTask from './MyTask';
 
@@ -210,8 +210,8 @@ function Projects({ sideBar = 'flex', ...props }) {
           <MyTask />
         </Route>
 
-        <Route path='/board' exact>
-           <Board />
+         <Route path='/board' exact>
+           {/* <Board /> */}
         </Route>
 
         <Route path='/timeline' exact>
