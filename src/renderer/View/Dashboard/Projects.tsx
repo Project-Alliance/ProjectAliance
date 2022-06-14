@@ -16,19 +16,16 @@ import {
   useParams,
 } from 'react-router-dom';
 
-import { links, option } from './SideBarButtonsSetails';
-
-import TimeLine from './gantt';
-
 import Board from './Board';
-import Documentation from './Documentation';
-import MyTask from './MyTask';
+import { useSelector } from 'react-redux';
+
 
 function Projects({ sideBar = 'flex', ...props }) {
   const [selLink, setSelLink] = useState('/board');
-
+  const history = useHistory();
   const { state } = useLocation<any>();
   const { item }: any = state;
+  const user = useSelector(({ auth }: any) => auth.user);
   useEffect(() => {}, []);
   return (
     <Router>
@@ -46,7 +43,7 @@ function Projects({ sideBar = 'flex', ...props }) {
               justifyContent: 'flex-end',
             }}
           >
-            <div className="row-view jc ai" style={{ marginLeft: -30 }}>
+            <div className="row-view jc ai" style={{ }}>
               {/* Project icone , name  , status , add faviorite , list down to setup project settings */}
               <div className="project-logo">
                 {/*  Project Icon */}
@@ -58,90 +55,19 @@ function Projects({ sideBar = 'flex', ...props }) {
                 />
               </div>
               <div className="Project-title">{item.projectTitle}</div>
-              <DropDownMenuSelect
-                values={option}
-                handleOnClick={() => {
-                  console.log('drop down');
-                }}
-              />
 
-              <OverlayTrigger
-                placement="bottom"
-                overlay={<Tooltip id="tooltip-bottom">Project Detail</Tooltip>}
-              >
-                <div
-                  style={{ marginLeft: 5, cursor: 'pointer' }}
-                  onClick={() => {}}
-                >
-                  <Icon
-                    name="exclamation"
-                    font="EvilIcons"
-                    color="rgb(175, 173, 173)"
-                    size={20}
-                  />
-                </div>
-              </OverlayTrigger>
-              <OverlayTrigger
-                placement="bottom"
-                overlay={<Tooltip id="tooltip-bottom">Project Status</Tooltip>}
-              >
-                <div
-                  style={{
-                    marginLeft: 5,
-                    cursor: 'pointer',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    display: 'flex',
-                  }}
-                  onClick={() => {}}
-                >
-                  <Icon
-                    name="dot-single"
-                    font="Entypo"
-                    color="green"
-                    size={25}
-                  />
-                  On Track
-                </div>
-              </OverlayTrigger>
+
+
+
             </div>
             {/* links */}
-            <div className="row-view" style={{ marginLeft: 10 }}>
-              {links.map((item, index) => {
-                return (
-                  <Link
-                    to={item.to}
-                    key={index * Math.random()}
-                    className="btn"
-                    style={{
-                      color: 'black',
-                      fontFamily: 'Manrope',
-                      fontSize: 14,
-                      borderBottomWidth: 4,
-                      outline: 'none',
-                      borderBottomColor: 'black',
-                      borderStyle: item.to == selLink ? 'solid' : 'none',
-                    }}
-                    onClick={() => setSelLink(item.to)}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
+
           </div>
           <div className="row-view ai jc" style={{ marginRight: 30 }}>
-            <AvatarGroup
-              avatars={['James', 'Amy', 'Will' /* or IAvatar objects */]}
-              initialCharacters={1}
-              max={1}
-              size={30}
-              displayAllOnHover={false}
-              shadow={2}
-              style={{ marginLeft: 70 }}
-            />
+
 
             <div
+              onClick={()=>history.push("/ManageTeam")}
               className="btn"
               style={{
                 marginLeft: 10,
@@ -166,31 +92,9 @@ function Projects({ sideBar = 'flex', ...props }) {
               Invites
             </div>
 
-            <div
-              className="row-view js ai"
-              style={{
-                border: '1px solid rgb(175, 173, 173)',
-                height: 35,
-                alignSelf: 'center',
-                borderRadius: 10,
-                padding: 1.5,
-              }}
-            >
-              <Icon
-                name="search"
-                font="EvilIcons"
-                color="rgb(175, 173, 173)"
-                size={20}
-              />
-              <input
-                type="text"
-                id=""
-                placeholder="Search"
-                style={{ borderStyle: 'none', outline: 'none' }}
-              />
-            </div>
+
             <AvatarGroup
-              avatars={['James']}
+              avatars={[user.name]}
               initialCharacters={1}
               max={1}
               backgroundColor="#a12ee1"
@@ -203,28 +107,7 @@ function Projects({ sideBar = 'flex', ...props }) {
 
       <div className="seprator" style={{ marginTop: 0 }} />
       <div className="main-container-project-management">
-      <Switch>
-        <Route  exact path="/documentation">
-            <Documentation />
-        </Route>
-        <Route path='/list' exact>
-          <h1>List</h1>
-          <MyTask />
-        </Route>
-
-         <Route path='/board' exact>
-           {/* <Board /> */}
-        </Route>
-
-        <Route path='/timeline' exact>
-          {/* <TimeLine /> */}
-        </Route>
-        <Route path='/clander' exact>
-          <h1>CLander</h1>
-        </Route>
-        <Route exact render={()=>(<Redirect to="/board" />)} />
-      </Switch>
-
+           <Board />
       </div>
       </div>
     </Router>

@@ -78,7 +78,7 @@ const Quality = ({sideBar = 'flex', ...props }) => {
               justifyContent: 'flex-end',
             }}
           >
-            <div className="row-view jc ai" style={{ marginLeft: -90 }}>
+            <div className="row-view ai" >
               {/* Project icone , name  , status , add faviorite , list down to setup project settings */}
               <div className="project-logo">
                 {/*  Project Icon */}
@@ -89,36 +89,8 @@ const Quality = ({sideBar = 'flex', ...props }) => {
                   color="#FFFFFF"
                 />
               </div>
-              <H1>{selectedProject?.projectTitle}</H1>
-              {/* <DropDownMenuSelect
-                values={option}
-                handleOnClick={() => {
-                  console.log('drop down');
-                }}
-              /> */}
+              <H1 style={{margin:10}}>{selectedProject?.projectTitle}</H1>
 
-
-
-
-
-                <div
-                  style={{
-                    marginLeft: 5,
-                    cursor: 'pointer',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    display: 'flex',
-                  }}
-                  onClick={() => {}}
-                >
-                  <Icon
-                    name="dot-single"
-                    font="Entypo"
-                    color="green"
-                    size={25}
-                  />
-                  On Track
-                </div>
 
             </div>
             {/* links */}

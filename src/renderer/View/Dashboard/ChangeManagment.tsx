@@ -1,39 +1,18 @@
 import { Avatar } from '@mui/material';
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Task_Schedule_Gantt from 'renderer/Components/Add_Task_Schedule/Task_Schedule_Gantt';
 import {
-  Col,
   H1,
-  H2,
-  Header,
-  ProjectIcon,
-  Row,
 } from 'renderer/Components/layout';
-import InputButton from 'renderer/Components/InputButton';
-import TimeLine from './gantt';
 import { COLORS, size } from 'renderer/AppConstants';
-import { defaultImage } from 'renderer/Constant/Images';
-import moment from 'moment';
-import Tooltip from '@mui/material/Tooltip';
 
-import Gantt from 'frappe-gantt';
-import { formatDate, Props } from 'renderer/Components/Add_Task_Schedule/CustomGridCompoment';
-
-import Add_Schedule from 'renderer/Components/Add_Task_Schedule/Add_Schedule';
-import Api from "renderer/Api/auth.api";
 import "./style.scss";
-import {Notification} from 'renderer/Util/Notification/Notify';
-import { projectScheduleModel, projectScheduleModelType } from 'renderer/Components/Add_Task_Schedule/ScheduleModel';
 import Icon from 'react-web-vector-icons';
 import { ChangeButtons, option } from './SideBarButtonsSetails';
-import { OverlayTrigger } from 'react-bootstrap';
-import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
+
 
 import AvatarGroup from 'react-avatar-group';
 import { ButtonUnstyled } from '@mui/base';
-import { color } from '@mui/system';
-import QualitySchedule from './QualitySchedule';
 import { useHistory } from 'react-router';
 // import QualityPlaning from './QualityPlaning';
 import ChangePlanning from './ChangePlanning';
@@ -43,7 +22,7 @@ import ChangeReq from './ChangeReq';
 const Change = ({sideBar = 'flex', ...props }) => {
 
 
-  const [selLink, setSelLink] = useState('/planing');
+  const [selLink, setSelLink] = useState('/ChangeRequirement');
 
   let history = useHistory();
 
@@ -78,7 +57,7 @@ const Change = ({sideBar = 'flex', ...props }) => {
               justifyContent: 'flex-end',
             }}
           >
-            <div className="row-view jc ai" style={{ marginLeft: 25 }}>
+            <div className="row-view ai">
               {/* Project icone , name  , status , add faviorite , list down to setup project settings */}
               <div className="project-logo">
                 {/*  Project Icon */}
