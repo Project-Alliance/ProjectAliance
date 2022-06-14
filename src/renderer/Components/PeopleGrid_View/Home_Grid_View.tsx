@@ -15,11 +15,11 @@ export default function DataGridDemo({data=[]}:any) {
     { field: 'id', headerName: 'ID', width: 40,editable:false },
 
     {
-      field: 'Image',
+      field: 'profilePic',
       headerName: 'Image',
       width: 70,
 
-      renderCell: (params) => <img src={user.profilePic} style={{width:40,height:40,borderRadius:20,borderWidth:'2px',borderColor:'blue',borderStyle:'solid',borderRadius:'30px'}} />,
+      renderCell: (params) => <img src={params.row.profilePic} style={{width:40,height:40,borderRadius:20,borderWidth:'2px',borderColor:'blue',borderStyle:'solid',}} />,
     },
     {
       field: 'name',

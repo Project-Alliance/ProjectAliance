@@ -118,7 +118,6 @@ export default function DocumentManagement({ history, sideBar }: Props) {
       </ProjectIcon>
       <Col style={{marginLeft:5}}>
 
-        <H2 style={{color:COLORS.primary}}>Document Management</H2>
 
         <H2 style={{color:COLORS.primary}}>Design Management</H2>
 
