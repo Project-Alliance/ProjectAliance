@@ -19,7 +19,7 @@ export default function DataGridDemo({data=[]}:any) {
       headerName: 'Image',
       width: 70,
 
-      renderCell: (params) => <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35" style={{borderWidth:'2px',borderColor:'blue',borderStyle:'solid',borderRadius:'30px'}} />,
+      renderCell: (params) => <img src={user.profilePic} style={{width:40,height:40,borderRadius:20,borderWidth:'2px',borderColor:'blue',borderStyle:'solid',borderRadius:'30px'}} />,
     },
     {
       field: 'name',
