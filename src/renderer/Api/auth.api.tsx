@@ -414,6 +414,56 @@ class ApiCntainerClass {
     };
     return http.get(`/Comments/GetComments?reqId=${reqId}`,{headers:header});
   }
+  AddBoardLane(projectId:number,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Kanban/AddBoardLane?projectId=${projectId}`,data,{headers:header});
+  }
+  AddBoardCard(laneId:string,data:any,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.post(`/Kanban/AddBoardCard?laneId=${laneId}`,data,{headers:header});
+  }
+  getBoardLane(projectId:string,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.get(`/Kanban/getBoardLane?projectId=${projectId}`,{headers:header});
+  }
+  DeleteBoardLane(lid:string,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Kanban/deleteBoardLane?lid=${lid}`,{headers:header});
+  }
+  deleteBoardCard(cardId:string,token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.delete(`/Kanban/deleteBoardCard?id=${cardId}`,{headers:header});
+  }
+
+  updateBoardLane(data:{lid:string;title:string;label:string;},token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Kanban/updateBoardLane?lid=${data.lid}&title=${data.title}&label=${data.label}`,data,{headers:header});
+  }
+  updateBoardCard(data:{id:string;title:string|null;label:string|null;description:string|null;laneId:string},token:string){
+    const header ={
+      'Content-Type': 'application/json;',
+      'Authorization': "Bearer "+ token
+    };
+    return http.put(`/Kanban/updateBoardCard?id=${data.id}&title=${data.title}&label=${data.label}&description=${data.description}&laneId=${data.laneId}`,data,{headers:header});
+  }
 
 
 }
