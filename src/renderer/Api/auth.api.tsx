@@ -464,6 +464,16 @@ class ApiCntainerClass {
     };
     return http.put(`/Kanban/updateBoardCard?id=${data.id}&title=${data.title}&label=${data.label}&description=${data.description}&laneId=${data.laneId}`,data,{headers:header});
   }
+  updateProfile(userName:string,data:any,token:string){
+    debugger;
+    const header ={
+      'Content-Type': 'multipart/form-data;',
+      'Authorization': "Bearer "+ token,
+      'Access-Control-Allow-Origin': '*'
+    };
+    return http.put(`/auth/updateProfile?userName=${userName}`,data,{headers:header});
+
+  }
 
 
 }
