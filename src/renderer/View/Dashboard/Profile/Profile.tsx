@@ -1,27 +1,39 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-else-return */
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
 import { useSelector } from "react-redux";
 import Icon from "react-web-vector-icons";
 import {
-
   AUTH,
 } from '../../../../Types/User.types';
 import {
   Container,
+  Header,
+  ProjectIcon,
   Row,
   Col,
+  H1,
+  H2,
 } from 'renderer/Components/layout';
 import { Button, CircularProgress } from '@mui/material';
 import "./profile.css"
 import Api from 'renderer/Api/auth.api';
 import {Notification} from 'renderer/Util/Notification/Notify';
+import { COLORS } from 'renderer/AppConstants';
+import { Avatar } from '@mui/material';
+
 type inputData={
   name:string,
   Email:string,
   phone:string,
   ProfilePicture:any
 }
+
+const defaultImage =
+  'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 
 export default function Profile() {
 
@@ -30,6 +42,11 @@ export default function Profile() {
   const [error, setError] = React.useState({ message: '', status: false });
   const [loader, setLoader] = React.useState(false);
   const user = useSelector(({auth}: any) => auth.user);
+  const projects = useSelector(({ Project }: any) =>
+  Project?.data?.projects ? Project?.data?.projects : []
+);
+const [selectedProject, setSelectedProject] = React.useState(projects[0]);
+
   const [inputData, setInputdata] = React.useState<inputData>({
     name: User.name,
     Email: User.email,
@@ -123,6 +140,58 @@ export default function Profile() {
 
 
   return (
+    <>
+    <Header style={{ justifyContent: 'space-between' }}>
+        <Row>
+          <ProjectIcon style={{ borderRadius: 10 }}>
+            <img
+              style={{ height: 35, width: 35 }}
+              src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"
+              alt="firebase"
+            />
+          </ProjectIcon>
+          <Col style={{ marginLeft: 5 }}>
+            <H2 style={{ color: COLORS.primary }}>Account</H2>
+            <Row style={{ alignItems: 'center' }}>
+              <H1>{selectedProject?.projectTitle}</H1>
+              <select
+                style={{ width: 15, height: 20, border: 'none', marginLeft: 5 }}
+                value={selectedProject?.pid}
+                onChange={(e) =>
+                  setSelectedProject(
+                    projects.filter(
+                      (item: any) => item.pid == e.target.value
+                    )[0]
+                  )
+                }
+              >
+                {projects?.map((item: any) => (
+                  <option value={item.pid}>{item.projectTitle}</option>
+                ))}
+              </select>
+            </Row>
+          </Col>
+        </Row>
+        <Row style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+          <input
+            style={{
+              width: 200,
+              marginRight: 10,
+              borderWidth: 1,
+              borderColor: COLORS.borderColor,
+              borderRadius: 20,
+              height: 30,
+              padding: 10,
+            }}
+            placeholder="Search"
+          />
+          <Avatar
+            src={user?.profilePic ? user?.profilePic : defaultImage}
+            variant="circular"
+            style={{ marginRight: 10 }}
+          />
+        </Row>
+      </Header>
     <div
       style={{
         height: '100%',
@@ -307,7 +376,7 @@ export default function Profile() {
                 {error.message}
               </p>
 
-            <Row style={{marginTop:40,marginLeft:160,marginBottom:50}}>
+            <Row style={{marginTop:40,marginLeft:160,marginBottom:100}}>
               <Col>
                 <Button
                   disabled={loader}
@@ -343,5 +412,6 @@ export default function Profile() {
   </div>
 
   </div>
+  </>
   )
 }

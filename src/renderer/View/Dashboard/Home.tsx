@@ -1,3 +1,7 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable eqeqeq */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable prettier/prettier */
 import React, { useState, Component } from 'react';
 import { TextField, IconButton, Box } from '@mui/material';
 // import Search from 'renderer/Components/SearchBar';
@@ -25,8 +29,7 @@ import Button from 'renderer/Components/Button';
 import { getMembers } from 'renderer/Store/Actions/members.action';
 import WorkINProgress from './Work';
 import { size } from 'renderer/AppConstants';
-import Api from "renderer/Api/auth.api";
-
+import Api from 'renderer/Api/auth.api';
 
 const Home = (props: any) => {
   const [selected, setSelected] = useState('Rehan');
@@ -37,7 +40,7 @@ const Home = (props: any) => {
   const user = useSelector(({ auth }: any) => auth.user);
   const Members = useSelector(({ Members }: any) => Members.data);
   const getMonth = (month: any) => {
-  const months = [
+    const months = [
       'January',
       'February',
       'March',
@@ -52,25 +55,26 @@ const Home = (props: any) => {
       'December',
     ];
     return months[month];
-  }
-  let date= new Date();
+  };
+  let date = new Date();
   const [email, setEmail] = useState<any>([]);
   const getMails = async () => {
-    try{let res= await Api.getReceivedMail(user?.accessToken)
-    if(res.status==200){
-      setEmail(res.data);
-    }else {
-
-    }}catch(e){
-      console.log(e)
+    try {
+      let res = await Api.getReceivedMail(user?.accessToken);
+      if (res.status == 200) {
+        setEmail(res.data);
+      } else {
+      }
+    } catch (e) {
+      console.log(e);
     }
-}
+  };
 
-  React.useEffect(()=>{
-    if(email.length === 0){
-      getMails()
+  React.useEffect(() => {
+    if (email.length === 0) {
+      getMails();
     }
-  }, [email])
+  }, [email]);
   var day = new Date();
   var hr = day.getHours();
   return (
@@ -88,86 +92,78 @@ const Home = (props: any) => {
         <AddProjectForm isOpen={isOpen} setIsOpen={setIsOpen} />
 
         <div
-
           style={{
             display: 'flex',
             marginLeft: props?.sideBar == 'flex' ? 20 : 60,
             justifyContent: 'space-between',
-            height:size.headerHeight,
+            height: size.headerHeight,
             alignItems: 'center',
             marginRight: 20,
           }}
         >
-          <div style={{
-                fontSize: 18,
-                fontWeight:"bold",
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontFamily: 'Manrope',
-                color:"#149fff",
-                display: 'flex',
-              }}
-                >
-
-              Home
-
+          <div
+            style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontFamily: 'Manrope',
+              color: '#149fff',
+              display: 'flex',
+            }}
+          >
+            Home
           </div>
           {/* <div style={{ width: '50%', marginTop: '22px' }}>
             <Search />
           </div> */}
 
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-              }}
-            >
-              <div>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-              </div>
-              {/* <div style={{ marginTop: '5px' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+            {/* <div style={{ marginTop: '5px' }}>
                 <Dropdown selected={selected} setSelected={setSelected} />
               </div> */}
 
+            <div
+              style={{
+                marginLeft: 20,
+                display: 'flex',
+                flexDirection: 'row',
+              }}
+            >
+              <div className="Bell-icon">
+                <Icon name="bell" font="EvilIcons" color="#B0C3CC" size={32} />
+              </div>
               <div
                 style={{
-                  marginLeft: 20,
-                  display: 'flex',
-                  flexDirection: 'row',
+                  height: 8,
+                  width: 8,
+                  borderRadius: 4,
+                  backgroundColor: '#149fff',
+                  marginTop: 12,
+                  position: 'relative',
+                  marginLeft: -10,
                 }}
-              >
-                <div className="Bell-icon">
-                  <Icon
-                    name="bell"
-                    font="EvilIcons"
-                    color="#B0C3CC"
-                    size={32}
-                  />
-                </div>
-                <div
-                  style={{
-                    height: 8,
-                    width: 8,
-                    borderRadius: 4,
-                    backgroundColor: '#149fff',
-                    marginTop: 12,
-                    position: 'relative',
-                    marginLeft: -10,
-                  }}
-                />
-              </div>
+              />
             </div>
-
+          </div>
         </div>
         {/* Used for separate Upper Header  */}
         <div className="sepratorRight" />
@@ -180,7 +176,9 @@ const Home = (props: any) => {
               fontStyle: 'bold',
             }}
           >
-            <h4>{`${date.toLocaleDateString('en', { weekday: 'long' })}, ${getMonth(date.getMonth())} ${date.getDate()}`}</h4>
+            <h4>{`${date.toLocaleDateString('en', {
+              weekday: 'long',
+            })}, ${getMonth(date.getMonth())} ${date.getDate()}`}</h4>
           </div>
           <div
             style={{
@@ -190,7 +188,14 @@ const Home = (props: any) => {
               marginTop: 10,
             }}
           >
-            <h1>{(hr >= 0 && hr < 12)? "Good Morning  " : (hr >= 12 && hr < 16)? "Good Afternoon  " : "Good Evening " }{user?.name}</h1>
+            <h1>
+              {hr >= 0 && hr < 12
+                ? 'Good Morning  '
+                : hr >= 12 && hr < 16
+                ? 'Good Afternoon  '
+                : 'Good Evening '}
+              {user?.name}
+            </h1>
           </div>
 
           <div className="Top-Team_Detail">
@@ -217,7 +222,12 @@ const Home = (props: any) => {
                   marginTop: '6px',
                 }}
               >
-                Completed Projects {projects?.filter((project: any) => project.status === 'Completed').length}
+                Completed Projects{' '}
+                {
+                  projects?.filter(
+                    (project: any) => project.status === 'Completed'
+                  ).length
+                }
               </div>
             </div>
 
@@ -246,7 +256,7 @@ const Home = (props: any) => {
                   marginTop: '8px',
                 }}
               >
-               {Members?.length}  Collaborators
+                {Members?.length} Collaborators
               </div>
             </div>
           </div>
@@ -255,7 +265,7 @@ const Home = (props: any) => {
         {/* Left Phase User Info  */}
 
         <div className="Project-Phase">
-          <div  className="Divide-Phase">
+          <div className="Divide-Phase">
             <div className="Top-Divide-Phase">
               <div className="Avatar-Div">
                 <AvatarGroup
@@ -278,16 +288,33 @@ const Home = (props: any) => {
                   <Icon name="user" font="Entypo" color="black" size={18} />
                 </div>
               </div>
-
             </div>
-            <div style={{overflow:'hidden',overflowY:'scroll'}}>
-            {email&&email.filter((mail:any)=>!mail?.isRead).map((mail:any)=>(
-              <div
-              onClick={()=>{history.push("/mailbox")}}
-              style={{backgroundColor:"#ffff",padding:10,fontWeight:'bold'}} className='emailRow'>
-                <Icon name="mail" font="AntDesign" color={"#000"} size={25} style={{marginRight:5}} />
-                {mail.title}</div>
-            ))}
+            <div style={{ overflow: 'hidden', overflowY: 'scroll' }}>
+              {email &&
+                email
+                  .filter((mail: any) => !mail?.isRead)
+                  .map((mail: any) => (
+                    <div
+                      onClick={() => {
+                        history.push('/mailbox');
+                      }}
+                      style={{
+                        backgroundColor: '#ffff',
+                        padding: 10,
+                        fontWeight: 'bold',
+                      }}
+                      className="emailRow"
+                    >
+                      <Icon
+                        name="mail"
+                        font="AntDesign"
+                        color={'#000'}
+                        size={25}
+                        style={{ marginRight: 5 }}
+                      />
+                      {mail.title}
+                    </div>
+                  ))}
             </div>
           </div>
           {/* Right Phase Create Project Phase  */}
@@ -299,7 +326,6 @@ const Home = (props: any) => {
                     Projects
                   </h4>
                 </div>
-
               </div>
 
               <button
@@ -361,10 +387,14 @@ const Home = (props: any) => {
                     key={item.projectTitle + ' ' + index}
                     className="Create-Project-Div"
                     onClick={() => {
-                    dispatch({type:"SELECT_PROJECT",project:{...item}})
-                     dispatch({type:"PROJECT_SCREEN"})
+                      dispatch({
+                        type: 'SELECT_PROJECT',
+                        project: { ...item },
+                      });
+                      dispatch({ type: 'PROJECT_SCREEN' });
                       history.push({ pathname: '/Projects', state: { item } });
-                    }} >
+                    }}
+                  >
                     <div className="Left-Create-Project">
                       <Icon
                         name={item.pIconName || 'bars'}
@@ -411,7 +441,6 @@ const Home = (props: any) => {
               >
                 People
               </div>
-
             </div>
             <div style={{ marginTop: '0.5rem' }}>
               <InputButton
@@ -426,7 +455,7 @@ const Home = (props: any) => {
                   color: '#FFFFFF',
                   width: 100,
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
                 title="ADD"
               />
@@ -439,7 +468,6 @@ const Home = (props: any) => {
           {/* <div>
             <ProjectTables />
           </div> */}
-
         </div>
       </div>
     </div>
