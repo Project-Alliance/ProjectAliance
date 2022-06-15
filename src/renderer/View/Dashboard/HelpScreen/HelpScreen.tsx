@@ -1,3 +1,7 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import {
   Container,
@@ -18,41 +22,15 @@ import {
 } from 'react-router-dom';
 import { COLORS } from 'renderer/AppConstants';
 import { useSelector, useDispatch } from 'react-redux';
-import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
 import { Avatar } from '@mui/material';
-import Profile from './Setting_Screens/Profile_Setting';
-import Display from './Setting_Screens/Display';
-import Notifications from './Setting_Screens/Notification_Setting';
-import Account from './Setting_Screens/Account_Settings';
+import './HelpScreen.css';
+import Accordion from './Accordion';
+import { accordionData } from './Content_FAQ\'s';
 
 const defaultImage =
   'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 
-interface Props {
-  ParentHistory?: RouteComponentProps['history'];
-  sideBar?: string;
-}
-
-const links = [
-  {
-    to: '/Profile',
-    label: 'Profile',
-  },
-  {
-    to: '/Notifications',
-    label: 'Notifications',
-  },
-  {
-    to: '/Account',
-    label: 'Account',
-  },
-  {
-    to: '/Display',
-    label: 'Display',
-  },
-];
-
-export default function Settings({ ParentHistory, sideBar }: Props) {
+export default function HelpScreen() {
   const [selLink, setSelLink] = useState('/board');
 
   const dispatch = useDispatch();
@@ -63,13 +41,12 @@ export default function Settings({ ParentHistory, sideBar }: Props) {
   const [selectedProject, setSelectedProject] = React.useState(projects[0]);
   const user = useSelector(({ auth }: any) => auth.user);
 
-  React.useEffect(() => {
-    dispatch(GetGoals(user.company, user.accessToken));
-  }, []);
   return (
     <Container style={{ overflowY: 'scroll' }}>
       {/* Header Start  */}
-      <Header style={{ justifyContent: 'space-between' }}>
+      <Header
+        style={{ justifyContent: 'space-between', backgroundColor: 'white' }}
+      >
         <Row>
           <ProjectIcon style={{ borderRadius: 10 }}>
             <img
@@ -79,7 +56,7 @@ export default function Settings({ ParentHistory, sideBar }: Props) {
             />
           </ProjectIcon>
           <Col style={{ marginLeft: 5 }}>
-            <H2 style={{ color: COLORS.primary }}>Settings</H2>
+            <H2 style={{ color: COLORS.primary }}>Help</H2>
             <Row style={{ alignItems: 'center' }}>
               <H1>{selectedProject?.projectTitle}</H1>
               <select
@@ -120,9 +97,39 @@ export default function Settings({ ParentHistory, sideBar }: Props) {
           />
         </Row>
       </Header>
-      
-      <div style={{marginTop:20,marginLeft:80}}>
-        <Profile />
+
+      <div style={{ marginTop: 20, marginLeft: 80 }}>
+        <Row style={{ marginTop: 40, marginLeft: 190, marginBottom: 50 }}>
+          <Col>
+            <div
+            className='HeadingFAQ'
+              style={{
+                borderWidth: 2,
+                borderStyle: 'solid',
+                borderColor: '#EBEBEB',
+                color: 'white',
+                width: 500,
+                height: 50,
+                marginTop: 5,
+                backgroundColor: 'rgb(82, 151, 247)',
+                fontFamily: 'Feather',
+                borderRadius: 15,
+                display: 'flex',
+                justifyContent: 'center',
+                marginLeft: 160,
+                fontWeight: 'bold',
+                fontSize: 30,
+              }}
+            >
+              FAQ's
+            </div>
+          </Col>
+        </Row>
+        <div className="accordion">
+            {accordionData.map(({ title, content }) => (
+              <Accordion title={title} content={content} />
+            ))}
+        </div>
       </div>
     </Container>
   );

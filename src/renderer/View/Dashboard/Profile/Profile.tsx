@@ -1,3 +1,5 @@
+/* eslint-disable no-else-return */
+/* eslint-disable prettier/prettier */
 import * as React from 'react';
 import { useSelector } from "react-redux";
 import Icon from "react-web-vector-icons";
@@ -79,7 +81,7 @@ export default function Profile() {
       //   phone: inputData.phone,
       //   profilePic: inputData.profilePic,
       // };
-      var fs = require('fs');
+  
       var data = new FormData();
       data.append('name', inputData.name);
       data.append('email', inputData.Email);
@@ -167,11 +169,12 @@ export default function Profile() {
                         borderWidth: 2,
                         borderStyle: 'solid',
                         borderColor: '#EBEBEB',
-                        color: '#000000',
+                        color: 'white',
                         width: 500,
                         height:50,
                         marginTop: 5,
-                        backgroundColor:'#F0DA50',
+                        backgroundColor:'#007FFF',
+                        fontFamily:'EvilIcons',
                         borderRadius: 15,
                         display:'flex',
                         justifyContent:'center',

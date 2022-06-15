@@ -1,22 +1,21 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
+/* eslint-disable import/no-duplicates */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable prettier/prettier */
 import * as React from 'react';
-import {
-  Container,
-  Row,
-  Col,
-} from 'renderer/Components/layout';
-
-import { Button, CircularProgress } from '@mui/material';
+import { Container, Row, Col  } from 'renderer/Components/layout';
+import { Button, CircularProgress,Box,Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { logout } from 'renderer/Store/Actions/auth.action';
+import { SettingsNotifications } from './settings-notifications';
+import { SettingsPassword } from './settings-password';
 
 const Profile = () => {
-
   const [error, setError] = React.useState({ message: '', status: false });
   const [loader, setLoader] = React.useState(false);
   const dispatch = useDispatch();
 
   const validateData = () => {
-
     const nameExpression = /^[a-zA-Z ]{3,30}$/;
     const EmailExpression = /^\w{3,}.[a-z]{3,}.[a-z]{3,}$/g;
     const userNameExpression = /^[a-zA-Z0-9]{3,30}$/g;
@@ -76,171 +75,57 @@ const Profile = () => {
     setInputdata(data);
   };
 
-
   return (
-    <Container style={{marginLeft:60}}>
-       <Row style={{marginLeft:70,height:50}}>
-         <h6>Update Your Profile</h6>
-      </Row>
-       <Row style={{flexDirection:'row',marginLeft:50,height:50}}>
-         <Col style={{cursor:'pointer',height:50}}>
-         <img
-              style={{ height: 60, width: 60,border:2,borderRadius:30,backgroundColor:'#3399ff' }}
-              src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"
-              alt="firebase"
-            />
-         </Col>
-         <Col style={{marginLeft:30,marginTop:5}}>
-          <Row style={{color:'blue',fontSize:16,cursor:'pointer',height:50}}>
-            <u>Upload Your Photo</u>
-          </Row>
-          <Row>
-             Photo wil help you recongnize you in this project.
-          </Row>
-         </Col>
-       </Row>
-
-       <form className="form-2" onSubmit={() => console.log("Profile Field")}>
-        {/***1st***/}
-        <Row className="LabelStyle">
-          <Col className="LabelInput">Member Name</Col>
-        </Row>
-        <Row>
-          <Col style={{width:400}}>
-          <input
-              type="text"
-              disabled={loader}
-              id="userName"
-              className="inputStyle"
-              placeholder="userName"
-              value={inputData?.userName}
-              name="userName"
-              onChange={handleChange}
-            />
-          </Col>
-        </Row>
-
-        {/***3rd***/}
-        <Row className="LabelStyle">
-          <Col className="LabelInput">Email</Col>
-        </Row>
-        <Row style={{ marginTop: 5 }}>
-          <Col style={{width:400}}>
-            <input
-              disabled={loader}
-              type="text"
-              id="logo"
-              className="inputStyle"
-              placeholder="Email"
-              value={inputData?.Email}
-              name="Email"
-              onChange={handleChange}
-            />
-          </Col>
-        </Row>
-        <Row className="LabelStyle">
-          <Col className="LabelInput">Role</Col>
-        </Row>
-        <Row style={{ marginTop: 5 }}>
-          <Col style={{width:400}}>
-            <select
-              disabled={loader}
-              name="role"
-              className="inputStyle"
-              onChange={handleChange}
-              value={inputData?.role}
-            >
-              <option value="">Select Role</option>
-              <option value="Moderator">Moderator</option>
-              <option value="Member">Member</option>
-            </select>
-          </Col>
-        </Row>
-
-        {/***4th***/}
-        <Row className="LabelStyle">
-          <Col className="LabelInput">Password</Col>
-        </Row>
-        <Row style={{ marginTop: 5 }}>
-          <Col style={{width:400}} >
-            <div>
-              <input
-                disabled={loader}
-                id="Password"
-                type={'text'}
-                className="inputStyle "
-                placeholder="Password"
-                name="Password"
-                value={inputData?.Password}
-                onChange={handleChange}
-              />
-
-            </div>
-          </Col>
-        </Row>
-
-        {/***Button Field***/}
-        <p
-          style={{
-            color: error.status ? 'green' : 'red',
-            fontSize: 20,
-            marginTop: 10,
-          }}
+    <Container style={{ }}>   
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 4,
+        py: 2
+      }}
+    >
+      <Container >
+        <Typography
+          sx={{ mb: 3 }}
+          variant="h4"
         >
-          {error.message}
-        </p>
-        <Row className="button-Style">
-          <Col>
-            <Button
-              disabled={loader}
-              // onClick={() => CreateUser()}
-              className="ButtonStyle btn Create-Button"
-              style={{
-                borderWidth: 2,
-                borderStyle: 'solid',
-                borderColor: '#EBEBEB',
-                color: '#000000',
-                width: 200,
-                marginTop: 5,
-                borderRadius: 15,
-              }}
-            >
-              {loader ? <CircularProgress size={30} /> : 'Update Profile'}
-            </Button>
-          </Col>
-        </Row>
+          Settings
+        </Typography>
+        <SettingsNotifications />
+        <Box sx={{ pt: 2 }}>
+          <SettingsPassword />
+        </Box>
+      </Container>
+    </Box>
 
-        <Row className="button-Style">
-          <Col>
-            <Button
-              disabled={loader}
-              // onClick={() => CreateUser()}
-              onClick={() => {
-                dispatch(logout());
-              }}
-              className="ButtonStyle btn Create-Button"
-              style={{
-                borderWidth: 2,
-                borderStyle: 'solid',
-                borderColor: '#EBEBEB',
-                color: '#000000',
-                width: 200,
-                marginTop: 5,
-                borderRadius: 15,
-              }}
-            >
-              {loader ? <CircularProgress size={30} /> : 'Logout'}
-            </Button>
-          </Col>
-
-        </Row>
-
-      </form>
-
-
+    <Row className="button-Style">
+        <Col>
+          <Button
+            disabled={loader}
+            // onClick={() => CreateUser()}
+            onClick={() => {
+              dispatch(logout());
+            }}
+            className="ButtonStyle btn Create-Button"
+            style={{
+              borderWidth: 2,
+              borderStyle: 'solid',
+              borderColor: '#EBEBEB',
+              color: '#000000',
+              width: 200,
+              marginTop: 2,
+              borderRadius: 15,
+              marginBottom:50
+            }}
+          >
+            {loader ? <CircularProgress size={30} /> : 'Logout'}
+          </Button>
+        </Col>
+      </Row>
+      
+  
     </Container>
-
   );
-}
+};
 
 export default Profile;
