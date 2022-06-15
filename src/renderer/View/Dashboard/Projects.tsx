@@ -106,9 +106,9 @@ function Projects({ sideBar = 'flex', ...props }) {
         </div>
 
       <div className="seprator" style={{ marginTop: 0 }} />
-      <div className="main-container-project-management">
+      {/* <div className="main-container-project-management">
            <Board />
-      </div>
+      </div> */}
       </div>
     </Router>
   );
