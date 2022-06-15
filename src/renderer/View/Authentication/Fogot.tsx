@@ -20,9 +20,6 @@ import { Notification } from 'renderer/Util/Notification/Notify';
 //   AUTH,
 // } from '../../../Types/User.types';
 
-
-
-
 interface IFormInput {
   Email: string;
 }
@@ -32,14 +29,14 @@ export default function FogotPassword() {
   // const user = useSelector(({ auth }: AUTH) => auth.user);
   const [loader,setLoader] = React.useState(false);
   const[inputData,setInputData] = React.useState({email:""});
- 
+
   const onEmailChange = (event: any) => {
     setInputData({ ...inputData, email: event.target.value });
   };
 
 
   const forgot_Password = async() =>{
-     
+
   try{
      await Api.forgotPassword(inputData.email );
       Notification('success','Updated Password Successfully Sent on Email' , "success");
@@ -72,7 +69,7 @@ export default function FogotPassword() {
 
           <Row style={{ marginTop: 10 }}>
             <Col>
-              
+
               <input
                     className="inputStyle"
                     // style={{
@@ -89,7 +86,7 @@ export default function FogotPassword() {
                   />
             </Col>
           </Row>
-          
+
         </form>
 
         <Button
