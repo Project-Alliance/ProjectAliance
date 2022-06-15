@@ -38,7 +38,6 @@ const defaultImage =
 export default function Profile() {
 
   const User = useSelector(({ auth }: AUTH) => auth.user);
-
   const [error, setError] = React.useState({ message: '', status: false });
   const [loader, setLoader] = React.useState(false);
   const user = useSelector(({auth}: any) => auth.user);
