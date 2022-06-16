@@ -38,6 +38,7 @@ import Mailbox from '../Email/App';
 import Profile from './Profile/Profile';
 
 import Change from './ChangeManagment';
+import HelpScreen from './HelpScreen/HelpScreen';
 
 
 export default function index() {
@@ -213,7 +214,9 @@ export default function index() {
             <Route path="/setting">
               <Settings />
             </Route>
-
+            <Route path="/help">
+              <HelpScreen />
+            </Route>
             <Route path="/account">
               <Profile />
             </Route>

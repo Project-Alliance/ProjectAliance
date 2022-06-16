@@ -120,65 +120,7 @@ export default function Settings({ ParentHistory, sideBar }: Props) {
           />
         </Row>
       </Header>
-      {/* Header End */}
-
-      {/* Main Goals Content */}
-      {/* <Router>
-        <div className="main-container-sub">
-
-          <div>
-
-            <div
-              className="project-title-links-bar"
-              style={{
-                marginLeft: sideBar == 'flex' ? 20 : 60,
-                justifyContent: 'flex-end',
-              }}
-            >
-
-              <div className="row-view" style={{ justifyContent: 'center' }}>
-                {links.map((item, index) => {
-                  return (
-                    <Link
-                      to={item.to}
-                      key={index * Math.random()}
-                      className="btn"
-                      style={{
-                        color: 'black',
-                        fontFamily: 'Manrope',
-                        fontSize: 16,
-                        borderBottomWidth: 4,
-                        outline: 'none',
-                        borderBottomColor: '#3399ff',
-                        borderStyle: item.to == selLink ? 'solid' : 'none',
-                      }}
-                      onClick={() => setSelLink(item.to)}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="main-container-project-management">
-              <Switch>
-                <Route exact path="/Profile">
-                  <Profile />
-                </Route>
-                <Route path="/Notifications" exact>
-                  <Notifications />
-                </Route>
-                <Route path="/Account" exact>
-                  <Account />
-                </Route>
-                <Route path="/Display" exact>
-                  <Display />
-                </Route>
-              </Switch>
-            </div>
-          </div>
-        </div>
-      </Router> */}
+      
       <div style={{marginTop:20,marginLeft:80}}>
         <Profile />
       </div>
