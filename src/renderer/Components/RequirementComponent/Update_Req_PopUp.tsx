@@ -120,6 +120,7 @@ const UpdateReq_PopUp = ({ reqs, projectId, isOpen, setIsOpen }: Req) => {
         Notification('Error','Something went wrong',"danger");
       }
     }).catch((err:any)=>{
+      console.log(JSON.stringify(err))
       Notification('Error','Something went wrong   '+err,"danger");
     })
 
@@ -251,7 +252,7 @@ const UpdateReq_PopUp = ({ reqs, projectId, isOpen, setIsOpen }: Req) => {
                     style={{
                       marginTop: 10,
                       marginBottom: 10,
-                      height: 30,
+
                       fontSize: 12,
                     }}
                     onChange={onfileOnChange}

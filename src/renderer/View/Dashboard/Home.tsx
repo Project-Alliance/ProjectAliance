@@ -361,6 +361,7 @@ const Home = (props: any) => {
                     key={item.projectTitle + ' ' + index}
                     className="Create-Project-Div"
                     onClick={() => {
+                      props.setBtnName("/Projects");
                     dispatch({type:"SELECT_PROJECT",project:{...item}})
                      dispatch({type:"PROJECT_SCREEN"})
                       history.push({ pathname: '/Projects', state: { item } });

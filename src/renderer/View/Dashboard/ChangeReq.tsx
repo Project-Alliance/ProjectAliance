@@ -127,14 +127,14 @@ export default function ChangeReq() {
    </Row> */}
     <div style={{height:"100vh",display:'flex',flexDirection:'row',background:COLORS.lightGray3}}>
 
-      <div className={"col-md-2"} style={{height:'100vh',backgroundColor:COLORS.primary}}>
-              <div style={{color:COLORS.white,height:'4vh',marginLeft:20}}>Module</div>
+    <div className={"col-md-2"} style={{height:'100vh',borderRightColor:COLORS.lightGray,borderStyle:'solid',borderWidth:0,borderRightWidth:1}}>
+              <div style={{color:COLORS.black,height:'4vh',alignSelf:'center',fontSize:16,fontWeight:'bold'}}>Module</div>
         <div className="sepratorReq" />
         { requirement.map((item:any)=>{
            return(<>
 
-             <div style={{display:'flex',flexDirection:'row',marginTop:14,marginBottom:20}}>
-                <div style={{color:COLORS.white,height:'4vh',marginLeft:10,fontSize:15,width:'100%',cursor:'pointer',display:'flex',flexDirection:'row'}} onClick={()=>{ handleClick();
+
+                <div  className='emailRow' style={{color:COLORS.black,background:COLORS.white,height:'4vh',fontSize:15,width:'100%',cursor:'pointer',display:'flex',flexDirection:'row',justifyContent:'space-between'}} onClick={()=>{ handleClick();
                   setReqModule(item.requirements);
                 }}
                   >
@@ -151,7 +151,7 @@ export default function ChangeReq() {
                         />
                    </div>
                 </div>
-             </div>
+
              </>
           )
         }

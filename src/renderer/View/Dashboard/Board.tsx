@@ -143,6 +143,7 @@ export default function Dashboard() {
       onCardUpdate={updateCard}
       onLaneUpdate={updateLane}
       collapsibleLanes
+      style={{backgroundColor:'#f5f5f5'}}
       />
     </div>
 
