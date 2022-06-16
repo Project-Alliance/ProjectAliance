@@ -119,7 +119,14 @@ export default function Dashboard() {
     if (res?.status == 200) {
       getLane();
     }
-    ,[data])
+  }
+
+  useEffect(() => {
+    if(data.lanes.length == 0){
+      getLane();
+    }
+  }
+  , [data.lanes.length]);
     return <div>
       <Board components={{
 
@@ -143,5 +150,5 @@ export default function Dashboard() {
 
       />
     </div>
-  );
+
 }
