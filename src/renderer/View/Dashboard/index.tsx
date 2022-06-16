@@ -9,6 +9,7 @@ import {
   Route,
   Switch,
   useHistory,
+  useLocation,
   useParams,
 } from 'react-router-dom';
 import Home from './Home';
@@ -43,12 +44,14 @@ import HelpScreen from './HelpScreen/HelpScreen';
 export default function index() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation()
   const [color, setColor] = useState('#000');
-  const [btnName, setBtnName] = useState('/');
   const [displaySlide, setDisplaySlide] = useState('flex');
   const [width, height] = useWindowSize();
   const user = useSelector(({auth}:AUTH)=>auth.user);
   const sideBarButtons = useSelector(({SideBarButton}:any)=>SideBarButton);
+  const [btnName, setBtnName] = useState('/');
+
 
   const ref = useRef();
 
@@ -149,7 +152,7 @@ export default function index() {
 
             <Route path="/mytask" component={MyTask}  />
             <Route path="/Projects"  >
-              <Projects ParentHistory={history} sideBar={displaySlide} />
+              <Projects ParentHistory={history}  sideBar={displaySlide} />
               </Route>
               <Route path="/reporting"  >
               <ReportingScreen ParentHistory={history} history={history} sideBar={displaySlide} />
@@ -219,7 +222,7 @@ export default function index() {
             </Route>
 
             <Route  exact>
-            <Home ParentHistory={history} sideBar={displaySlide} />
+            <Home ParentHistory={history} setBtnName={setBtnName} sideBar={displaySlide} />
             </Route>
 
           </Switch>

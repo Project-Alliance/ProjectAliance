@@ -14,13 +14,6 @@ export const HomeSideBarButtons=[
     iconName:"switcher",
     to:"/mailbox"
 },
-{
-
-  title:"Reporting",
-  font:"Entypo",
-  iconName:"line-graph",
-  to:"/reporting",
-},
 // {
 
 //   title:"Inbox",
@@ -77,7 +70,13 @@ export const ProjectSideBarButtons=[
             iconName:"back",
             to:"/"
   },
+  {
 
+    title:"DashBoard",
+    font:"MaterialCommunityIcons",
+    iconName:"view-dashboard-outline",
+    to:"/Projects"
+},
   {
 
     title:"Manage Requirements",
@@ -121,13 +120,6 @@ export const ProjectSideBarButtons=[
   font:"FontAwesome",
   iconName:"linode",
   to:"/mytask"
-},
-{
-
-  title:"Reporting",
-  font:"Entypo",
-  iconName:"line-graph",
-  to:"/reporting",
 },
 // {
 

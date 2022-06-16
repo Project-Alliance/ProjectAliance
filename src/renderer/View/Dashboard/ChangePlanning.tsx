@@ -205,22 +205,7 @@ export default function ChangePlaning() {
                     ))}
                   </>
                 ))
-              ) : (
-                <tr className="table__row">
-                  <td colSpan={5}>Add New Enviorment</td>
-                  <td>
-                    {/* Add Menue Here */}
-                    <DropDownMenuSelect
-                      values={EnvOptions}
-                      handleOnClick={(value: any) => {
-                        if (value == 'Add New Enviorment') {
-                          setIsOpen(true);
-                        }
-                      }}
-                    />
-                  </td>
-                </tr>
-              )}
+              ) : null}
             </tbody>
           </table>
         </>
@@ -313,22 +298,7 @@ export default function ChangePlaning() {
                     ))}
                   </>
                 ))
-              ) : (
-                <tr className="table__row">
-                  <td colSpan={5}>Add new Enviorment</td>
-                  <td>
-                    {/* Add Menue Here */}
-                    <DropDownMenuSelect
-                      values={EnvOptions}
-                      handleOnClick={(value: any) => {
-                        if (value == 'Add New Enviorment') {
-                          setIsOpen(true);
-                        }
-                      }}
-                    />
-                  </td>
-                </tr>
-              )}
+              ) : null}
             </tbody>
           </table>
         </>

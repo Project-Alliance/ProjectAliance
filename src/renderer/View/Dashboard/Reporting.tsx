@@ -8,14 +8,16 @@ import { COLORS } from 'renderer/AppConstants';
 import { useSelector } from 'react-redux';
 import {Avatar} from '@mui/material';
 import {VictoryChart,VictoryScatter,VictoryPie,VictoryLegend,VictoryPolarAxis,VictoryBar,VictoryTheme, VictoryArea, VictoryCursorContainer, VictoryLine} from 'victory';
-
+import Api from 'renderer/Api/auth.api';
+import { type } from 'os';
 
 const defaultImage = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=35';
 
 interface Props {
   ParentHistory?: RouteComponentProps['history'];
   sideBar?: string;
-  history: RouteComponentProps['history'];
+  history?: RouteComponentProps['history'];
+  header?:boolean;
 }
 
 const smapleData=[
@@ -23,18 +25,24 @@ const smapleData=[
   { x: "Dogs", y: 40 },
   { x: "Birds", y: 55 }
 ]
+type cardData={
+  completed:number;
+  total:number;
+  due:number;
+  upcoming:number;
+}
 
-export default function ReportingScreen({ ParentHistory,history, sideBar }: Props) {
+export default function ReportingScreen({ ParentHistory,history, sideBar,header=true}: Props) {
 
 
 // data required in header
   const projects = useSelector(({Project}: any) => Project?.data?.projects?Project?.data?.projects:[]);
+
   const [selectedProject,setSelectedProject] = React.useState(projects[0]);
   const user = useSelector(({auth}: any) => auth?.user);
   const [state,setState] = React.useState<any>({})
-  const data = [
-    { x: "1.0", y: 2,fill:COLORS.blue1[200] }, { x: "2.0", y: 2 ,fill:COLORS.blue1[500]}, { x: "3.0", y: 3,fill:COLORS.blue1[700] }
-  ];
+  const [datastate,setDatastate] = React.useState<any>({completed:0,total:0,due:0,upcoming:0});
+  const [data,setData]=React.useState<any>([{ x: "1.0", y: 2,fill:COLORS.blue1[200] }, { x: "2.0", y: 2 ,fill:COLORS.blue1[500]}, { x: "3.0", y: 3,fill:COLORS.blue1[700] }]);
   const legendData = [
     { name: "Upcomming" }, { name: "Due" }, { name: "Completed" }
   ];
@@ -60,6 +68,7 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
     });
   }
   React.useEffect(()=>{
+    getLane();
     let setStateInterval = setInterval(() => {
       setState({
         scatterData: getScatterData()
@@ -69,12 +78,61 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
   },[])
 
 
+  const getLane=async()=>{
+    let res = await Api.getBoardLane(selectedProject.pid,user?.accessToken).catch(err=>{
+      console.log(err);
+    })
+
+    if(res?.status==200)
+    {
+      let data1 = res.data;
+      let arr=[] as any;
+      let color,completed=0,total=0,due=0,upcoming=0;
+
+      data1.forEach((element:{title:string;cards:[]}) => {
+
+        color=element.title=="Due"?COLORS.blue1[500]:element.title=="Upcomming"?COLORS.blue1[200]:COLORS.blue1[700];
+
+        switch(element.title)
+        {
+          case "Due":
+            due=element.cards.length;
+            break;
+          case "Upcomming":
+            upcoming=element.cards.length;
+            break;
+          case "Completed":
+            completed=element.cards.length;
+            break;
+          default:
+            break;
+        }
+        total+=element.cards.length;
+
+        arr.push({
+          x:element.title,
+          y:element.cards.length,
+          fill:color
+        })
+      });
+      setData(arr);
+
+      setDatastate({
+        completed:completed,
+        total:total,
+        due:due,
+        upcoming:upcoming
+      })
+
+    }
+  }
+
 
 
   return (
   <Container style={{overflowY:"scroll"}}>
     {/* Header Start  */}
-    <Header style={{justifyContent:'space-between'}}>
+   {header&&<Header style={{justifyContent:'space-between'}}>
       <Row>
       <ProjectIcon style={{borderRadius:10}}>
         <img style={{height:35,width:35}} src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png" alt="firebase" />
@@ -96,34 +154,30 @@ export default function ReportingScreen({ ParentHistory,history, sideBar }: Prop
 
       </Row>
       <Row style={{justifyContent:'flex-end',alignItems:'center'}}>
-        <input style={{width:200,marginRight:10,borderWidth:1,borderColor:COLORS.borderColor,borderRadius:20,height:30,padding:10, }} placeholder="Search" />
+
         <Avatar
         src={user?.profilePic ? user?.profilePic : defaultImage}
         variant="circular" style={{marginRight:10}}/>
       </Row>
-    </Header>
+    </Header>}
     {/* Header End */}
 
     <Row style={{marginLeft:60,marginRight:60,justifyContent:"space-between",marginTop:20}}>
       <SCard
       title="Completed Task"
-      value={selectedProject?.completedTask||0}
-      onClick={()=>history?.push(`/reporting/${selectedProject?.pid}/completedTask`)}
+      value={datastate.completed||0}
       />
       <SCard
       title="Incomplete Task"
-      value={selectedProject?.Incomplete||0}
-      onClick={()=>history?.push(`/reporting/${selectedProject?.pid}/incompletedTask`)}
+      value={datastate.upcoming||0}
       />
       <SCard
       title="Due Task"
-      value={selectedProject?.DueTask||0}
-      onClick={()=>history?.push(`/reporting/${selectedProject?.pid}/DueTask`)}
+      value={datastate.due||0}
       />
       <SCard
       title="Total Task"
-      value={selectedProject?.totalTask||0}
-      onClick={()=>history?.push(`/reporting/${selectedProject?.pid}/totalTask`)}
+      value={datastate.total||0}
       />
     </Row>
 
@@ -196,7 +250,7 @@ https://www.visual-paradigm.com/features/radar-chart-tool/
 
     </Row>
 
-    <Row style={{marginLeft:60,marginRight:60,marginTop:20,marginBottom:30,justifyContent:'space-between'}}>
+  { false&&<Row style={{marginLeft:60,marginRight:60,marginTop:20,marginBottom:30,justifyContent:'space-between'}}>
       <ChartBox>
         <H2 style={{alignSelf:'flex-start',margin:15,color:COLORS.darkgray,fontSize:18}}>Project Control</H2>
        <Row style={{height:300,width:"100%",padding:10}}>
@@ -258,7 +312,7 @@ https://www.visual-paradigm.com/features/radar-chart-tool/
 
 
     </Row>
-
+}
     </>)}
 
 
