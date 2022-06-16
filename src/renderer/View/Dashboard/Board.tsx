@@ -145,7 +145,7 @@ export default function Dashboard() {
         collapsibleLanes
       />
     </div>
-  );
+
 }
 
 const obj = {
