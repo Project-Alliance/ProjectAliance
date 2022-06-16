@@ -423,24 +423,12 @@ export const TestCaseResultOptions = {
 };
 export const links = [
   {
-    to: '/documentation',
-    label: 'Documentation',
-  },
-  {
-    to: '/list',
-    label: 'List',
+    to: '/graph',
+    label: 'Routine Graph',
   },
   {
     to: '/board',
-    label: 'Board',
-  },
-  {
-    to: '/timeLine',
-    label: 'Timeline',
-  },
-  {
-    to: '/calender',
-    label: 'Calnder',
+    label: 'Kanban Board',
   },
 ];
 

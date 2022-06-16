@@ -155,7 +155,7 @@ export default function Requirements({ history, sideBar }: Props) {
 
     <div style={{height:"100vh",display:'flex',flexDirection:'row',background:COLORS.lightGray3}}>
      {!isDetail ?
-      <div className={"col-md-2"} style={{height:'100vh',borderRightColor:COLORS.primary,borderStyle:'solid',borderWidth:0,borderRightWidth:2}}>
+      <div className={"col-md-2"} style={{height:'100vh',borderRightColor:COLORS.lightGray,borderStyle:'solid',borderWidth:0,borderRightWidth:1}}>
               <div style={{color:COLORS.black,height:'4vh',alignSelf:'center',fontSize:16,fontWeight:'bold'}}>Module</div>
         <div className="sepratorReq" />
         { requirement.map((item:any)=>{

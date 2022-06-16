@@ -1,34 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from "prop-types"
+import React, { useEffect,  useState } from 'react';
 import Icon from 'react-web-vector-icons';
-import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
-
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import AvatarGroup from 'react-avatar-group';
 import {
-  BrowserRouter as Router,
-  Link,
-  Redirect,
-  Route,
-  Switch,
   useHistory,
-  useLocation,
-  useParams,
 } from 'react-router-dom';
+import { ButtonUnstyled } from '@mui/base';
+import { links} from "./SideBarButtonsSetails"
+
 
 import Board from './Board';
 import { useSelector } from 'react-redux';
+import { COLORS } from "renderer/AppConstants";
+import ReportingScreen from "./Reporting";
 
 
 function Projects({ sideBar = 'flex', ...props }) {
-  const [selLink, setSelLink] = useState('/board');
+  const [selLink, setSelLink] = useState('/graph');
   const history = useHistory();
-  const { state } = useLocation<any>();
-  const { item }: any = state;
+  const item = useSelector(
+    ({ SelectedProject }: any) => SelectedProject
+  );
   const user = useSelector(({ auth }: any) => auth.user);
   useEffect(() => {}, []);
   return (
-    <Router>
+
       <div className="main-container-sub">
         {/* Project TopBar or TAbs */}
         <div
@@ -61,7 +58,29 @@ function Projects({ sideBar = 'flex', ...props }) {
 
             </div>
             {/* links */}
+            <div className="row-view" style={{ marginLeft: 10 }}>
+              {links.map((item, index) => {
+                return (
+                  <ButtonUnstyled
 
+                    key={index * Math.random()}
+                    className="btn"
+                    style={{
+                      color: item.to == selLink ? COLORS.primary:'black',
+                      fontFamily: 'Manrope',
+                      fontSize: 14,
+                      borderBottomWidth: 4,
+                      outline: 'none',
+                      borderBottomColor: "#149fff",
+                      borderStyle: item.to == selLink ? 'solid' : 'none',
+                    }}
+                    onClick={() => setSelLink(item.to)}
+                  >
+                    {item.label}
+                  </ButtonUnstyled>
+                );
+              })}
+            </div>
           </div>
           <div className="row-view ai jc" style={{ marginRight: 30 }}>
 
@@ -106,12 +125,18 @@ function Projects({ sideBar = 'flex', ...props }) {
         </div>
 
       <div className="seprator" style={{ marginTop: 0 }} />
-      {/* <div className="main-container-project-management">
+      {selLink=="/board"&&<div className="main-container-project-management">
            <Board />
-      </div> */}
+      </div>}
+      {selLink=="/graph"&&<ReportingScreen header={false} />}
       </div>
-    </Router>
+
+
   );
+}
+
+Projects.propTypes = {
+  sideBar: PropTypes.string
 }
 
 export default Projects;

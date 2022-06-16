@@ -119,47 +119,29 @@ export default function Dashboard() {
     if (res?.status == 200) {
       getLane();
     }
-  };
+    ,[data])
+    return <div>
+      <Board components={{
 
-  useEffect(() => {
-    if (data.lanes.length == 0) getLane();
-  }, [data]);
-  return (
-    <div>
-      <Board
-        components={{}}
-        data={data}
-        draggable
-        editable={true}
-        onLaneAdd={addLane}
-        id="EditableBoard1"
-        onCardAdd={AddCard}
-        onCardClick={function noRefCheck() {}}
-        onCardDelete={cardDelete}
-        onLaneDelete={laneDelete}
-        onDataChange={function noRefCheck() {}}
-        canAddLanes
-        editLaneTitle
-        onCardUpdate={updateCard}
-        onLaneUpdate={updateLane}
-        collapsibleLanes
+      }}
+      data={data}
+      draggable
+      editable={true}
+      onLaneAdd={addLane}
+      id="EditableBoard1"
+      onCardAdd={AddCard}
+      onCardClick={function noRefCheck(){}}
+      onCardDelete={cardDelete}
+      onLaneDelete={laneDelete}
+      onDataChange={function noRefCheck(){}}
+      canAddLanes
+      editLaneTitle
+      onCardUpdate={updateCard}
+      onLaneUpdate={updateLane}
+      collapsibleLanes
+      style={{backgroundColor:'#f5f5f5'}}
+
       />
     </div>
   );
 }
-
-const obj = {
-  index: 1,
-  className: 'react-trello-card',
-  showDeleteButton: true,
-  cardDraggable: true,
-  editable: true,
-  id: 'Card2',
-  title: 'Pay Rent',
-  description: 'Transfer via NEFT',
-  label: '5 mins',
-  metadata: {
-    sha: 'be312a1',
-  },
-  laneId: 'lane1',
-};
