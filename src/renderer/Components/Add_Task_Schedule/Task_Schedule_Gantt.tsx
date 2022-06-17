@@ -15,11 +15,19 @@ import {
   propsType,
 } from './CustomGridCompoment';
 import Icon from 'react-web-vector-icons';
-
+import Api from 'renderer/Api/auth.api';
 
 let promiseTimeout: any;
 export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
 
+  //delete schedule api call
+  // const handleDelete = () => {
+  //   try{
+  //     const rehan  = data.filter((item:any) => item.id === handleEdit);
+  //     Api.deleteSchedule(rehan[0].id);
+
+  //   }
+  // }
 
   const columns: GridColDef[] = [
     {
