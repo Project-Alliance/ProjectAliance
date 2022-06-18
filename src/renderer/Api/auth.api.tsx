@@ -554,5 +554,15 @@ class ApiCntainerClass {
     return http.delete(`/Schedule/delete?scheduleId=${scheduleId}`);
   }
 
+  updatePassword(data:any,token:string)
+  {
+    let header = {
+      'Content-Type': 'application/json;',
+      'Access-Control-Allow-Origin': '*',
+      "Authorization": "Bearer " + token
+    };
+    return http.post(`/auth/updatePassword`,data,{headers:header});
+  }
+
 }
 export default new ApiCntainerClass();

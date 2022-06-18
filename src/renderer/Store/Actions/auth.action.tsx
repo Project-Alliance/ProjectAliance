@@ -1,10 +1,11 @@
 import getData from '../../Api/auth.api';
-import {IFormInput} from '../../../Types/User.types'
+import {IFormInput} from '../../../Types/User.types';
 
-const signin=(Data:IFormInput)=> (dispatch: any)=>{
+
+const signin=(Data:IFormInput)=> (dispatch: any,getState:any)=>{
 
   dispatch({type:"AUTH_LOGIN_INIT"})
-
+  const state=getState().notification;
    getData.SignIn({
     username: Data.userName,
     password: Data.password,
@@ -12,6 +13,10 @@ const signin=(Data:IFormInput)=> (dispatch: any)=>{
 
     dispatch({type:"AUTH_LOGIN_SUCCESS",user:{...data.data,status:data.status,isLoggedIn: true, }})
     localStorage.setItem('User',JSON.stringify({...data.data,status:data.status,isLoggedIn: true, }))
+    if(state.onLogin)
+    {
+      new Notification("Login Success")
+    }
     return data;
   })
   .catch((err)=>

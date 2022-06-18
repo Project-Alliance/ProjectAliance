@@ -12,6 +12,8 @@ import ProjectGoals from "./reducers/Goals.reducer"
 import ProjectSchdule from "./reducers/Schedule.reducer"
 import mailReducer from "../View/Email/features/mailSlice"
 import userSlice from "../View/Email/features/userSlice"
+import Notification from "./ReduxToolkit/Notification"
+
 
 
 
@@ -33,6 +35,7 @@ const store = createStore(
     ProjectGoals:ProjectGoals,
     mail: mailReducer,
     user: userSlice,
+    notification: Notification
     // ProjectSchdule:ProjectSchdule,
   }),
   applyMiddleware(...middleware)

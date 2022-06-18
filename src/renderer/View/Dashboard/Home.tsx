@@ -30,6 +30,7 @@ import { getMembers } from 'renderer/Store/Actions/members.action';
 import WorkINProgress from './Work';
 import { size } from 'renderer/AppConstants';
 import Api from 'renderer/Api/auth.api';
+import { notify } from 'renderer/Store/ReduxToolkit/Notification';
 
 const Home = (props: any) => {
   const [selected, setSelected] = useState('Rehan');
@@ -39,6 +40,7 @@ const Home = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector(({ auth }: any) => auth.user);
   const Members = useSelector(({ Members }: any) => Members.data);
+  const notification = useSelector(({ notification }: notify) =>notification);
   const getMonth = (month: any) => {
     const months = [
       'January',
@@ -63,6 +65,10 @@ const Home = (props: any) => {
       let res = await Api.getReceivedMail(user?.accessToken);
       if (res.status == 200) {
         setEmail(res.data);
+        if(notification.mailReceived && res.data.filter((mail: any) => !mail?.isRead).length>0)
+        {
+          new Notification("You Have New Mail")
+        }
       } else {
       }
     } catch (e) {

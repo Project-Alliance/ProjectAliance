@@ -64,7 +64,7 @@ const Quality = ({sideBar = 'flex', ...props }) => {
   // Gannt Chart coding detail
 
   return (
-    <div style={{overflowY:'scroll'}} className="Main_Task_List">
+    <div className="Main_Task_List">
       {/* <TodoList /> */}
       <div
           className="project-topbar row-view"

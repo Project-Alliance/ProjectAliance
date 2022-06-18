@@ -1,4 +1,5 @@
-import React from "react";
+import PropTypes from "prop-types"
+import React, { useState } from "react";
 import "./SendMail.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button } from "@mui/material";
@@ -9,6 +10,9 @@ import Api from "renderer/Api/auth.api"
 import {Notification} from "renderer/Util/Notification/Notify";
 import Icon from "react-web-vector-icons";
 import PreviewFile from 'react-file-viewer'
+import Popup from "renderer/View/CreateProjectForm/Popup";
+import {Form} from 'react-bootstrap'
+import {Checkbox} from "@mui/material"
 
 
 
@@ -38,6 +42,7 @@ let mailDataModel={
 function SendMail() {
   const [mailData, setMailData] = React.useState(mailDataModel);
   const [previewFile, setPreviewFile] = React.useState<previewFileType>(preview);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -84,6 +89,8 @@ function SendMail() {
   }
 
   return (
+   <>
+   <SelectSpecific isOpen={isOpen} setIsOpen={setIsOpen} Members={Members} SetMembersMail={(mail:any)=>{setMailData({...mailData,ToList:mail})}} />
     <div className="sendMail">
       <div className="sendMail-header">
         <h3>New Mail</h3>
@@ -104,21 +111,21 @@ function SendMail() {
 
         <div style={{flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',marginLeft:10}}>
         <input
-          type={"checkbox"}
+          type={"radio"}
           name="cc"
           style={{height:25,width:25,marginRight:10}}
           onChange={(e) => {
             if(e.target.checked)
             {
               let toList = Members.map((item:any)=>item.userName)
-              setMailData({...mailData,ToList:[...mailData.ToList,...toList]})
+              setMailData({...mailData,ToList:[...toList]})
 
             }
-            else {
-              let tolist = mailData.ToList.filter((item:any)=>!Members.map((item:any)=>item.userName).includes(item))
-              setMailData({...mailData,ToList:tolist})
+            // else {
+            //   let tolist = mailData.ToList.filter((item:any)=>!Members.map((item:any)=>item.userName).includes(item))
+            //   setMailData({...mailData,ToList:tolist})
 
-            }
+            // }
           }}
         />
         Send TO All Members
@@ -126,49 +133,48 @@ function SendMail() {
 
         <div style={{flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',marginLeft:10}}>
         <input
-          type={"checkbox"}
+          type={"radio"}
           name="cc"
           style={{height:25,width:25,marginRight:10}}
           onChange={(e) => {
             if(e.target.checked)
             {
               let toList = Members.filter((item:any)=>item.role=="Moderator").map((item:any)=>item.userName)
-              setMailData({...mailData,ToList:[...mailData.ToList,...toList]})
+              setMailData({...mailData,ToList:[...toList]})
 
             }
-            else {
+            // else {
 
-              let tolist = mailData.ToList?.filter((item:any)=>!Members.filter((item:any)=>item.role=="Moderator").map((item:any)=>item.userName).includes(item))
-              setMailData({...mailData,ToList:tolist})
+            //   let tolist = mailData.ToList?.filter((item:any)=>!Members.filter((item:any)=>item.role=="Moderator").map((item:any)=>item.userName).includes(item))
+            //   setMailData({...mailData,ToList:tolist})
 
-            }
+            // }
           }}
         />
-        Send to Moderators
+        <label>Send to Moderators</label>
         </div>
-        {/* <div style={{flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',marginLeft:10}}>
+      <div style={{flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',marginLeft:10}}>
         <input
           type={"Radio"}
           name="cc"
           style={{height:25,width:25,marginRight:10}}
 
           onChange={(e) => {
-            if(sendToAllTeamLeads==0)
+            if(e.target.checked)
             {
-              let toList = Members.filter((item:any)=>item.role="Moderator").map((item:any)=>item.userName)
-              setMailData({...mailData,ToList:[...mailData.ToList,...toList]})
-              setSendToAllModerator(1)
-            }
-            else {
+              setIsOpen(true)
 
-              let tolist = mailData.ToList?.filter((item:any)=>!Members.includes((i:any)=>i.userName==item))
-              setMailData({...mailData,ToList:tolist})
-              setSendToAllModerator(0)
             }
+            // else {
+
+            //   let tolist = mailData.ToList?.filter((item:any)=>!Members.includes((i:any)=>i.userName==item))
+            //   setMailData({...mailData,ToList:tolist})
+            //   setSendToAllModerator(0)
+            // }
           }}
         />
-        Send to All Team Leads
-        </div> */}
+        Send to Specific
+        </div>
 
         </div>
         <input
@@ -244,6 +250,7 @@ function SendMail() {
         }
         />} */}
     </div>
+   </>
   );
 }
 
@@ -338,3 +345,111 @@ const ReturnFileIcon=(fileExtension:any)=>{
         return <Icon name='file-o' font='FontAwesome' color='#000' size={18} />
   }
   }
+
+  type selectSpecificProps={
+    isOpen:boolean;
+    setIsOpen:(value:boolean)=>void;
+    SetMembersMail:(value:any)=>void;
+    Members:any;
+
+  }
+
+const SelectSpecific=({isOpen,setIsOpen,Members,SetMembersMail}:selectSpecificProps)=>{
+const [mail,setMails]= useState<any>([]);
+const handleSubmit=(e:any)=>{
+  e.preventDefault();
+  SetMembersMail(mail);
+  setIsOpen(false)
+}
+  return (
+    <>
+    {isOpen&&<Popup
+    style={{zIndex:10000,}}
+    boxStyle={{overflow:"hidden",overflowY:'scroll'}}
+    handleClose={()=>setIsOpen(false)}
+    content={<>
+    <table>
+      <thead>
+        <tr>
+          <th>
+          <Checkbox
+          style={{color:"#ffffff"}}
+          checked={mail.length==Members.length}
+          onChange={()=>{
+            if(mail.length==Members.length){
+              setMails([]);
+            }
+            else{
+            setMails(Members.map((item:{userName:string})=>item.userName));
+            }
+          }}
+          />
+          </th>
+          <th>
+            Profile
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Email
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {Members.map((item:any)=>{
+          return(
+            <tr>
+              <td>
+              <Checkbox
+              checked={mail.includes(item.userName)}
+              onChange={()=>{
+                if(mail.includes(item.userName)){
+                  setMails(mail.filter((i:string)=>i!=item.userName));
+                }
+                else{
+                  setMails([...mail,item.userName]);
+                }
+              }}
+
+              />
+              </td>
+              <td>
+                <img src={item.profilePic} style={{height:50,width:50,borderRadius:50,}} />
+              </td>
+              <td>
+                {item.name}
+              </td>
+              <td>
+                {item.userName}
+              </td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+    <Button
+      style={{
+        padding: 20,
+        fontSize: 16,
+        textTransform: 'unset',
+      }}
+      title=""
+      onClick={handleSubmit}
+    >
+      Send
+    </Button>
+    </>}
+
+    />}
+    </>
+  )
+
+}
+
+SelectSpecific.propTypes = {
+  Members: PropTypes.any,
+  SetMembersMail: PropTypes.any,
+  isOpen: PropTypes.any,
+  setIsOpen: PropTypes.func
+}

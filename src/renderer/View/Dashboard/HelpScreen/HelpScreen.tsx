@@ -12,14 +12,6 @@ import {
   H1,
   H2,
 } from 'renderer/Components/layout';
-import {
-  BrowserRouter as Router,
-  Link,
-  RouteComponentProps,
-  Switch,
-  Route,
-  useParams,
-} from 'react-router-dom';
 import { COLORS } from 'renderer/AppConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { Avatar } from '@mui/material';
