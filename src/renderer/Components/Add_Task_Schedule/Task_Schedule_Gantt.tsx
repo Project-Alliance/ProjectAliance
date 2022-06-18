@@ -14,11 +14,20 @@ import {
   formatDate,
   propsType,
 } from './CustomGridCompoment';
-
+import Icon from 'react-web-vector-icons';
+import Api from 'renderer/Api/auth.api';
 
 let promiseTimeout: any;
 export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
 
+  //delete schedule api call
+  // const handleDelete = () => {
+  //   try{
+  //     const rehan  = data.filter((item:any) => item.id === handleEdit);
+  //     Api.deleteSchedule(rehan[0].id);
+
+  //   }
+  // }
 
   const columns: GridColDef[] = [
     {
@@ -32,6 +41,7 @@ export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
             flexDirection: 'row',
             alignItems: 'center',
             fontSize: 10,
+            marginLeft:5
           }}
         >
           {params.value}
@@ -76,6 +86,7 @@ export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
             flexDirection: 'row',
             alignItems: 'center',
             fontSize: 10,
+            marginLeft:20
           }}
         >
           {params.value}
@@ -126,7 +137,7 @@ export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
       headerName: 'dependencies',
       description: 'On which task it depends',
       sortable: false,
-      width: 80,
+      width: 130,
       editable: true,
       renderEditCell: (params) => (<select>
         <option value="">Select</option>
@@ -139,11 +150,28 @@ export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
             flexDirection: 'row',
             alignItems: 'center',
             fontSize: 10,
+            marginLeft: 40,
           }}
         >
           {params.value}
         </div>
       ),
+    },
+    {
+      field: 'delete',
+      headerName: 'delete',
+      description: 'It will be removed from Schedule Table',
+      sortable: false,
+      width: 80,
+      editable: true,
+      renderCell: () => {
+         return(
+          <div style={{marginLeft:10}} >
+            <Icon  name='delete' font='AntDesign'  color='black'  size={15} // style={{}}
+          />
+          </div>
+         );
+      }
     },
 
     // {

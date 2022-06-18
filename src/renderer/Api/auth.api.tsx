@@ -548,6 +548,11 @@ class ApiCntainerClass {
   {
     return http.post(`/auth/forgotPassword?userName=${userName}`);
   }
+  // Delete schedule api class
+  deleteSchedule(scheduleId:number)
+  {
+    return http.delete(`/Schedule/delete?scheduleId=${scheduleId}`);
+  }
 
 }
 export default new ApiCntainerClass();
