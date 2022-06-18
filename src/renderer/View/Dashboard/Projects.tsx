@@ -125,11 +125,13 @@ function Projects({ sideBar = 'flex', ...props }) {
         </div>
 
       <div className="seprator" style={{ marginTop: 0 }} />
-      {/* <div className="main-container-project-management">
+      {selLink=="/board"&&<div className="main-container-project-management">
            <Board />
-      </div> */}
+      </div>}
+      {selLink=="/graph"&&<ReportingScreen header={false} />}
       </div>
-    </Router>
+
+
   );
 }
 
