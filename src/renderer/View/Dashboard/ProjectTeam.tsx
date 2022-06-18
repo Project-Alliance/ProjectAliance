@@ -61,7 +61,7 @@ type TeamMember = {
   name: string;
   email: string;
   role: string;
-  avatar: string;
+  profilePic: string;
   value:number;
   label:string;
   color:string;
@@ -315,7 +315,7 @@ const Item = ({item,GetProjectteam,setIsOpen,setDataModel,setTabV,dataModel,setR
 
         <Tooltip title="Profile Image">
           <div style={{flex:1.5}}>
-          <Avatar sx={{height:30,width:30}}  src={item.avatar} sizes={"20px"} />
+          <Avatar sx={{height:30,width:30}}  src={item.profilePic} sizes={"20px"} />
           </div>
 
       </Tooltip>

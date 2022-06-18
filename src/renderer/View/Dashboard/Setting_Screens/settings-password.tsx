@@ -3,12 +3,17 @@
 /* eslint-disable import/prefer-default-export */
 import { useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'renderer/View/Email/features/userSlice';
+import Api from 'renderer/Api/auth.api';
 
 export const SettingsPassword = (props:any) => {
   const [values, setValues] = useState({
     password: '',
     confirm: ''
   });
+  const user = useSelector(selectUser);
+
 
   const handleChange = (event:any) => {
     setValues({
@@ -16,6 +21,25 @@ export const SettingsPassword = (props:any) => {
       [event.target.name]: event.target.value
     });
   };
+  const handleSubmit =async (event:any) => {
+    event.preventDefault();
+
+   try{
+    let Data={
+      "userName":user.userName,
+      "password": values.password,
+      "newPassword": values.confirm
+    }
+     let res = await Api.updatePassword(Data, user?.accessToken);
+    if (res.status == 200) {
+      alert('Password updated');
+    }}
+    catch(err){
+      alert('Error updating password');
+    }
+
+
+  }
 
   return (
     <form {...props}>
@@ -56,6 +80,7 @@ export const SettingsPassword = (props:any) => {
           }}
         >
           <Button
+          onClick={handleSubmit}
             color="primary"
             variant="contained"
           >

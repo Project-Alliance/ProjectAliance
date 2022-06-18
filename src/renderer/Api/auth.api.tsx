@@ -549,5 +549,15 @@ class ApiCntainerClass {
     return http.post(`/auth/forgotPassword?userName=${userName}`);
   }
 
+  updatePassword(data:any,token:string)
+  {
+    let header = {
+      'Content-Type': 'application/json;',
+      'Access-Control-Allow-Origin': '*',
+      "Authorization": "Bearer " + token
+    };
+    return http.post(`/auth/updatePassword`,data,{headers:header});
+  }
+
 }
 export default new ApiCntainerClass();

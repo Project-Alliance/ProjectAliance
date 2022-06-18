@@ -9,10 +9,11 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 
 import {Button,Box,} from '@mui/material';
-import {Notification} from 'renderer/Util/Notification/Notify'
+import {Notification as Noti} from 'renderer/Util/Notification/Notify'
 import {blue} from "renderer/AppConstants";
 import {Label,Input,SelectRole,Row,Tab,TabPanel,TabsList,TabsUnstyled} from 'renderer/Components/muiStyledComponent';
 import { getProjects } from 'renderer/Store/Actions/Project.action';
+import { notify } from 'renderer/Store/ReduxToolkit/Notification';
 
 
 interface ColourOption {
@@ -49,6 +50,8 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
   const user = useSelector(({auth}:any)=>auth.user);
   const Members = useSelector(({ Members }: any) => Members.data.map((item:any)=>MemberSelect(item)));
 
+  const notification = useSelector(({notification}:notify)=>notification);
+
   const [dataModel,setDataModel] = useState(projectDataModel);
   const onTitileChangeHandle=(event:any)=>{
     setDataModel({...dataModel,"ProjectTitle":event.target.value});
@@ -77,26 +80,26 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
   const isValid=()=>{
     if(dataModel.ProjectTitle.length==0)
     {
-      Notification("Validation Error","Name Is required","danger");
+      Noti("Validation Error","Name Is required","danger");
       return false;
     }
     else if(dataModel.projectDescription.length==0)
     {
-      Notification("Validation Error","Describe About your project","danger");
+      Noti("Validation Error","Describe About your project","danger");
       false;
     }else if(dataModel.endDate.length==0){
-      Notification("Validation Error","Project Due Date is required","danger");
+      Noti("Validation Error","Project Due Date is required","danger");
       return false;
     }
     else if(dataModel.startDate.length==0){
-      Notification("Validation Error","Project start Date is required","danger");
+      Noti("Validation Error","Project start Date is required","danger");
       return false;
     }
     else if(dataModel.team.length>0){
       let vlaid=true;
       dataModel.team.map((item:any,index:any)=>{
         if(!item?.role){
-      Notification("Validation Error","PLease Assign Role to "+item.label,"danger");
+          Noti("Validation Error","PLease Assign Role to "+item.label,"danger");
       vlaid = false;
         }
       })
@@ -125,21 +128,25 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
     Api.CreateProject(dataa, user.accessToken)
       .then((res) => {
         if (res.data.status == 200) {
-          Notification("Crearted",res.data.message,"success");
+          Noti("Crearted",res.data.message,"success");
           togglePopup();
           dispatch(getProjects(user.company,user.accessToken));
 
           setDataModel({ ...projectDataModel });
+          if(notification.onProjectCreated)
+          {
+            new Notification("Project Created");
+          }
         } else {
-          Notification("Error",res.data.message,"danger");
+          Noti("Error",res.data.message,"danger");
         }
       })
       .catch((err) => {
 
         if(err?.message=="Network Error")
-        Notification("Error","Network Error","danger");
+        Noti("Error","Network Error","danger");
         else
-        Notification("Error",err?.response?.data?.message,"danger");
+        Noti("Error",err?.response?.data?.message,"danger");
 
       });
   }
@@ -147,8 +154,8 @@ function AddProjectForm({isOpen,setIsOpen}:any) {
     <>
       {isOpen && (
         <Popup
-        height={'auto'}
           handleClose={togglePopup}
+          height={'auto'}
           content={
             <>
               <Box
