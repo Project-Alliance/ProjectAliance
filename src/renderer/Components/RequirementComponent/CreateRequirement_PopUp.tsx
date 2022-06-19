@@ -16,7 +16,7 @@ import { COLORS } from "renderer/AppConstants";
 
 
 
-const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any) => {
+const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen,getRequirements }: any) => {
 
 
 
@@ -113,6 +113,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
 
         setDataModel(RequirementData);
         setIsOpen(false);
+        getRequirements();
         Notification('Success','Module Created Successfully',"success");
       }else{
         Notification('Error','Something went wrong',"danger");
@@ -202,7 +203,7 @@ const CreateRequirementPopUp = ({ projectId, moduleId, isOpen, setIsOpen }: any)
                     placeholder="Requirement Type"
                     name="requirementType"
                   />
-  
+
                   <input
                     className="form-control"
                     style={{

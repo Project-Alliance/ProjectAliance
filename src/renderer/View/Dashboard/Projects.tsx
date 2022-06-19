@@ -131,7 +131,6 @@ function Projects({ sideBar = 'flex', ...props }) {
       {selLink=="/graph"&&<ReportingScreen header={false} />}
       </div>
 
-
   );
 }
 

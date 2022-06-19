@@ -106,9 +106,9 @@ export default function Requirements({ history, sideBar }: Props) {
   return (
   <Container style={{overflowY:"scroll"}}>
     {/* Header Start  */}
-    <CreateProjectPopup isOpen={isOpen} setIsOpen={setIsOpen} projectId={selectedProject.pid} />
+    <CreateProjectPopup isOpen={isOpen} setIsOpen={setIsOpen} projectId={selectedProject.pid} getProjectModule={getRequirements } />
 
-    {isOpenR&&moduleId&&<CreateRequirementPopUp isOpen={isOpenR} setIsOpen={setOpenR} projectId={selectedProject.pid} moduleId={moduleId}   />}
+    {isOpenR&&moduleId&&<CreateRequirementPopUp isOpen={isOpenR} setIsOpen={setOpenR} projectId={selectedProject.pid} moduleId={moduleId}  getRequirements={getRequirements} />}
 
     <AddEnviorment
         isOpen={isOpenEnv}

@@ -149,10 +149,7 @@ export default function Dashboard() {
       style={{backgroundColor:'#f5f5f5'}}
 
       />
-    </div>
-
-
-}
+    </div>)
 
 
 }
