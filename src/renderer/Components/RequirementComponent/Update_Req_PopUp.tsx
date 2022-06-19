@@ -1,3 +1,10 @@
+/* eslint-disable prefer-template */
+/* eslint-disable promise/always-return */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
+/* eslint-disable no-else-return */
+/* eslint-disable eqeqeq */
+/* eslint-disable prettier/prettier */
 
 import PropTypes from "prop-types"
 import React from 'react';
@@ -73,7 +80,7 @@ const UpdateReq_PopUp = ({ reqs, projectId, isOpen, setIsOpen }: Req) => {
       Notification('Error','Please enter Module Name',"danger");
       return;
     }
-    else if(dataModel.status.length==0){
+    if(dataModel.status.length==0){
       Notification('Error','Please enter Status',"danger");
       return;
     }else if(dataModel.requirementDescription.length==0){
@@ -98,7 +105,6 @@ const UpdateReq_PopUp = ({ reqs, projectId, isOpen, setIsOpen }: Req) => {
       return;
     }
 
-
     var data = new FormData();
     data.append('name', dataModel.name);
     data.append('status', dataModel.status);
@@ -109,7 +115,6 @@ const UpdateReq_PopUp = ({ reqs, projectId, isOpen, setIsOpen }: Req) => {
 
 
     Api.updateRequirement( reqs,projectId , data , user?.accessToken ).then((res:any)=>{
-      debugger
       console.log("requirement for the specific module is here",res)
       if(res.status==200){
 

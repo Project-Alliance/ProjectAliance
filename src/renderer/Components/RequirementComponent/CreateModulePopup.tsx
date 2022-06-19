@@ -1,3 +1,10 @@
+/* eslint-disable import/order */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable prefer-template */
+/* eslint-disable no-else-return */
+/* eslint-disable promise/always-return */
+/* eslint-disable eqeqeq */
+/* eslint-disable prettier/prettier */
 
 import PropTypes from "prop-types"
 import React from 'react';
@@ -17,7 +24,7 @@ import { COLORS } from "renderer/AppConstants";
 
 
 
-const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
+const CreateProjectPopup = ({ projectId,isOpen, setIsOpen,getRequirements }: any) => {
   const togglePopup = () => {
     setDataModel(ModuleData);
     setIsOpen(!isOpen);
@@ -55,12 +62,12 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen }: any) => {
     }
 
     Api.createRequirementModule(projectId,dataModel,user?.accessToken).then((res:any)=>{
-      debugger
       console.log("res",res)
       if(res.status==200){
 
         setDataModel(ModuleData);
         setIsOpen(false);
+        getRequirements();
         Notification('Success','Module Created Successfully',"success");
       }else{
         Notification('Error','Something went wrong',"danger");
