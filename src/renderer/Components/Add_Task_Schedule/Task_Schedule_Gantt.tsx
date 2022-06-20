@@ -7,27 +7,34 @@ import {
 import { Theme, styled } from '@mui/material/styles';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
-import Notification from 'renderer/Util/Notification';
 import {
   StyledDataGrid,
   CustomPagination,
   formatDate,
   propsType,
 } from './CustomGridCompoment';
+import { Notification } from 'renderer/Util/Notification/Notify';
 import Icon from 'react-web-vector-icons';
 import Api from 'renderer/Api/auth.api';
 
 let promiseTimeout: any;
-export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
+export default function Task_Schedule_Gantt({data,handleEdit,getSchedule}:propsType) {
 
   //delete schedule api call
-  // const handleDelete = () => {
-  //   try{
-  //     const rehan  = data.filter((item:any) => item.id === handleEdit);
-  //     Api.deleteSchedule(rehan[0].id);
+  const handleDelete = (id:any) => {
+    try{
 
-  //   }
-  // }
+      Api.deleteSchedule(id).then((res: any) => {
+        if (res.status === 200) {
+          getSchedule();
+          Notification('Success','Delete Successfully',"success");
+          console.log("rehan is here",res);
+        }
+      })
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   const columns: GridColDef[] = [
     {
@@ -163,12 +170,11 @@ export default function Task_Schedule_Gantt({data,handleEdit}:propsType) {
       description: 'It will be removed from Schedule Table',
       sortable: false,
       width: 80,
-      editable: true,
-      renderCell: () => {
+      editable: false,
+      renderCell: (params) => {
          return(
-          <div style={{marginLeft:10}} >
-            <Icon  name='delete' font='AntDesign'  color='black'  size={15} // style={{}}
-          />
+          <div style={{marginLeft:10}} onClick={() => handleDelete(params.id)}  >
+            <Icon  name='delete' font='AntDesign'  color='black'  size={15} />
           </div>
          );
       }

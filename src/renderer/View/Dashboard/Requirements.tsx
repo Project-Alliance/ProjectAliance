@@ -1,3 +1,7 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable prefer-const */
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 
 import { Container,Header,ProjectIcon ,Row,Col,H1,H2,H5,SCard,Text,
@@ -29,10 +33,7 @@ interface Props {
 export default function Requirements({ history, sideBar }: Props) {
 
   const [counter, setCounter] = useState(0);
-  const handleClick = () => {
-    setCounter(counter + 1);
-    console.log(counter);
-  };
+
 // data required in header
   const projects = useSelector(({Project}: any) => Project?.data?.projects?Project?.data?.projects:[]);
 
@@ -57,9 +58,10 @@ export default function Requirements({ history, sideBar }: Props) {
     .catch(err=>{
       console.log(err)
     })
-    if(req?.data){
+    if(req.status==200){
 
-    setRequirement(req?.data);}
+    setRequirement(req?.data);
+  }
   }
 
 
@@ -76,15 +78,30 @@ export default function Requirements({ history, sideBar }: Props) {
 
 
   const deleteReq= async (rid:number,projectId:number)=>{
-    let req=await Api.deleteRequirement(rid,projectId,user.accessToken)
-    .catch(err=>{
-      console.log(err)
-    })
-    if(req?.data){
-      console.log(req.data)
-    getRequirements();}
-  }
+    try{
+      let req= await Api.deleteRequirement(rid,projectId,user.accessToken);
+      if(req.status==200){
 
+        let req=await Api.getRequirementModule(selectedProject.pid,user.accessToken)
+        .catch(err=>{
+          console.log(err)
+        })
+        if(req.status==200){
+
+        setRequirement(req?.data);
+        req.data.map((item:any)=>{
+          debugger;
+
+          if(item.id==moduleId){
+            setReqModule(item.requirements)
+          }
+        })
+      }
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
 
 
   const onNameChangeHandle = (event: any) => {
@@ -96,10 +113,8 @@ export default function Requirements({ history, sideBar }: Props) {
 
 
   useEffect(() => {
-    if(requirement.length==0)
-    {
+    if(requirement.length===0)
     getRequirements();
-    }
   }, [requirement])
 
 
@@ -160,9 +175,9 @@ export default function Requirements({ history, sideBar }: Props) {
         <div className="sepratorReq" />
         { requirement.map((item:any)=>{
            return(<>
-                <div className='emailRow' style={{color:COLORS.black,background:COLORS.white,height:'4vh',fontSize:15,width:'100%',cursor:'pointer',display:'flex',flexDirection:'row',justifyContent:'space-between'}} onClick={()=>{ handleClick();
-
-                  setReqModule(item.requirements)}} >
+                <div className='emailRow' style={{color:COLORS.black,background:COLORS.white,height:'4vh',fontSize:15,width:'100%',cursor:'pointer',display:'flex',flexDirection:'row',justifyContent:'space-between'}} onClick={()=>{
+                  setReqModule(item.requirements)
+                  }} >
                   <Icon  name='arrow-right' font='Entypo'  color='#B0C3CC'  size={15} />
                       {item.moduleName}
                    <div style={{}}>
@@ -209,6 +224,7 @@ export default function Requirements({ history, sideBar }: Props) {
 
 
               {reqModule.map((req:any)=>{
+                console.log(req)
                 return(
                   <>
                     <Row style={{alignItems:'center',justifyContent:'space-between'}} >
@@ -216,7 +232,7 @@ export default function Requirements({ history, sideBar }: Props) {
                         <InputReq
                           className='input_req'
                           onBlur={onNameChangeHandle}
-                          defaultValue={req.name}
+                          value={req.name}
                           />
                       </div>
 
@@ -238,24 +254,24 @@ export default function Requirements({ history, sideBar }: Props) {
                   <InputReq
                       className='input_req'
                       onBlur={onNameChangeHandle}
-                      defaultValue={req.requirementDescription}
+                      value={req.requirementDescription}
                       />
                     </div>
                     <div className='col-sm-1' >
                   <InputReq
                       className='input_req'
                       onBlur={onNameChangeHandle}
-                      defaultValue={req.requirementType}
+                      value={req.requirementType}
                       />
                     </div>
                     <div className='col-sm-1'>
                       <InputReq
                           className='input_req'
                           onBlur={onNameChangeHandle}
-                          defaultValue={req?.attachments?.length>0?req?.attachments[0].name:""}
+                          value={req?.attachments?.length>0?req?.attachments[0].name:""}
                           />
                     </div>
-                  <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}  onClick={()=>{ deleteReq(req.id,selectedProject.pid); getRequirements()}}>
+                  <div className='col-sm-1' style={{justifyContent:'center',alignItems:"center",display:'flex'}}  onClick={()=>{ deleteReq(req.id,selectedProject.pid); }}>
                         <Button className='col-sm-1' style={{fontSize:12,textTransform:'unset'}}>
                             <Icon
                             name="delete"

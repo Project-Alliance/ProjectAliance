@@ -157,4 +157,5 @@ row:any,
 export interface propsType{
     data:itemType[],
     handleEdit?:(props:Props)=>void,
+    getSchedule?:(props:Props)=>void,
 }
