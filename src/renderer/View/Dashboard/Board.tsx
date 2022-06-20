@@ -127,7 +127,9 @@ export default function Dashboard() {
     }
   }
   , [data.lanes.length]);
-    return <div>
+
+    return (
+    <div>
       <Board components={{
 
       }}
@@ -149,7 +151,8 @@ export default function Dashboard() {
       style={{backgroundColor:'#f5f5f5'}}
 
       />
-    </div>)
+    </div>
+    );
 
 
 }
