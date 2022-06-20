@@ -274,7 +274,7 @@ const QualitySchedule = () => {
             border: '0.1px solid #FFFFFF',
           }}
         >
-          <Task_Schedule_Gantt data={data} handleEdit={handleDuabbleClick} />
+          <Task_Schedule_Gantt data={data} handleEdit={handleDuabbleClick} getSchedule={getSchedule} />
           {/* <Table theadData={theadData} tbodyData={tbodyData} /> */}
         </div>
 

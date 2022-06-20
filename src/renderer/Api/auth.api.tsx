@@ -548,10 +548,10 @@ class ApiCntainerClass {
   {
     return http.post(`/auth/forgotPassword?userName=${userName}`);
   }
-  // Delete schedule api class
+
   deleteSchedule(scheduleId:number)
   {
-    return http.delete(`/Schedule/delete?scheduleId=${scheduleId}`);
+    return http.delete(`/Schedule/delete?sid=${scheduleId}`);
   }
 
   updatePassword(data:any,token:string)
