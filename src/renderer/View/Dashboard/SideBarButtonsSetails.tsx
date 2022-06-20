@@ -568,3 +568,145 @@ export const ProjectCollabrator=[
 
   },
 ]
+
+
+export const UpdateEnvOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'update',
+      label: 'Update Enviorment',labelStyle:{fontSize:10},
+      hidden: false,
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+
+    {
+      value: 'delete',
+      label: 'Delete Enviorment',
+      hidden: false,
+      labelStyle:{fontSize:10,color:'red'},
+      icon: {
+        name: 'delete',
+        color: 'red',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+  ],
+};
+
+
+export const UpdateTestPlanOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'update',
+      label: 'update Test Plan',
+      hidden: false,
+      labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+    {
+      value: 'delete',
+      label: 'Delete Test Plan',
+      hidden: false,
+      labelStyle:{fontSize:10,color:'red'},
+      icon: {
+        name: 'delete',
+        color: 'red',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+
+
+  ],
+};
+
+
+export const UpdateTestCaseResultOptions = {
+  placeholder: (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="tooltip-bottom">Enviornment Actions</Tooltip>}
+    >
+      <div>
+        <Icon
+          name='dots-three-vertical'
+          font="Entypo"
+          color="rgb(175, 173, 173)"
+          size={18}
+          style={{ height: 12, width: 20 }}
+        />
+      </div>
+    </OverlayTrigger>
+  ),
+  options: [
+    {
+      value: 'update',
+      label: 'update Test Case',
+      hidden: false,
+      labelStyle:{fontSize:10},
+      icon: {
+        name: 'edit-2',
+        color: '#000',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+    {
+      value: 'delete',
+      label: 'Delete Test Case',
+      hidden: false,
+      labelStyle:{fontSize:10,color:'red'},
+      icon: {
+        name: 'delete',
+        color: 'red',
+        size: 20,
+        font: 'Feather',
+      },
+    },
+
+
+  ],
+};

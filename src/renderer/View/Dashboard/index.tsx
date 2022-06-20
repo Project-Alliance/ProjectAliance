@@ -39,6 +39,7 @@ import Profile from './Profile/Profile';
 
 import Change from './ChangeManagment';
 import HelpScreen from './HelpScreen/HelpScreen';
+import ProjectList from './ProjectList';
 
 
 export default function index() {
@@ -175,6 +176,9 @@ export default function index() {
 
               <Route path="/mailbox"  >
                 <Mailbox   />
+              </Route>
+              <Route path="/projectList"  >
+                <ProjectList ParentHistory={history} setBtnName={setBtnName} sideBar={displaySlide}  />
               </Route>
 
 

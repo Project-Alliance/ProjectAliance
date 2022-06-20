@@ -14,6 +14,13 @@ export const HomeSideBarButtons=[
     iconName:"switcher",
     to:"/mailbox"
 },
+  {
+
+    title:"Projects",
+    font:"Octicons",
+    iconName:"project",
+    to:"/projectList"
+},
 // {
 
 //   title:"Inbox",

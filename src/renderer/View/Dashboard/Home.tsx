@@ -147,28 +147,7 @@ const Home = (props: any) => {
                 <Dropdown selected={selected} setSelected={setSelected} />
               </div> */}
 
-            <div
-              style={{
-                marginLeft: 20,
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <div className="Bell-icon">
-                <Icon name="bell" font="EvilIcons" color="#B0C3CC" size={32} />
-              </div>
-              <div
-                style={{
-                  height: 8,
-                  width: 8,
-                  borderRadius: 4,
-                  backgroundColor: '#149fff',
-                  marginTop: 12,
-                  position: 'relative',
-                  marginLeft: -10,
-                }}
-              />
-            </div>
+
           </div>
         </div>
         {/* Used for separate Upper Header  */}
