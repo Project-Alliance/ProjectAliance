@@ -565,6 +565,24 @@ class ApiCntainerClass {
     };
     return http.put(`/Project/updateProject?projectId=${pid}`, data, { headers: header });
   }
+  UpdateEnviorment(id: number, data: any, token: string) {
+    const header = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+    return http.put(`/Quality/updateEnviorment?id=${id}`, data, {
+      headers: header,
+    });
+  }
+  deleteEnviorment(id: number,  token: string) {
+    const header = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+    return http.put(`/Quality/deleteEnviorment?id=${id}`, {
+      headers: header,
+    });
+  }
 
 }
 export default new ApiCntainerClass();

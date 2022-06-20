@@ -9,14 +9,16 @@ import InputButton from 'renderer/Components/InputButton';
 import { H1 } from 'renderer/Components/layout';
 import DropDownMenuSelect from 'renderer/Components/DropDownMenue';
 import {
-  EnvOptions,
-  TestPlanOptions,
-  TestCaseResultOptions,
+  UpdateEnvOptions,
+  UpdateTestPlanOptions,
+  UpdateTestCaseResultOptions,
 } from './SideBarButtonsSetails';
-import AddEnviorment from 'renderer/Components/QualityPopupForms/AddEnviorment';
-import AddTestPlan from 'renderer/Components/QualityPopupForms/AddTesPlan';
-import AddTestCases from 'renderer/Components/QualityPopupForms/AddTestCases';
-import AddTestCasesResult from 'renderer/Components/QualityPopupForms/AddTestResult';
+import UpdateEnviorment from 'renderer/Components/QualityPopupForms/UpdateEnviorment';
+import UpdateTestPlan from 'renderer/Components/QualityPopupForms/updateTestPlan';
+import UpdateTestCases from 'renderer/Components/QualityPopupForms/updateTestCases';
+import UpdateTestResults from 'renderer/Components/QualityPopupForms/updateTestResults';
+import { EnviormentData } from 'renderer/Components/QualityPopupForms/DataModel';
+import {Notification} from 'renderer/Util/Notification/Notify';
 
 export default function ChangePlaning() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +33,7 @@ export default function ChangePlaning() {
   const [testCaseDisply, setTestCasesDisply] = useState(true);
 
   const [envId, setEnvId] = useState(0);
+  const [envData, setEnvData] = useState<any>();
 
   const [simpleTestCase, setsimpleTestCase] = useState([]);
   const [RequirementBased, setRequirementBased] = useState([]);
@@ -65,27 +68,35 @@ export default function ChangePlaning() {
       GetRequirementBasedTestCase();
     }
   }, []);
+
+
+  const deleteEneviorment= async(id:number) =>{
+    let res = await Api.deleteEnviorment(id,user?.accessToken);
+    if(res.status==200){
+      Notification('success','Enviorment Deleted Successfully','success');
+  }}
   return (
     <div className="Main_Task_List" style={{ padding: 20 }}>
-      <AddEnviorment
+      {isOpen&&<UpdateEnviorment
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        projectId={DefaultProject?.pid}
+        envId={envId}
         updateData={GetTestCase}
-      />
-      <AddTestPlan
+        envData={envData}
+      />}
+      <UpdateTestPlan
         isOpen={isOpenP}
         envId={envId}
         setIsOpen={setIsOpenP}
         updateData={GetTestCase}
       />
-      <AddTestCases
+      <UpdateTestCases
         isOpen={isOpenT}
         testPlanId={testPlanId}
         setIsOpen={setIsOpenT}
         updateData={GetTestCase}
       />
-      <AddTestCasesResult
+      <UpdateTestResults
         isOpen={isOpenR}
         testCaseId={testCaeId}
         setIsOpen={setIsOpenR}
@@ -141,13 +152,21 @@ export default function ChangePlaning() {
                       <td>
                         {/* Add Menue Here */}
                         <DropDownMenuSelect
-                          values={EnvOptions}
+                          values={UpdateEnvOptions}
                           handleOnClick={(value: any) => {
-                            if (value == 'Add New Enviorment') {
+                            if (value == 'update') {
                               setIsOpen(true);
-                            } else if (value == 'Add New Test Plan') {
                               setEnvId(item.id);
-                              setIsOpenP(true);
+                              setEnvData({name: item.name,
+                                description: item.description,
+                                summary: item.summary,
+                                TestType: item.TestType,
+                                isRequirementBased: item.isRequirementBased,
+                                requirementId: item.requirementId,
+                                res: item.labResource})
+                              console.log(item)
+                            } else if (value == 'delete') {
+                              deleteEneviorment(item.id);
                             }
                           }}
                         />
@@ -163,7 +182,7 @@ export default function ChangePlaning() {
                           <td>
                             {/* Add Menue Here */}
                             <DropDownMenuSelect
-                              values={TestPlanOptions}
+                              values={UpdateTestPlanOptions}
                               handleOnClick={() => {
                                 setIsOpenT(true);
                                 setTestPlanId(testPlan.id);
@@ -190,7 +209,7 @@ export default function ChangePlaning() {
                                 <td>
                                   {/* Add Menue Here */}
                                   <DropDownMenuSelect
-                                    values={TestCaseResultOptions}
+                                    values={UpdateTestCaseResultOptions}
                                     handleOnClick={() => {
                                       setTestCaeId(testCase.id);
                                       setIsOpenR(true);
@@ -234,13 +253,21 @@ export default function ChangePlaning() {
                       <td>
                         {/* Add Menue Here */}
                         <DropDownMenuSelect
-                          values={EnvOptions}
+                          values={UpdateEnvOptions}
                           handleOnClick={(value: any) => {
-                            if (value == 'Add New Enviorment') {
+                            if (value == 'update') {
                               setIsOpen(true);
-                            } else if (value == 'Add New Test Plan') {
                               setEnvId(item.id);
-                              setIsOpenP(true);
+                              setEnvData({name: item.name,
+                                description: item.description,
+                                summary: item.summary,
+                                TestType: item.TestType,
+                                isRequirementBased: item.isRequirementBased,
+                                requirementId: item.requirementId,
+                                res: item.labResource})
+                              console.log(item)
+                            } else if (value == 'delete') {
+                              deleteEneviorment(item.id);
                             }
                           }}
                         />
@@ -256,7 +283,7 @@ export default function ChangePlaning() {
                           <td>
                             {/* Add Menue Here */}
                             <DropDownMenuSelect
-                              values={TestPlanOptions}
+                              values={UpdateTestPlanOptions}
                               handleOnClick={() => {
                                 setIsOpenT(true);
                                 setTestPlanId(testPlan.id);
@@ -283,7 +310,7 @@ export default function ChangePlaning() {
                                 <td>
                                   {/* Add Menue Here */}
                                   <DropDownMenuSelect
-                                    values={TestCaseResultOptions}
+                                    values={UpdateTestCaseResultOptions}
                                     handleOnClick={() => {
                                       setTestCaeId(testCase.id);
                                       setIsOpenR(true);
