@@ -26,7 +26,7 @@ function Documentation() {
         'content-type': 'multipart/form-data',
       },
     };
-    const url = 'http://localhost:5000/api/File/upload';
+    const url = 'http://192.168.43.107:5005/api/File/upload';
     // Request made to the backend api
     // Send formData object
     axios
