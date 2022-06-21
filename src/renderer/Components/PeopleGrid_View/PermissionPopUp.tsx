@@ -101,7 +101,7 @@ const PermissionPopUp = ({ isOpen, setIsOpen }: any) => {
       companyName: user.company,
     };
 
-    const url = 'http://localhost:5000/api/Goals/Create';
+    const url = 'http://192.168.43.107:5005/api/Goals/Create';
     const header = {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + user.accessToken,

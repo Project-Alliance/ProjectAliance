@@ -75,8 +75,8 @@ const user = useSelector(selectUser)
           currentUserFullName: user.name,
         }}
         logIn={{
-            loginLink: 'http://localhost:3001/',
-            signupLink: 'http://localhost:3001/'
+            loginLink: 'http://192.168.43.107:5005/',
+            signupLink: 'http://192.168.43.107:5005/'
           }}
         hrStyle={{ border: '0.5px solid #ff0072',backgroundColor: 'green',weight:100 }}
         titleStyle={{ color: '#f2f2f2', fontSize: '1rem' }}
