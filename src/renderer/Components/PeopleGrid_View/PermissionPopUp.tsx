@@ -18,7 +18,6 @@ import {
   TabsUnstyled,
 } from 'renderer/Components/muiStyledComponent';
 
-import { header } from './layout/styled';
 
 import { GetGoals } from 'renderer/Store/Actions/Project.Goals';
 

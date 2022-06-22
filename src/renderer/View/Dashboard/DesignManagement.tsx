@@ -710,7 +710,11 @@ const UploadDocumentForm = ({ isOpen, setIsOpen,sectionId,projectId }: uploadcom
         try {
 
 
+
           const response = await axios.post("http://192.168.43.107:5005/api/Document/saveDocumentToDatabase",formData,{data: formData, headers: {
+
+          const response = await axios.post("http://192.168.43.107:5005 /api/Document/saveDocumentToDatabase",formData,{data: formData, headers: {
+
             'Access-Control-Allow-Origin': '*',
             'Content-Type':'multipart/form-data',
             Authorization: 'Bearer ' + user?.accessToken,
