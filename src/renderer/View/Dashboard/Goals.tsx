@@ -112,7 +112,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
           </Col>
         </Row>
         <Row style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-          <input
+          {/* <input
             style={{
               width: 200,
               marginRight: 10,
@@ -123,7 +123,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
               padding: 10,
             }}
             placeholder="Search"
-          />
+          /> */}
           <Avatar
             src={user?.profilePic ? user?.profilePic : defaultImage}
             variant="circular"
@@ -248,7 +248,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                 </div>
                 <div style={{ marginLeft: 10 }}>
                   <div style={{ margin: 10, fontFamily: 'sans-serif' }}>
- 
+
                     {new Date(item.startDate).toDateString()}
                   </div>
                   <div
@@ -260,7 +260,7 @@ export default function Goals({ ParentHistory, sideBar }: Props) {
                   >
                      {new Date(item.endDate).toDateString()}
                     {/* {item.endingDate} */}
- 
+
                   </div>
                 </div>
                 <div>
