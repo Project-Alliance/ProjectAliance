@@ -97,7 +97,7 @@ const [selectedProject, setSelectedProject] = React.useState(projects[0]);
       //   phone: inputData.phone,
       //   profilePic: inputData.profilePic,
       // };
-  
+
       var data = new FormData();
       data.append('name', inputData.name);
       data.append('email', inputData.Email);
@@ -172,7 +172,7 @@ const [selectedProject, setSelectedProject] = React.useState(projects[0]);
           </Col>
         </Row>
         <Row style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-          <input
+          {/* <input
             style={{
               width: 200,
               marginRight: 10,
@@ -183,7 +183,7 @@ const [selectedProject, setSelectedProject] = React.useState(projects[0]);
               padding: 10,
             }}
             placeholder="Search"
-          />
+          /> */}
           <Avatar
             src={user?.profilePic ? user?.profilePic : defaultImage}
             variant="circular"

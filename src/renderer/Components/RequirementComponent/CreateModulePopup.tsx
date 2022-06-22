@@ -67,7 +67,7 @@ const CreateProjectPopup = ({ projectId,isOpen, setIsOpen,getRequirements }: any
 
         setDataModel(ModuleData);
         setIsOpen(false);
-        getRequirements();
+        // getRequirements();
         Notification('Success','Module Created Successfully',"success");
       }else{
         Notification('Error','Something went wrong',"danger");
